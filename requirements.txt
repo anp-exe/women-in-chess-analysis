@@ -2,4 +2,7 @@ requests
 pyarrow
 pandas
 ipykernel
+statsmodels
+matplotlib
+seaborn
 
