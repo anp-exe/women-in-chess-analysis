@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 COUNTRIES = ["US", "GB", "IN", "RU", "DE", "FR"]
-SAMPLE_N  = 500
+SAMPLE_N  = 2000
 SLEEP     = 0.25
 CACHE     = Path("data/chesscom/signups.parquet")
 HEADERS   = {"User-Agent": "chess-research-project/1.0 (academic)"}
