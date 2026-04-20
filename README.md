@@ -1,4 +1,4 @@
-# FIDE Rating Analysis V2
+# Women in chess analysis
 
 *A data-heavy chess story about ratings, gender gaps, and one very famous Netflix show.*
 
@@ -32,8 +32,9 @@ Result: flat memory usage, restart-safe processing, and fast downstream analysis
 
 ## Quick start
 
+At the root for the project, run:
+
 ```bash
-cd /Users/anna/PycharmProjects/fide-rating_analysisV2
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
