@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #faf6ed;
+  --ink: #2d2d2b;
+  --sage: #6b8838;
+  --matcha: #8fa968;
+  --rose: #c47b7b;
+}
+
+html,
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.prose-cream p {
+  margin-bottom: 1.25rem;
+  font-size: 1.0625rem;
+  color: #44443f;
+}
+
+.prose-cream p:first-of-type::first-letter {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 3.75rem;
+  font-weight: 500;
+  float: left;
+  line-height: 0.85;
+  margin: 0.35rem 0.5rem 0 0;
+  color: var(--sage);
+}
+
+.quote-big {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+  line-height: 1.35;
+  font-style: italic;
+  color: #3d3d3a;
+  border-left: 3px solid var(--matcha);
+  padding-left: 1.5rem;
+  margin: 2.5rem 0;
+}
+
+.stat-number {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--sage);
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+::selection {
+  background: #cfdbb0;
+  color: var(--ink);
+}
