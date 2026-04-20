@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import ChessGameViewer from "@/components/ChessGameViewer";
 
+const BASE = "/women-in-chess-analysis";
+
 const topWomenAllTime = [
   { name: "Judit Polgár", country: "HUN", rating: 2735, peakYear: 2005, note: "all-time peak, pre-dataset" },
   { name: "Hou Yifan", country: "CHN", rating: 2686, peakYear: 2015, note: "highest in this dataset" },
@@ -133,7 +135,7 @@ export default function Home() {
 
           <FadeUp className="mt-12">
             <PlotCard
-              src="/chesscomsignup.png"
+              src={`${BASE}/chesscomsignup.png`}
               figureNumber="Figure 1"
               title="Chess.com signups vs Prophet counterfactual"
               caption="Calibrated to the published November 2020 benchmark of approximately 2.8 million signups. Pre intervention training MAPE 38.6 percent."
@@ -167,7 +169,7 @@ export default function Home() {
 
           <FadeUp className="mt-12">
             <PlotCard
-              src="/fidenewsignup.png"
+              src={`${BASE}/fidenewsignup.png`}
               figureNumber="Figure 2"
               title="New FIDE registrations by sex, 2017 to 2026"
               caption="The dashed line is the pre intervention linear trend extrapolated forward. Covid cancelled in person tournaments worldwide in 2020, and FIDE registrations require tournament play. The 2024 spike reflects post pandemic recovery plus the ongoing online boom finally converting into competitive play."
@@ -187,7 +189,7 @@ export default function Home() {
         <FadeUp>
           <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Part two</p>
           <h2 className="text-5xl font-serif mb-6">Judit Polgár</h2>
-          <img src="/polgar_young.jpg" alt="A young Judit Polgár playing a simultaneous exhibition" className="w-full rounded shadow-sm mb-3" />
+          <img src={`${BASE}/polgar_young.jpg`} alt="A young Judit Polgár playing a simultaneous exhibition" className="w-full rounded shadow-sm mb-3" />
           <p className="text-xs text-sage-600 italic mb-8">A young Judit Polgár playing a simultaneous exhibition. Source: Flickr.</p>
           <div className="prose-cream">
             <p>
@@ -242,7 +244,7 @@ export default function Home() {
         </FadeUp>
 
         <FadeUp className="mt-16">
-          <img src="/hou_yifan.jpg" alt="Hou Yifan at a tournament" className="w-full rounded shadow-sm" />
+          <img src={`${BASE}/hou_yifan.jpg`} alt="Hou Yifan at a tournament" className="w-full rounded shadow-sm" />
           <p className="text-xs text-sage-600 italic mt-3">
             Hou Yifan, the highest rated active female player in this dataset with a peak of 2686 in 2015.
             She remains the only woman to follow Polgár into the global top 100. Source: Wikipedia.
@@ -284,7 +286,7 @@ export default function Home() {
 
           <FadeUp className="mt-12">
             <PlotCard
-              src="/ages.png"
+              src={`${BASE}/ages.png`}
               figureNumber="Figure 4"
               title="Career trajectories of top 25 ranked players per sex, 2015 to 2026"
               caption="Thick lines are the mean rating by age within each sex. Thin lines are individual player trajectories."
@@ -293,7 +295,7 @@ export default function Home() {
 
           <FadeUp className="mt-12">
             <PlotCard
-              src="/ages2.png"
+              src={`${BASE}/ages2.png`}
               figureNumber="Figure 5"
               title="Distribution of peak ages across the elite pool"
             />
@@ -451,7 +453,7 @@ export default function Home() {
             <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">About</p>
             <h2 className="text-4xl font-serif mb-10">Anna</h2>
             <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-10 items-start">
-              <img src="/anna_chess.jpg" alt="Anna at a chess tournament" className="w-full rounded shadow-sm" />
+              <img src={`${BASE}/anna_chess.jpg`} alt="Anna at a chess tournament" className="w-full rounded shadow-sm" />
               <div className="prose-cream">
                 <p>
                   AI student at King's College London with an associate data scientist certification,
