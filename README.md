@@ -1,4 +1,4 @@
-# Women in Chess Analysis
+# Women in Chess Analysis ♟️
 
 *A data-heavy chess story about ratings, gender gaps, and one very famous Netflix show.*
 
@@ -6,13 +6,14 @@ This project asks a simple question:
 
 > Are the biggest claims in chess culture actually true in the data?
 
-Instead of hot takes, we use monthly FIDE rating snapshots (from July 2015 onward), a sampled slice of Chess.com signups, and run reproducible analysis in `analysis.ipynb`.
+Instead of hot takes, we use monthly FIDE (Fédération Internationale des Échecs, the World Chess Federation) rating snapshots (from July 2015 onward), a sampled slice of Chess.com signups, and run reproducible analysis in `analysis.ipynb`.
 
 ## What This Project Does
 
 - Builds a longitudinal FIDE dataset month by month (resumable and memory-safe)
 - Pulls a country-stratified Chess.com signup sample for volume signals FIDE doesn't carry
-- Tests the Queen's Gambit surge with both an interrupted time series and a Prophet counterfactual
+- Tests the *Queen's Gambit* surge with both an interrupted time series and a Prophet counterfactual
+(Meta's open-source time series forecasting tool, designed to capture trend and seasonality)
 - Reconstructs elite player trajectories and compares peak ages across sexes
 - Runs a Monte Carlo simulation of a participation-equalized world to estimate how much of the rating gap is pure sample-size math
 
@@ -69,7 +70,7 @@ jupyter notebook analysis.ipynb
 
 Coverage validation across the full panel, sex breakdown, and a top-player snapshot to confirm the parquet pipeline matches what FIDE actually publishes.
 
-- **Q1: The Queen's Gambit Effect**: Did female participation jump after October 2020, and by how much versus trend? Tested two ways: an interrupted time series on FIDE female signups (with Newey-West HAC standard errors), and a Prophet counterfactual forecast on the Chess.com signup sample.
+- **Q1: *The Queen's Gambit* Effect**: Did female participation jump after October 2020, and by how much versus trend? Tested two ways: an interrupted time series on FIDE female signups (with Newey-West HAC standard errors), and a Prophet counterfactual forecast on the Chess.com signup sample.
 - **Q2: The Polgar Chapter**: Where does Judit Polgar rank relative to top women in the modern snapshot window, and what does her trajectory look like in historical context?
 - **Q3: Peak Age**: Do elite women and men peak at different ages? Punchline: no. Mean peak ages land around 30.1 for women and 29.9 for men — peak timing is essentially identical. The gap is in level, not age.
 - **Q4: Counterfactual Participation**: If women participated at male volumes, how much of the top-end Elo gap would remain? Punchline: roughly 55% of the gap at the top is explained by sample-size math alone, given the observed ~8:1 male-to-female participation ratio.
