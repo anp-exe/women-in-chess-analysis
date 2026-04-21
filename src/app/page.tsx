@@ -6,16 +6,16 @@ import ChessGameViewer from "@/components/ChessGameViewer";
 const BASE = "/women-in-chess-analysis";
 
 const topWomenAllTime = [
-  { name: "Judit Polgár", country: "HUN", rating: 2735, peakYear: 2005, note: "all-time peak, pre-dataset" },
-  { name: "Hou Yifan", country: "CHN", rating: 2686, peakYear: 2015, note: "highest in this dataset" },
-  { name: "Aleksandra Goryachkina", country: "RUS", rating: 2611, peakYear: 2022 },
-  { name: "Ju Wenjun", country: "CHN", rating: 2604, peakYear: 2017 },
-  { name: "Koneru Humpy", country: "IND", rating: 2589, peakYear: 2009 },
-  { name: "Anna Muzychuk", country: "UKR", rating: 2587, peakYear: 2012 },
-  { name: "Zhu Jiner", country: "CHN", rating: 2579, peakYear: 2024 },
-  { name: "Susan Polgár", country: "HUN", rating: 2577, peakYear: 1996 },
-  { name: "Xie Jun", country: "CHN", rating: 2574, peakYear: 1996 },
-  { name: "Mariya Muzychuk", country: "UKR", rating: 2563, peakYear: 2016 },
+  { name: "Judit Polgár", country: "HUN", flag: "🇭🇺", rating: 2735, peakYear: 2005, note: "all-time peak, pre-dataset" },
+  { name: "Hou Yifan", country: "CHN", flag: "🇨🇳", rating: 2686, peakYear: 2015, note: "highest in this dataset" },
+  { name: "Aleksandra Goryachkina", country: "RUS", flag: "🇷🇺", rating: 2611, peakYear: 2022 },
+  { name: "Ju Wenjun", country: "CHN", flag: "🇨🇳", rating: 2604, peakYear: 2017 },
+  { name: "Koneru Humpy", country: "IND", flag: "🇮🇳", rating: 2589, peakYear: 2009 },
+  { name: "Anna Muzychuk", country: "UKR", flag: "🇺🇦", rating: 2587, peakYear: 2012 },
+  { name: "Zhu Jiner", country: "CHN", flag: "🇨🇳", rating: 2579, peakYear: 2024 },
+  { name: "Susan Polgár", country: "HUN", flag: "🇭🇺", rating: 2577, peakYear: 1996 },
+  { name: "Xie Jun", country: "CHN", flag: "🇨🇳", rating: 2574, peakYear: 1996 },
+  { name: "Mariya Muzychuk", country: "UKR", flag: "🇺🇦", rating: 2563, peakYear: 2016 },
 ];
 
 function useInView() {
@@ -99,14 +99,14 @@ export default function Home() {
           <h2 className="text-4xl font-serif mb-8">The question</h2>
           <div className="prose-cream">
             <p>
-              When Netflix released The Queen's Gambit in October 2020, the chess world expected a
+              When Netflix released <em>The Queen's Gambit</em> in October 2020, the chess world expected a
               revolution. A fictional orphan named Beth Harmon beat every male grandmaster in sight,
               millions of viewers discovered the game, and the streaming numbers broke records. I wanted
               to know whether any of that showed up in the actual data.
             </p>
             <p>
-              This is a personal project built from 130 monthly snapshots of the FIDE rating database
-              covering July 2015 through April 2026. The most recent snapshot contains 545,549 active
+              This is a personal project built from 130 monthly snapshots of the <strong>FIDE</strong> rating database,
+              covering July 2015 through April 2026. <strong>FIDE</strong> stands for Fédération Internationale des Échecs, which is the World Chess Federation. The most recent snapshot contains 545,549 active
               players, 11 percent of whom are women. Alongside that, I sampled around 12,000 chess.com
               profiles across six countries to reconstruct online signup patterns.
             </p>
@@ -126,9 +126,9 @@ export default function Home() {
                 people had signed up in the weeks following the show.
               </p>
               <p>
-                I trained a Prophet time series model on pre show signup data from August 2017 through
+                  I trained a Prophet time series model (Meta's open-source forecasting tool, designed to capture trend and seasonality) on pre show signup data from August 2017 through
                 September 2020, then used it to forecast what chess.com growth would have looked like if
-                The Queen's Gambit never aired. The gap between forecast and reality is the show's effect.
+                  <em>The Queen's Gambit</em> never aired. The gap between forecast and reality is the show's effect.
               </p>
             </div>
           </FadeUp>
@@ -226,7 +226,7 @@ export default function Home() {
                 <span className="text-sage-400 font-serif text-xl w-8">{i + 1}</span>
                 <div className="flex-1">
                   <p className="font-medium">
-                    {p.name} <span className="text-sage-600 text-sm">{p.country}</span>
+                    {p.name} <span className="mx-1">{p.flag}</span><span className="text-sage-600 text-sm">{p.country}</span>
                   </p>
                   {p.note && <p className="text-xs text-sage-600 italic">{p.note}</p>}
                 </div>
@@ -409,7 +409,7 @@ export default function Home() {
             <h2 className="text-5xl font-serif mb-8 text-sage-50">What this actually says</h2>
             <div className="prose-cream">
               <p style={{ color: "#E1E7D4" }}>
-                The Queen's Gambit genuinely changed chess, but only online, and formal competitive chess
+                <em>The Queen's Gambit</em> genuinely changed chess, but only online, and formal competitive chess
                 missed the wave because Covid cancelled it. Judit Polgár remains the greatest female
                 player of all time at 2735, far ahead of anyone in the modern era. Men and women reach
                 their rating peaks at the same age. And of the gap between the world's best man and best
