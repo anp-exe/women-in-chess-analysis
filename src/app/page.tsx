@@ -6,16 +6,16 @@ import ChessGameViewer from "@/components/ChessGameViewer";
 const BASE = "/women-in-chess-analysis";
 
 const topWomenAllTime = [
-  { name: "Judit Polgár", country: "HUN", flag: "🇭🇺", rating: 2735, peakYear: 2005, note: "all-time peak, pre-dataset" },
-  { name: "Hou Yifan", country: "CHN", flag: "🇨🇳", rating: 2686, peakYear: 2015, note: "highest in this dataset" },
-  { name: "Aleksandra Goryachkina", country: "RUS", flag: "🇷🇺", rating: 2611, peakYear: 2022 },
-  { name: "Ju Wenjun", country: "CHN", flag: "🇨🇳", rating: 2604, peakYear: 2017 },
-  { name: "Koneru Humpy", country: "IND", flag: "🇮🇳", rating: 2589, peakYear: 2009 },
-  { name: "Anna Muzychuk", country: "UKR", flag: "🇺🇦", rating: 2587, peakYear: 2012 },
-  { name: "Zhu Jiner", country: "CHN", flag: "🇨🇳", rating: 2579, peakYear: 2024 },
-  { name: "Susan Polgár", country: "HUN", flag: "🇭🇺", rating: 2577, peakYear: 1996 },
-  { name: "Xie Jun", country: "CHN", flag: "🇨🇳", rating: 2574, peakYear: 1996 },
-  { name: "Mariya Muzychuk", country: "UKR", flag: "🇺🇦", rating: 2563, peakYear: 2016 },
+  { name: "Judit Polgár", country: "HUN", flag: "🇭🇺", photo: "polgar_judit.jpg", rating: 2735, peakYear: 2005, note: "all-time peak, pre-dataset" },
+  { name: "Hou Yifan", country: "CHN", flag: "🇨🇳", photo: "hou_yifan.jpg", rating: 2686, peakYear: 2015, note: "highest in this dataset" },
+  { name: "Aleksandra Goryachkina", country: "RUS", flag: "🇷🇺", photo: "goryachkina.jpg", rating: 2611, peakYear: 2022 },
+  { name: "Ju Wenjun", country: "CHN", flag: "🇨🇳", photo: "ju_wenjun.jpg", rating: 2604, peakYear: 2017 },
+  { name: "Koneru Humpy", country: "IND", flag: "🇮🇳", photo: "koneru.jpg", rating: 2589, peakYear: 2009 },
+  { name: "Anna Muzychuk", country: "UKR", flag: "🇺🇦", photo: "muzychuk_anna.jpg", rating: 2587, peakYear: 2012 },
+  { name: "Zhu Jiner", country: "CHN", flag: "🇨🇳", photo: "zhu_jiner.jpg", rating: 2579, peakYear: 2024 },
+  { name: "Susan Polgár", country: "HUN", flag: "🇭🇺", photo: "polgar_susan.jpg", rating: 2577, peakYear: 1996 },
+  { name: "Xie Jun", country: "CHN", flag: "🇨🇳", photo: "xie_jun.jpg", rating: 2574, peakYear: 1996 },
+  { name: "Mariya Muzychuk", country: "UKR", flag: "🇺🇦", photo: "muzychuk_mariya.jpg", rating: 2563, peakYear: 2016 },
 ];
 
 function useInView() {
@@ -83,7 +83,7 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-sage-600 text-sm uppercase tracking-[0.3em] mb-8">A data story</p>
           <h1 className="text-[9rem] md:text-[13rem] font-serif leading-[0.9] mb-10 text-sage-700">
-            1 in 9
+            <span style={{ fontVariantNumeric: "lining-nums", fontSize: "0.75em", fontWeight: 600 }}>1</span> in 9
           </h1>
           <p className="text-xl md:text-2xl text-sage-700 font-serif italic mb-12 leading-relaxed">
             One in nine FIDE rated chess players is a woman.
@@ -105,8 +105,8 @@ export default function Home() {
               to know whether any of that showed up in the actual data.
             </p>
             <p>
-              This is a personal project built from 130 monthly snapshots of the <strong>FIDE</strong> rating database,
-              covering July 2015 through April 2026. <strong>FIDE</strong> stands for Fédération Internationale des Échecs, which is the World Chess Federation. The most recent snapshot contains 545,549 active
+              This is a personal project built from 130 monthly snapshots of the <strong>FIDE</strong> (Fédération Internationale des Échecs, the World Chess Federation) rating database,
+              covering July 2015 through April 2026. The most recent snapshot contains 545,549 active
               players, 11 percent of whom are women. Alongside that, I sampled around 12,000 chess.com
               profiles across six countries to reconstruct online signup patterns.
             </p>
@@ -224,6 +224,7 @@ export default function Home() {
                 className="flex items-center gap-4 p-3 bg-sage-50 rounded hover:bg-sage-100 transition-colors cursor-default"
               >
                 <span className="text-sage-400 font-serif text-xl w-8">{i + 1}</span>
+                <img src={`${BASE}/${p.photo}`} alt={p.name} className="w-12 h-12 rounded-full object-cover border border-sage-200 flex-shrink-0" />
                 <div className="flex-1">
                   <p className="font-medium">
                     {p.name} <span className="mx-1">{p.flag}</span><span className="text-sage-600 text-sm">{p.country}</span>
@@ -244,7 +245,7 @@ export default function Home() {
         </FadeUp>
 
         <FadeUp className="mt-16">
-          <img src={`${BASE}/hou_yifan.jpg`} alt="Hou Yifan at a tournament" className="w-full rounded shadow-sm" />
+          <img src={`${BASE}/hou_yifan_big.jpg`} alt="Hou Yifan at a tournament" className="w-full rounded shadow-sm" />
           <p className="text-xs text-sage-600 italic mt-3">
             Hou Yifan, the highest rated active female player in this dataset with a peak of 2686 in 2015.
             She remains the only woman to follow Polgár into the global top 100. Source: Wikipedia.
