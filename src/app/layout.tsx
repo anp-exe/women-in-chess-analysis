@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Did The Queen's Gambit really change chess? A data exploration of participation, peak age, and the rating gap at the FIDE elite level.",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/women-in-chess-analysis/favicon.svg",
   },
 };
 
