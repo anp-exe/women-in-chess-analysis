@@ -1,4 +1,4 @@
-# Women in Chess Analysis ♟️
+# Women in Chess Analysis! ♟️
 
 *A data-heavy chess story about ratings, gender gaps, and one very famous Netflix show.*
 
