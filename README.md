@@ -1,6 +1,6 @@
 # Women in Chess — scrollytelling site
 
-Personal data journalism project exploring women in competitive chess, built as a scroll essay with inline interactive charts. Matcha-aesthetic styling, fully responsive, deploys to Vercel in one click.
+Personal data journalism project exploring women in competitive chess, built as a scroll essay with inline interactive charts.
 
 ## Setup (10 minutes, one time)
 
