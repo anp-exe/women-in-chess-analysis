@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import ChessGameViewer from "@/components/ChessGameViewer";
+import ParticipationSlider from "@/components/ParticipationSlider";
 
 const BASE = "/women-in-chess-analysis";
 
 const topWomenAllTime = [
   { name: "Judit Polgár", country: "HUN", flag: "🇭🇺", photo: "polgar_judit.jpg", rating: 2735, peakYear: 2005, note: "all-time peak, pre-dataset" },
-  { name: "Hou Yifan", country: "CHN", flag: "🇨🇳", photo: "hou_yifan.jpg", rating: 2686, peakYear: 2015, note: "highest in this dataset" },
+  { name: "Hou Yifan", country: "CHN", flag: "🇨🇳", photo: "hou_yifan.jpg", rating: 2683, peakYear: 2015, note: "highest in this dataset" },
   { name: "Aleksandra Goryachkina", country: "RUS", flag: "🇷🇺", photo: "goryachkina.jpg", rating: 2611, peakYear: 2022 },
   { name: "Ju Wenjun", country: "CHN", flag: "🇨🇳", photo: "ju_wenjun.jpg", rating: 2604, peakYear: 2017 },
   { name: "Koneru Humpy", country: "IND", flag: "🇮🇳", photo: "koneru.jpg", rating: 2589, peakYear: 2009 },
@@ -15,7 +16,7 @@ const topWomenAllTime = [
   { name: "Zhu Jiner", country: "CHN", flag: "🇨🇳", photo: "zhu_jiner.jpg", rating: 2579, peakYear: 2024 },
   { name: "Susan Polgár", country: "HUN", flag: "🇭🇺", photo: "polgar_susan.jpg", rating: 2577, peakYear: 1996 },
   { name: "Xie Jun", country: "CHN", flag: "🇨🇳", photo: "xie_jun.jpg", rating: 2574, peakYear: 1996 },
-  { name: "Mariya Muzychuk", country: "UKR", flag: "🇺🇦", photo: "muzychuk_mariya.jpg", rating: 2563, peakYear: 2016 },
+  { name: "Nana Dzagnidze", country: "GEO", flag: "🇬🇪", photo: "dzagnidze.png", rating: 2573, peakYear: 2020 },
 ];
 
 function useInView() {
@@ -106,9 +107,11 @@ export default function Home() {
             </p>
             <p>
               This is a personal project built from 130 monthly snapshots of the <strong>FIDE</strong> (Fédération Internationale des Échecs, the World Chess Federation) rating database,
-              covering July 2015 through April 2026. The most recent snapshot contains 545,549 active
-              players, 11 percent of whom are women. Alongside that, I sampled around 12,000 chess.com
-              profiles across six countries to reconstruct online signup patterns.
+              covering July 2015 through April 2026. The most recent snapshot contains 545,549 rated
+              players, of whom 216,803 are currently active. The rest are inactive or retired players
+              carrying frozen ratings, and every claim below about current players filters them out.
+              Roughly one in ten active players is a woman. Alongside that, I sampled around 12,000
+              chess.com profiles across six countries to reconstruct online signup patterns.
             </p>
           </div>
         </FadeUp>
@@ -122,8 +125,8 @@ export default function Home() {
             <div className="prose-cream">
               <p>
                 Chess.com was quiet on the morning of October 23rd, 2020. By the end of November it was
-                adding over 100,000 new members every single day. The company later confirmed 3.2 million
-                people had signed up in the weeks following the show.
+                adding over 100,000 new members every single day. The company reported roughly 2.8 million
+                people signed up in November alone.
               </p>
               <p>
                   I trained a Prophet time series model (Meta's open-source forecasting tool, designed to capture trend and seasonality) on pre show signup data from August 2017 through
@@ -138,16 +141,16 @@ export default function Home() {
               src={`${BASE}/chesscomsignup.png`}
               figureNumber="Figure 1"
               title="Chess.com signups vs Prophet counterfactual"
-              caption="Calibrated to the published November 2020 benchmark of approximately 2.8 million signups. Pre intervention training MAPE 38.6 percent."
+              caption="Calibrated to the median of three public benchmarks: 2.8 million signups in November 2020, 100 million total members by December 2022, and 150 million by October 2023. Pre intervention training MAPE 38.6 percent."
             />
           </FadeUp>
 
           <FadeUp className="mt-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <StatCard
-                value="~70M"
+                value="~84M"
                 label="Excess signups"
-                hint="Cumulative chess.com signups attributable to The Queen's Gambit between October 2020 and December 2024, compared to the Prophet counterfactual."
+                hint="Cumulative chess.com signups associated with the post October 2020 boom, through December 2024, compared to the Prophet counterfactual. Honest range roughly 69 to 100 million across model and calibration uncertainty. The window also contains Covid lockdowns and PogChamps, so this is the whole boom, not the show alone."
               />
               <StatCard
                 value="4 yrs"
@@ -172,14 +175,15 @@ export default function Home() {
               src={`${BASE}/fidenewsignup.png`}
               figureNumber="Figure 2"
               title="New FIDE registrations by sex, 2017 to 2026"
-              caption="The dashed line is the pre intervention linear trend extrapolated forward. Covid cancelled in person tournaments worldwide in 2020, and FIDE registrations require tournament play. The 2024 spike reflects post pandemic recovery plus the ongoing online boom finally converting into competitive play."
+              caption="The dashed line is the interrupted time series counterfactual with the Covid term kept but no show effect. Covid cancelled in person tournaments worldwide in 2020, and FIDE registrations require tournament play. Both series recover after late 2020 at a proportionally similar rate, which is what a pandemic recovery looks like, not a female specific Queen's Gambit surge."
             />
           </FadeUp>
 
           <FadeUp className="mt-12">
             <blockquote className="quote-big">
-              The show worked. It just turned new fans into online players, not tournament competitors.
-              FIDE could not see the boom because the boom happened somewhere else.
+              The boom was real, but it happened online. New fans became online players, not tournament
+              competitors, and in the tournament data, women and men recovered from Covid at the same
+              pace. FIDE could not see the boom because the boom happened somewhere else.
             </blockquote>
           </FadeUp>
         </div>
@@ -247,8 +251,9 @@ export default function Home() {
         <FadeUp className="mt-16">
           <img src={`${BASE}/hou_yifan_big.jpg`} alt="Hou Yifan at a tournament" className="w-full rounded shadow-sm" />
           <p className="text-xs text-sage-600 italic mt-3">
-            Hou Yifan, the highest rated active female player in this dataset with a peak of 2686 in 2015.
-            She remains the only woman to follow Polgár into the global top 100. Source: Wikipedia.
+            Hou Yifan, the highest rated active female player in this dataset with a peak of 2683 within
+            the dataset window. Her official career peak of 2686 came in March 2015, just before this
+            dataset begins. She remains the only woman to follow Polgár into the global top 100. Source: Wikipedia.
           </p>
         </FadeUp>
 
@@ -340,9 +345,11 @@ export default function Home() {
               held at the international FIDE elite.
             </p>
             <p>
-              I fitted a normal distribution to the female rating population, then ran a Monte Carlo
-              simulation. If 504,364 women played (the actual male population size), what rating would we
-              expect the best one to reach?
+              I pooled the ratings of all 251,137 active men and 30,420 active women into one empirical
+              distribution (the null hypothesis that both sexes draw from the same skill pool) and then ran
+              a Monte Carlo simulation of the top order statistics. If the only difference between the
+              groups were how many people play, how big a gap would we expect at the top? No fitted
+              distribution, no normality assumption: the simulation draws from the actual ratings.
             </p>
           </div>
         </FadeUp>
@@ -350,56 +357,79 @@ export default function Home() {
         <FadeUp className="mt-12">
           <div className="bg-sage-50 p-8 rounded-lg border border-sage-100">
             <p className="text-xs uppercase tracking-widest text-sage-600 mb-6">
-              Decomposing the 164 Elo gap
+              Share of the gap explained by sample size alone, by ranking depth
             </p>
             <div className="space-y-6">
               <div>
                 <div className="flex justify-between items-baseline mb-2">
-                  <span className="font-medium">Attributable to sample size alone</span>
-                  <span className="stat-number text-3xl">55%</span>
+                  <span className="font-medium">Top 25</span>
+                  <span className="stat-number text-3xl">44%</span>
                 </div>
                 <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-matcha transition-all duration-1000"
-                    style={{ width: "55%" }}
+                    style={{ width: "44%" }}
                   />
                 </div>
-                <p className="text-xs text-sage-600 mt-1">90 Elo points</p>
+                <p className="text-xs text-sage-600 mt-1">110 of the 253 Elo gap · 95% CI 29 to 58%</p>
               </div>
               <div>
                 <div className="flex justify-between items-baseline mb-2">
-                  <span className="font-medium">Attributable to distribution shape</span>
-                  <span className="stat-number text-3xl">45%</span>
+                  <span className="font-medium">Top 100</span>
+                  <span className="stat-number text-3xl">49%</span>
                 </div>
                 <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-rose transition-all duration-1000"
-                    style={{ width: "45%" }}
+                    className="h-full bg-matcha transition-all duration-1000"
+                    style={{ width: "49%" }}
                   />
                 </div>
-                <p className="text-xs text-sage-600 mt-1">74 Elo points</p>
+                <p className="text-xs text-sage-600 mt-1">136 of the 275 Elo gap · 95% CI 40 to 58%</p>
+              </div>
+              <div>
+                <div className="flex justify-between items-baseline mb-2">
+                  <span className="font-medium">Top 1000</span>
+                  <span className="stat-number text-3xl">61%</span>
+                </div>
+                <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-matcha transition-all duration-1000"
+                    style={{ width: "61%" }}
+                  />
+                </div>
+                <p className="text-xs text-sage-600 mt-1">212 of the 346 Elo gap · 95% CI 58 to 65%</p>
               </div>
             </div>
+            <p className="text-xs text-sage-600 mt-6">
+              At top 1, Magnus Carlsen at 2839 versus Hou Yifan at 2614, the single maximum is too noisy
+              to headline: the point estimate is 29 percent with a confidence interval spanning zero.
+            </p>
           </div>
         </FadeUp>
 
         <FadeUp className="mt-12">
           <div className="prose-cream">
             <p>
-              Over half the top level gap between Magnus Carlsen at 2839 and Hou Yifan at 2675 is
-              explained by participation numbers alone. The remaining 45 percent reflects a genuine
-              difference in the shape of male and female rating distributions at the top end.
+              Between 44 and 61 percent of the top level gap is explained by participation numbers alone,
+              and the share grows the deeper into the rankings you look. The further you get from the
+              single outlier at the very top, the more of the gap is pure sample size mathematics. What
+              remains at every depth reflects a genuine difference between the male and female rating
+              distributions.
             </p>
             <p>
               This is a weaker effect than the 96 percent Bilalić found at the German national level. The
               international elite is a more selected pool, and that selection is where the remainder of
-              the gap lives. The distribution shape difference is not evidence that women are less capable
+              the gap lives. The distribution difference is not evidence that women are less capable
               at chess. It is evidence that the women who make it into the international FIDE elite are a
               more heavily filtered group than the men, shaped by coaching access, tournament culture,
               retention rates, and stereotype threat. The data describes the gap. The chess community has
               to explain it.
             </p>
           </div>
+        </FadeUp>
+
+        <FadeUp className="mt-12">
+          <ParticipationSlider />
         </FadeUp>
       </section>
 
@@ -410,11 +440,13 @@ export default function Home() {
             <h2 className="text-5xl font-serif mb-8 text-sage-50">What this actually says</h2>
             <div className="prose-cream">
               <p style={{ color: "#E1E7D4" }}>
-                <em>The Queen's Gambit</em> genuinely changed chess, but only online, and formal competitive chess
+                The online chess boom that followed <em>The Queen's Gambit</em> was real and durable, though the
+                show shares the window with Covid and the streaming era, and formal competitive chess
                 missed the wave because Covid cancelled it. Judit Polgár remains the greatest female
                 player of all time at 2735, far ahead of anyone in the modern era. Men and women reach
-                their rating peaks at the same age. And of the gap between the world's best man and best
-                woman, more than half is just the mathematics of how many people play.
+                their rating peaks at the same age. And of the gap between the world's best men and best
+                women, between 44 and 61 percent, growing with ranking depth, is just the mathematics of
+                how many people play.
               </p>
               <p style={{ color: "#E1E7D4" }}>
                 The conclusion is not that women are worse at chess. It is that we are systematically
@@ -435,14 +467,29 @@ export default function Home() {
           <div className="prose-cream">
             <p>
               The FIDE dataset starts in July 2015, so players whose peak came earlier, including Polgár,
-              Chiburdanidze, and Gaprindashvili, appear only at their retirement rating. The chess.com
-              signup figures come from a 12,000 profile sample calibrated to one published benchmark, so
-              the 70 million excess estimate is order of magnitude accurate, not precise. The Prophet
-              model's pre intervention MAPE was 38.6 percent, which means individual monthly predictions
-              are noisy. The cumulative finding is robust but the exact number has a wide uncertainty
-              band. The Q4 counterfactual assumes a normal rating distribution, and under different
-              distributional assumptions the 55 and 45 split would shift. The qualitative finding, that
-              sample size is a major but not exclusive factor, is robust. The precise percentage is not.
+              Chiburdanidze, and Gaprindashvili, appear only at their retirement rating. About 60 percent
+              of the FIDE database is inactive at any snapshot; every claim here about current players
+              filters on FIDE's activity flag, and without that filter the numbers change materially. The
+              chess.com signup figures come from a 12,000 profile sample calibrated to three published
+              benchmarks, so the 84 million excess estimate is order of magnitude accurate, not precise,
+              and it measures the whole post 2020 boom rather than the show alone. The Prophet model's
+              pre intervention MAPE was 38.6 percent, which means individual monthly predictions are
+              noisy. The Q4 counterfactual draws from the pooled empirical rating distribution, so it
+              makes no normality assumption, but the share explained depends on ranking depth: 29 percent
+              at top 1 with a wide interval, 44 at top 25, 49 at top 100, 61 at top 1000. The qualitative
+              finding, that sample size is a major but not exclusive factor, is robust. Any single
+              percentage is not.
+            </p>
+            <p>
+              A note on revisions: an earlier version of this page reported that 55 percent of a 164 Elo
+              gap was explained by sample size, based on a normal fit Monte Carlo that did not survive
+              review. It mixed inactive players' frozen ratings into the comparison and its decomposition
+              was internally inconsistent. The current figures come from a corrected method, order
+              statistics on the pooled empirical distribution of active players, and the notebook now runs
+              end to end with every number on this page traceable to a cell output. I am constantly
+              reviewing this work and I would rather correct it in public than be quietly wrong. If you
+              spot an error or have a better approach, suggestions and pull requests are genuinely
+              welcome.
             </p>
           </div>
         </FadeUp>
