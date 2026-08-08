@@ -262,8 +262,20 @@ def run_pipeline(start=(2015, 7), end=None):
     return results
 
 
+# FIDE's `flag` column marks inactivity: "i" = inactive, "wi" = woman inactive.
+# A player is active if the flag contains no "i" (i.e. they played a rated
+# game within the last 12 months). ~60% of the database is inactive at any
+# given snapshot, so this filter matters a lot for any "current players" claim.
+INACTIVE_FLAGS = ["i", "wi"]
+
+
+def _active_expr():
+    return ds.field("flag").is_null() | ~ds.field("flag").isin(INACTIVE_FLAGS)
+
+
 def load_snapshots(columns=None, sex=None, min_rating=None,
-                   countries=None, date_from=None, date_to=None):
+                   countries=None, date_from=None, date_to=None,
+                   active_only=False):
     dataset = ds.dataset(str(PARQUET_DIR), format="parquet")
     filters = []
     if sex is not None:
@@ -276,6 +288,8 @@ def load_snapshots(columns=None, sex=None, min_rating=None,
         filters.append(ds.field("snapshot_date") >= date_from)
     if date_to is not None:
         filters.append(ds.field("snapshot_date") <= date_to)
+    if active_only:
+        filters.append(_active_expr())
     combined = None
     for f in filters:
         combined = f if combined is None else combined & f
@@ -283,11 +297,16 @@ def load_snapshots(columns=None, sex=None, min_rating=None,
     return table.to_pandas()
 
 
-def load_snapshot_counts(sex=None):
+def load_snapshot_counts(sex=None, active_only=False):
     dataset = ds.dataset(str(PARQUET_DIR), format="parquet")
-    filter_expr = None
+    filters = []
     if sex is not None:
-        filter_expr = ds.field("sex") == sex
+        filters.append(ds.field("sex") == sex)
+    if active_only:
+        filters.append(_active_expr())
+    filter_expr = None
+    for f in filters:
+        filter_expr = f if filter_expr is None else filter_expr & f
     table = dataset.to_table(columns=["snapshot_date", "fideid"], filter=filter_expr)
     df = table.to_pandas()
     return df.groupby("snapshot_date").size().rename("player_count").reset_index()

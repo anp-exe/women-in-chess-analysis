@@ -7,4 +7,5 @@ matplotlib
 seaborn
 prophet
 scipy
+jupyter
 
