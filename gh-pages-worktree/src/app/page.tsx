@@ -108,7 +108,7 @@ export default function Home() {
             <p>
               This is a personal project built from 130 monthly snapshots of the <strong>FIDE</strong> (Fédération Internationale des Échecs, the World Chess Federation) rating database,
               covering July 2015 through April 2026. The most recent snapshot contains 545,549 rated
-              players, of whom 216,803 are currently active — the rest are inactive or retired players
+              players, of whom 216,803 are currently active. The rest are inactive or retired players
               carrying frozen ratings, and every claim below about current players filters them out.
               Roughly one in ten active players is a woman. Alongside that, I sampled around 12,000
               chess.com profiles across six countries to reconstruct online signup patterns.
@@ -150,7 +150,7 @@ export default function Home() {
               <StatCard
                 value="~84M"
                 label="Excess signups"
-                hint="Cumulative chess.com signups associated with the post October 2020 boom, through December 2024, compared to the Prophet counterfactual. Honest range roughly 69 to 100 million across model and calibration uncertainty — and the window also contains Covid lockdowns and PogChamps, so this is the whole boom, not the show alone."
+                hint="Cumulative chess.com signups associated with the post October 2020 boom, through December 2024, compared to the Prophet counterfactual. Honest range roughly 69 to 100 million across model and calibration uncertainty. The window also contains Covid lockdowns and PogChamps, so this is the whole boom, not the show alone."
               />
               <StatCard
                 value="4 yrs"
@@ -182,7 +182,7 @@ export default function Home() {
           <FadeUp className="mt-12">
             <blockquote className="quote-big">
               The boom was real, but it happened online. New fans became online players, not tournament
-              competitors — and in the tournament data, women and men recovered from Covid at the same
+              competitors, and in the tournament data, women and men recovered from Covid at the same
               pace. FIDE could not see the boom because the boom happened somewhere else.
             </blockquote>
           </FadeUp>
@@ -346,7 +346,7 @@ export default function Home() {
             </p>
             <p>
               I pooled the ratings of all 251,137 active men and 30,420 active women into one empirical
-              distribution — the null hypothesis that both sexes draw from the same skill pool — then ran
+              distribution (the null hypothesis that both sexes draw from the same skill pool) and then ran
               a Monte Carlo simulation of the top order statistics. If the only difference between the
               groups were how many people play, how big a gap would we expect at the top? No fitted
               distribution, no normality assumption: the simulation draws from the actual ratings.
@@ -483,7 +483,7 @@ export default function Home() {
             <p>
               A note on revisions: an earlier version of this page reported that 55 percent of a 164 Elo
               gap was explained by sample size, based on a normal fit Monte Carlo that did not survive
-              review — it mixed inactive players' frozen ratings into the comparison and its decomposition
+              review. It mixed inactive players' frozen ratings into the comparison and its decomposition
               was internally inconsistent. The current figures come from a corrected method, order
               statistics on the pooled empirical distribution of active players, and the notebook now runs
               end to end with every number on this page traceable to a cell output. I am constantly

@@ -123,7 +123,7 @@ export default function ParticipationSlider() {
         ) : ratio === 1 ? (
           <>
             At equal participation the sample size effect vanishes entirely. The predicted remaining gap,
-            about {Math.round(residual)} Elo at top {depth}, is the part participation cannot fix — the
+            about {Math.round(residual)} Elo at top {depth}, is the part participation cannot fix: the
             structural difference in how female players are developed, supported, and retained.
           </>
         ) : (

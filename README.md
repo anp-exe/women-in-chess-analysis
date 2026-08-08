@@ -72,8 +72,8 @@ Coverage validation across the full panel, sex breakdown, and a top-player snaps
 
 - **Q1: *The Queen's Gambit* Effect**: Did female participation jump after October 2020, and by how much versus trend? Tested two ways: an interrupted time series on FIDE female signups (with Newey-West HAC standard errors), and a Prophet counterfactual forecast on the Chess.com signup sample.
 - **Q2: The Polgar Chapter**: Where does Judit Polgar rank relative to top women in the modern snapshot window, and what does her trajectory look like in historical context?
-- **Q3: Peak Age**: Do elite women and men peak at different ages? Punchline: no. Mean peak ages land around 30.1 for women and 29.9 for men — peak timing is essentially identical. The gap is in level, not age.
-- **Q4: Counterfactual Participation**: If women participated at male volumes, how much of the top-end Elo gap would remain? Punchline: between 44% and 61% of the gap is explained by sample-size math alone, given the observed ~8.3:1 male-to-female ratio among *active* rated players — 44% [29-58%] at top-25, 49% [40-58%] at top-100, 61% [58-65%] at top-1000. The share grows the deeper into the rankings you look. (An earlier version of this analysis claimed 55% from a decomposition that didn't hold up; see the methodological note in the notebook.)
+- **Q3: Peak Age**: Do elite women and men peak at different ages? Punchline: no. Mean peak ages land around 30.1 for women and 29.9 for men. Peak timing is essentially identical. The gap is in level, not age.
+- **Q4: Counterfactual Participation**: If women participated at male volumes, how much of the top-end Elo gap would remain? Punchline: between 44% and 61% of the gap is explained by sample-size math alone, given the observed ~8.3:1 male-to-female ratio among *active* rated players: 44% [29-58%] at top-25, 49% [40-58%] at top-100, 61% [58-65%] at top-1000. The share grows the deeper into the rankings you look. (An earlier version of this analysis claimed 55% from a decomposition that didn't hold up; see the methodological note in the notebook.)
 
 ## Methods Used
 
