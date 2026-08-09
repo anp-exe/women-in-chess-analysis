@@ -6,18 +6,35 @@ import ParticipationSlider from "@/components/ParticipationSlider";
 
 const BASE = "/women-in-chess-analysis";
 
-const topWomenAllTime = [
-  { name: "Judit Polgár", country: "HUN", flag: "🇭🇺", photo: "polgar_judit.jpg", rating: 2735, peakYear: 2005, note: "all-time peak, pre-dataset" },
-  { name: "Hou Yifan", country: "CHN", flag: "🇨🇳", photo: "hou_yifan.jpg", rating: 2683, peakYear: 2015, note: "highest in this dataset" },
-  { name: "Aleksandra Goryachkina", country: "RUS", flag: "🇷🇺", photo: "goryachkina.jpg", rating: 2611, peakYear: 2022 },
-  { name: "Ju Wenjun", country: "CHN", flag: "🇨🇳", photo: "ju_wenjun.jpg", rating: 2604, peakYear: 2017 },
-  { name: "Koneru Humpy", country: "IND", flag: "🇮🇳", photo: "koneru.jpg", rating: 2589, peakYear: 2009 },
-  { name: "Anna Muzychuk", country: "UKR", flag: "🇺🇦", photo: "muzychuk_anna.jpg", rating: 2587, peakYear: 2012 },
-  { name: "Zhu Jiner", country: "CHN", flag: "🇨🇳", photo: "zhu_jiner.jpg", rating: 2579, peakYear: 2024 },
-  { name: "Susan Polgár", country: "HUN", flag: "🇭🇺", photo: "polgar_susan.jpg", rating: 2577, peakYear: 1996 },
-  { name: "Xie Jun", country: "CHN", flag: "🇨🇳", photo: "xie_jun.jpg", rating: 2574, peakYear: 1996 },
-  { name: "Nana Dzagnidze", country: "GEO", flag: "🇬🇪", photo: "dzagnidze.png", rating: 2573, peakYear: 2020 },
+// Judit sits at the top on her all-time peak (2735, July 2005, published FIDE
+// records; she retired in 2014 so she does not appear in a current list at all).
+// Everyone below her is the top 10 active women in the April 2026 FIDE
+// snapshot, at their April 2026 rating. Photos live in /public; entries with
+// photo: null fall back to an initials circle.
+const topWomen = [
+  { name: "Judit Polgár", country: "HUN", flag: "🇭🇺", photo: "polgar_judit.jpg", rating: 2735, when: "2005 peak", note: "all-time peak, retired 2014" },
+  { name: "Hou Yifan", country: "CHN", flag: "🇨🇳", photo: "hou_yifan.jpg", rating: 2596, when: "Apr 2026" },
+  { name: "Lei Tingjie", country: "CHN", flag: "🇨🇳", photo: "tingjie_lei.png", rating: 2566, when: "Apr 2026" },
+  { name: "Ju Wenjun", country: "CHN", flag: "🇨🇳", photo: "ju_wenjun.jpg", rating: 2559, when: "Apr 2026" },
+  { name: "Zhu Jiner", country: "CHN", flag: "🇨🇳", photo: "zhu_jiner.jpg", rating: 2554, when: "Apr 2026" },
+  { name: "Koneru Humpy", country: "IND", flag: "🇮🇳", photo: "koneru.jpg", rating: 2535, when: "Apr 2026" },
+  { name: "Tan Zhongyi", country: "CHN", flag: "🇨🇳", photo: "zhongyi_tan.png", rating: 2535, when: "Apr 2026" },
+  { name: "Aleksandra Goryachkina", country: "FID", flag: "🏳️", photo: "goryachkina.jpg", rating: 2534, when: "Apr 2026" },
+  { name: "Anna Muzychuk", country: "UKR", flag: "🇺🇦", photo: "muzychuk_anna.jpg", rating: 2522, when: "Apr 2026" },
+  { name: "Bibisara Assaubayeva", country: "KAZ", flag: "🇰🇿", photo: "assaubayeva_bibisara.png", rating: 2516, when: "Apr 2026" },
+  { name: "Divya Deshmukh", country: "IND", flag: "🇮🇳", photo: "deshmukh_divya.png", rating: 2510, when: "Apr 2026" },
 ];
+
+function initials(name: string) {
+  return name
+    .replace(/[^\p{L}\s]/gu, "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+}
 
 function useInView() {
   const ref = useRef<HTMLDivElement>(null);
@@ -80,7 +97,28 @@ function StatCard({ value, label, hint }: { value: string; label: string; hint?:
 export default function Home() {
   return (
     <main className="bg-paper text-ink">
-      <section className="min-h-screen flex flex-col justify-center items-center px-6 py-24 bg-gradient-to-b from-sage-50 to-paper">
+      <section className="relative min-h-screen flex flex-col justify-center items-center px-6 py-24 bg-gradient-to-b from-sage-50 to-paper">
+        <div className="absolute top-6 left-6 w-40 md:w-48">
+          <img
+            src={`${BASE}/battersea.png`}
+            alt="Preview of the Women in Chess, through the data talk slide"
+            className="w-full rounded border border-sage-200 shadow-sm"
+          />
+          <p className="text-matcha text-[0.65rem] uppercase tracking-[0.25em] mt-3 mb-1">
+            Upcoming talk
+          </p>
+          <p className="text-sage-700 text-sm font-serif italic leading-snug">
+            Women in Chess, through the data
+          </p>
+          <p className="text-sage-600 text-xs tracking-wide mt-1">
+            Battersea Chess Club · 25 August
+          </p>
+          <p className="text-sage-600 text-xs tracking-wide">Open to all</p>
+        </div>
+
+        <p className="absolute top-6 right-6 text-matcha text-xs tracking-widest">
+          Major revisions made 8 August 2026
+        </p>
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-sage-600 text-sm uppercase tracking-[0.3em] mb-8">A data story</p>
           <h1 className="text-[9rem] md:text-[13rem] font-serif leading-[0.9] mb-10 text-sage-700">
@@ -150,7 +188,7 @@ export default function Home() {
               <StatCard
                 value="~84M"
                 label="Excess signups"
-                hint="Cumulative chess.com signups associated with the post October 2020 boom, through December 2024, compared to the Prophet counterfactual. Honest range roughly 69 to 100 million across model and calibration uncertainty. The window also contains Covid lockdowns and PogChamps, so this is the whole boom, not the show alone."
+                hint="Cumulative chess.com signups associated with the post October 2020 boom, through December 2024, compared to the Prophet counterfactual."
               />
               <StatCard
                 value="4 yrs"
@@ -210,6 +248,14 @@ export default function Home() {
               women only tournaments. Her peak rating of 2735 in July 2005 placed her 8th in the world,
               the only woman ever to enter the global top 10.
             </p>
+            <p>
+              Here is the statistic that says the most about how far ahead of the field she was. Judit
+              retired in 2014 with a rating of 2675. More than a decade later, that number would still
+              make her the highest rated woman in the world, 79 points clear of Hou Yifan, the strongest
+              active female player today. She has not played a rated game in over eleven years, and she
+              would still be first by a margin wider than the one separating today's number one from
+              today's number five.
+            </p>
           </div>
           <blockquote className="quote-big">
             I don't think about whether I am a woman or a man when I sit at the chessboard. I just think
@@ -220,15 +266,24 @@ export default function Home() {
 
         <FadeUp className="mt-12">
           <p className="text-xs uppercase tracking-widest text-sage-600 mb-2">Figure 3</p>
-          <h3 className="text-2xl font-serif mb-6">Top 10 female players by peak FIDE rating</h3>
+          <h3 className="text-2xl font-serif mb-6">Judit, and the top 10 women today</h3>
           <div className="space-y-2">
-            {topWomenAllTime.map((p, i) => (
+            {topWomen.map((p, i) => (
               <div
                 key={p.name}
                 className="flex items-center gap-4 p-3 bg-sage-50 rounded hover:bg-sage-100 transition-colors cursor-default"
               >
-                <span className="text-sage-400 font-serif text-xl w-8">{i + 1}</span>
-                <img src={`${BASE}/${p.photo}`} alt={p.name} className="w-12 h-12 rounded-full object-cover border border-sage-200 flex-shrink-0" />
+                <span className="text-sage-400 font-serif text-xl w-8">{i === 0 ? "★" : i}</span>
+                {p.photo ? (
+                  <img src={`${BASE}/${p.photo}`} alt={p.name} className="w-12 h-12 rounded-full object-cover border border-sage-200 flex-shrink-0" />
+                ) : (
+                  <div
+                    className="w-12 h-12 rounded-full border border-sage-200 flex-shrink-0 bg-sage-100 flex items-center justify-center text-sage-600 font-serif text-sm"
+                    aria-label={p.name}
+                  >
+                    {initials(p.name)}
+                  </div>
+                )}
                 <div className="flex-1">
                   <p className="font-medium">
                     {p.name} <span className="mx-1">{p.flag}</span><span className="text-sage-600 text-sm">{p.country}</span>
@@ -237,14 +292,16 @@ export default function Home() {
                 </div>
                 <div className="text-right">
                   <p className="stat-number text-xl">{p.rating}</p>
-                  <p className="text-xs text-sage-600">{p.peakYear}</p>
+                  <p className="text-xs text-sage-600">{p.when}</p>
                 </div>
               </div>
             ))}
           </div>
           <p className="text-xs text-sage-600 mt-4 italic">
-            Judit's 2735 peak pre dates this dataset, which begins in July 2015. Her entry uses published
-            FIDE historical records.
+            Judit is listed on her all time peak of 2735 from July 2005, taken from published FIDE
+            records, since it pre dates this dataset and she retired in 2014. The ten players below her
+            are the highest rated active women in the April 2026 FIDE list, shown at their April 2026
+            rating.
           </p>
         </FadeUp>
 
@@ -371,7 +428,7 @@ export default function Home() {
                     style={{ width: "44%" }}
                   />
                 </div>
-                <p className="text-xs text-sage-600 mt-1">110 of the 253 Elo gap · 95% CI 29 to 58%</p>
+                <p className="text-xs text-sage-600 mt-1">110 of the 253 Elo gap · spread across simulated worlds 29 to 57%</p>
               </div>
               <div>
                 <div className="flex justify-between items-baseline mb-2">
@@ -384,7 +441,7 @@ export default function Home() {
                     style={{ width: "49%" }}
                   />
                 </div>
-                <p className="text-xs text-sage-600 mt-1">136 of the 275 Elo gap · 95% CI 40 to 58%</p>
+                <p className="text-xs text-sage-600 mt-1">136 of the 275 Elo gap · spread across simulated worlds 40 to 58%</p>
               </div>
               <div>
                 <div className="flex justify-between items-baseline mb-2">
@@ -397,12 +454,44 @@ export default function Home() {
                     style={{ width: "61%" }}
                   />
                 </div>
-                <p className="text-xs text-sage-600 mt-1">212 of the 346 Elo gap · 95% CI 58 to 65%</p>
+                <p className="text-xs text-sage-600 mt-1">212 of the 346 Elo gap · spread across simulated worlds 58 to 65%</p>
+              </div>
+              <div>
+                <div className="flex justify-between items-baseline mb-2">
+                  <span className="font-medium">
+                    Top 10,000
+                    <span className="text-xs text-sage-600 font-normal ml-2">club level, see note</span>
+                  </span>
+                  <span className="stat-number text-3xl">68%</span>
+                </div>
+                <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-matcha/60 transition-all duration-1000"
+                    style={{ width: "68%" }}
+                  />
+                </div>
+                <p className="text-xs text-sage-600 mt-1">322 of the 471 Elo gap · spread across simulated worlds 67 to 69%</p>
               </div>
             </div>
             <p className="text-xs text-sage-600 mt-6">
+              The percentages themselves are precise. The simulation pins the top 25 figure to within a
+              tenth of an Elo point. The ranges quoted above are something different: they are how much
+              the gap would bounce around from luck alone if you could rerun history, given that which
+              particular players land in a top 25 is partly chance. Read them as a measure of how noisy
+              chess is, not as doubt about the estimate. The uncertainty that actually matters here is
+              the choice of method and population, which is why the sensitivity notes below carry more
+              weight than these ranges.
+            </p>
+            <p className="text-xs text-sage-600 mt-3">
               At top 1, Magnus Carlsen at 2839 versus Hou Yifan at 2614, the single maximum is too noisy
-              to headline: the point estimate is 29 percent with a confidence interval spanning zero.
+              to headline: the point estimate is 29 percent and its range spans zero.
+            </p>
+            <p className="text-xs text-sage-600 mt-3">
+              The top 10,000 tier is shown faded because it is a different kind of comparison. Ten
+              thousand players is the top 4 percent of active men but the top 33 percent of active
+              women, reaching down to 2172 and 1639 respectively, so it measures club level chess rather
+              than the elite. Part of the higher share at that depth is simply that a much deeper slice
+              of the female population is pulled in.
             </p>
           </div>
         </FadeUp>
@@ -411,9 +500,10 @@ export default function Home() {
           <div className="prose-cream">
             <p>
               Between 44 and 61 percent of the top level gap is explained by participation numbers alone,
-              and the share grows the deeper into the rankings you look. The further you get from the
-              single outlier at the very top, the more of the gap is pure sample size mathematics. What
-              remains at every depth reflects a genuine difference between the male and female rating
+              and the share grows the deeper into the rankings you look, reaching 68 percent once the
+              comparison widens to ten thousand players a side. The further you get from the single
+              outlier at the very top, the more of the gap is pure sample size mathematics. What remains
+              at every depth reflects a genuine difference between the male and female rating
               distributions.
             </p>
             <p>
@@ -430,6 +520,50 @@ export default function Home() {
 
         <FadeUp className="mt-12">
           <ParticipationSlider />
+        </FadeUp>
+
+        <FadeUp className="mt-16">
+          <h3 className="text-2xl font-serif mb-6">Why the share grows the deeper you look</h3>
+          <div className="prose-cream">
+            <p>
+              The one pattern that runs through every version of this analysis is that participation
+              explains more of the gap the further down the rankings you go. It accounts for roughly a
+              quarter of the gap between the single best man and the single best woman, 44 percent across
+              the top 25, 49 percent across the top 100, 61 percent across the top 1000 and 68 percent
+              across the top 10,000. That looks strange at first. The explanation is not statistical
+              sleight of hand, it is what the phrase "top ten thousand" actually means for two groups of
+              very different sizes.
+            </p>
+            <p>
+              There are 251,137 active rated men and 30,420 active rated women, so taking the same
+              headcount from each side always reaches about eight times deeper into the women's
+              population than the men's. When you take one player from each, both are standing at the
+              very tip of their distribution and the difference is invisible. When you take ten thousand
+              from each, you are comparing men at the 96th percentile against women at the 67th. Those
+              two cut points sit 29 percentage points apart, and a good deal of the wider gap you see at
+              that depth is simply the arithmetic of where the cut lands.
+            </p>
+            <p>
+              Imagine height instead of chess, and suppose for a moment that men and women were
+              distributed identically. Take the tallest person from a group of 250,000 men and from a
+              group of 30,000 women, and you get two outliers who are barely an inch apart, because
+              having eight times more people buys you very little once you are near the ceiling of human
+              height. Now take the average of the tallest ten thousand in each group. For the larger
+              group that is the tallest 4 percent, genuinely tall people. For the smaller group it is the
+              tallest third, people who are merely above average. The difference is suddenly large, and
+              none of it came from any difference between the groups.
+            </p>
+            <p>
+              This is why the top 25 and top 100 figures are the ones worth quoting. They compare slices
+              that are elite on both sides, so the participation effect they measure is doing real work
+              rather than reflecting how far down the list the cut has slid. It is also why the number at
+              the very summit deserves the opposite treatment. At the top of the rankings you are
+              describing one person against one person, the interval on that estimate spans zero, and
+              Magnus Carlsen sits 30 points clear of the second best man in the world. Whatever is
+              happening at the summit, this method cannot resolve it, and neither can anyone arguing the
+              other side.
+            </p>
+          </div>
         </FadeUp>
       </section>
 
@@ -488,8 +622,97 @@ export default function Home() {
               statistics on the pooled empirical distribution of active players, and the notebook now runs
               end to end with every number on this page traceable to a cell output. I am constantly
               reviewing this work and I would rather correct it in public than be quietly wrong. If you
-              spot an error or have a better approach, suggestions and pull requests are genuinely
-              welcome.
+              spot an error or have a better approach, suggestions and pull requests are welcome.
+            </p>
+            <p>
+              It is worth being specific about why that number fell, because the reason is not the one
+              people assume. Judit Polgár retired in 2014, but FIDE keeps a retired player's last rating
+              on file, so her 2675 sat frozen in the database and was being picked up as the highest
+              rated woman. The gap being measured was therefore Magnus Carlsen today against Judit Polgár
+              twelve years ago, which came to 164 Elo. Compare him instead against the strongest woman
+              actually still competing and the gap is 225.
+            </p>
+            <p>
+              Rerunning the old method with only that one change, leaving everything else exactly as it
+              was, moves the answer from 56 percent to 39 percent. What is revealing is that the
+              simulated sample size effect barely moved at all, from 92 Elo to 89. The entire drop came
+              from the denominator. The old figure was not large because participation explained a great
+              deal, it was large because it was expressed as a share of a gap that had been made
+              artificially small by a player who had not competed in over a decade.
+            </p>
+          </div>
+        </FadeUp>
+      </section>
+
+      <section className="max-w-2xl mx-auto px-6 py-24">
+        <FadeUp>
+          <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">What is left over</p>
+          <h2 className="text-4xl font-serif mb-8">The candidates, and how good the evidence is</h2>
+          <div className="prose-cream">
+            <p>
+              Participation arithmetic accounts for roughly half the gap across the elite. The rest is a
+              difference between the two rating distributions, and this dataset cannot say what causes
+              it. Other people have studied that question directly, and the evidence is genuinely uneven,
+              so it is worth being clear about which explanations are well supported and which are still
+              contested.
+            </p>
+          </div>
+
+          <div className="mt-8 space-y-5">
+            {[
+              {
+                title: "Early environment",
+                strength: "Well supported",
+                strong: true,
+                body: "Where girls make up at least half of new young players, their starting ratings are no lower than boys'. Later work found the same pattern geographically: the rating gap is smaller in areas where more girls play.",
+                cite: "Chabris & Glickman 2006, Psychological Science · Li, Glickman & Chabris 2025, CHANCE",
+              },
+              {
+                title: "Tournament culture",
+                strength: "Documented, not quantified",
+                strong: true,
+                body: "An open letter written by 14 French players in August 2023 grew to over 100 signatories within days and more than 120 since. It states that harassment and assault are among the main reasons women and teenage girls stop playing. Several signatories described being harassed by trainers at 14 or 15 and quitting.",
+                cite: "\"We, women chess players\", open letter, 2023",
+              },
+              {
+                title: "Retention",
+                strength: "Mixed",
+                strong: false,
+                body: "Girls do drop out at higher rates in the raw data. Across nine years one cohort fell from 18 percent girls to 11 percent. But once boys and girls are matched on rating and starting age, the difference all but disappears and the retention curves track each other closely. Whatever drives the dropout, it is not simply being female.",
+                cite: "Li, Glickman & Chabris 2025 · Chabris & Glickman 2006",
+              },
+              {
+                title: "Stereotype threat",
+                strength: "Genuinely disputed",
+                strong: false,
+                body: "Found, then not found, then found again. A 2008 experiment reported women playing worse when told their opponent was male. A 2018 analysis of tournament games found the opposite, that women slightly outperform expectations against men. A 2020 reanalysis argued the effect is there after all. This one is unresolved and anyone citing it confidently in either direction is overreaching.",
+                cite: "Maass, D'Ettole & Cadinu 2008 · Stafford 2018 · Smerdon et al. 2020",
+              },
+            ].map((c) => (
+              <div key={c.title} className="border-l-2 border-sage-200 pl-5">
+                <div className="flex items-baseline justify-between gap-4 flex-wrap">
+                  <h3 className="text-xl font-serif">{c.title}</h3>
+                  <span
+                    className={`text-[0.65rem] uppercase tracking-[0.2em] ${
+                      c.strong ? "text-matcha" : "text-sage-600"
+                    }`}
+                  >
+                    {c.strength}
+                  </span>
+                </div>
+                <p className="text-sm text-ink/75 leading-relaxed mt-2">{c.body}</p>
+                <p className="text-xs text-sage-600 italic mt-2">{c.cite}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="prose-cream mt-8">
+            <p>
+              None of these is proven to be the cause, and they are not mutually exclusive. What can be
+              said is that every one of them is a claim about circumstances rather than capacity, and
+              that the two best supported entries on this list both point the same way: when girls enter
+              chess in equal numbers and under equal conditions, the difference at entry is not there to
+              begin with.
             </p>
           </div>
         </FadeUp>
@@ -505,20 +728,20 @@ export default function Home() {
               <div className="prose-cream">
                 <p>
                   AI student at King's College London with an associate data scientist certification,
-                  usually working in Python but open to anything new. Outside of academia, occasionally
-                  trading blue light for a chess board. Rated around 1500, formerly in the top 10 girls
-                  in my age group.
+                  working mostly in Python. Outside academia I occasionally trade blue light for a chess
+                  board, and I play in the London Chess League. I reached 1500 in about a year of playing,
+                  and was formerly in the top 10 girls in my age group.
                 </p>
                 <p>
-                  I volunteer at the London Women's Chess Club, so this topic feels personal. I hear it
-                  misinterpreted constantly, usually with no stats or facts to back it up. That
-                  frustration is why this project exists.
+                  I volunteer at the London Women's Chess Club, where I coach beginners unofficially and
+                  run the website. This project was inspired by the work of Bilalić et al., and by
+                  curiosity about whether the same pattern would hold among the FIDE elite.
                 </p>
               </div>
             </div>
             <div className="mt-10 flex gap-4">
               <a
-                href="https://github.com/anp-exe/fide-rating_analysisV2"
+                href="https://github.com/anp-exe/women-in-chess-analysis"
                 className="inline-block px-6 py-3 bg-sage-700 text-paper rounded hover:bg-sage-800 transition-colors text-sm tracking-wide"
               >
                 Code on GitHub →

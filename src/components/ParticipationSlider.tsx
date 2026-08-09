@@ -12,15 +12,17 @@ import { useState } from "react";
 const RATIOS = [1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.26];
 
 const EXPECTED: Record<number, number[]> = {
-  25: [0.1, 9.0, 17.4, 25.0, 32.0, 38.5, 44.0, 49.0, 53.4, 57.7, 61.9, 65.5, 69.2, 72.3, 75.4, 78.3, 81.4, 84.3, 86.8, 89.5, 91.6, 94.2, 96.2, 98.2, 100.5, 102.3, 104.3, 106.2, 110.2],
-  100: [0.1, 12.2, 22.4, 31.1, 38.9, 46.3, 52.6, 58.6, 64.1, 69.2, 74.0, 78.5, 82.9, 86.9, 90.9, 94.5, 98.4, 102.0, 105.3, 108.6, 111.6, 114.8, 117.7, 120.2, 123.2, 125.6, 128.3, 130.8, 135.7],
-  1000: [0.0, 18.5, 34.1, 47.6, 59.6, 70.5, 80.5, 89.7, 98.2, 106.3, 113.8, 121.0, 127.9, 134.3, 140.5, 146.5, 152.1, 157.8, 163.1, 168.2, 173.2, 178.1, 182.8, 187.1, 191.5, 195.7, 200.0, 204.0, 211.9],
+  25: [0.3, 9.0, 17.4, 25.5, 32.5, 38.8, 44.3, 49.5, 53.8, 58.6, 62.0, 66.1, 69.5, 73.1, 75.9, 78.8, 81.4, 84.2, 86.8, 89.2, 91.3, 93.8, 96.3, 98.5, 100.3, 102.0, 104.9, 106.1, 110.8],
+  100: [0.1, 12.4, 22.3, 31.2, 39.3, 46.3, 52.7, 58.9, 64.1, 69.6, 73.9, 78.6, 82.8, 87.1, 91.1, 95.1, 98.2, 102.3, 105.4, 108.5, 111.6, 114.7, 117.7, 120.7, 123.0, 125.4, 128.5, 130.9, 136.2],
+  1000: [0.0, 18.6, 34.1, 47.7, 59.7, 70.6, 80.4, 89.6, 98.1, 106.4, 113.8, 121.0, 127.8, 134.4, 140.6, 146.8, 152.1, 157.9, 163.0, 168.3, 173.3, 178.1, 182.7, 187.2, 191.7, 195.7, 200.0, 204.0, 212.0],
+  10000: [0.0, 29.6, 54.4, 76.1, 95.4, 112.8, 128.7, 143.2, 156.7, 169.1, 180.5, 191.2, 201.3, 210.9, 219.9, 228.6, 236.7, 244.6, 252.1, 259.5, 266.5, 273.4, 280.0, 286.4, 292.7, 298.7, 304.7, 310.4, 321.9],
 };
 
-const OBSERVED: Record<number, number> = { 25: 253.2, 100: 274.8, 1000: 346.3 };
+const OBSERVED: Record<number, number> = { 25: 253.2, 100: 274.8, 1000: 346.3, 10000: 470.9 };
 
 const N_MEN = 251137;
-const DEPTHS = [25, 100, 1000];
+const N_WOMEN = 30420;
+const DEPTHS = [25, 100, 1000, 10000];
 
 export default function ParticipationSlider() {
   const [depth, setDepth] = useState<number>(25);
@@ -60,10 +62,21 @@ export default function ParticipationSlider() {
                 : "bg-sage-100 text-sage-700 hover:bg-sage-200"
             }`}
           >
-            Top {d}
+            Top {d.toLocaleString()}
           </button>
         ))}
       </div>
+
+      {depth === 10000 && (
+        <p className="text-xs text-sage-600 bg-sage-100 rounded p-3 mb-4">
+          Read this tier carefully. In today's list, ten thousand players is the top{" "}
+          {((10000 / N_MEN) * 100).toFixed(0)} percent of active men but the top{" "}
+          {((10000 / N_WOMEN) * 100).toFixed(0)} percent of active women, reaching down to 2172 for men
+          and 1639 for women. It compares club level players, not elite ones, and part of why the
+          explained share looks higher at this depth is that a much deeper slice of the female
+          population gets pulled in.
+        </p>
+      )}
 
       <div className="mb-2 flex justify-between items-baseline">
         <span className="font-medium">
@@ -72,7 +85,7 @@ export default function ParticipationSlider() {
         <span className="stat-number text-3xl">{Math.round(predicted)} Elo</span>
       </div>
       <p className="text-xs text-sage-600 mb-3">
-        predicted top {depth} gap with {women.toLocaleString()} active women
+        predicted top {depth.toLocaleString()} gap with {women.toLocaleString()} active women
         {idx === RATIOS.length - 1 ? " (today's actual ratio)" : ""}
       </p>
 
@@ -118,18 +131,18 @@ export default function ParticipationSlider() {
         {idx === RATIOS.length - 1 ? (
           <>
             This is chess today: sample size mathematics accounts for {Math.round(samplePct)} percent of
-            the observed {Math.round(observed)} Elo top {depth} gap.
+            the observed {Math.round(observed)} Elo top {depth.toLocaleString()} gap.
           </>
         ) : ratio === 1 ? (
           <>
             At equal participation the sample size effect vanishes entirely. The predicted remaining gap,
-            about {Math.round(residual)} Elo at top {depth}, is the part participation cannot fix: the
+            about {Math.round(residual)} Elo at top {depth.toLocaleString()}, is the part participation cannot fix: the
             structural difference in how female players are developed, supported, and retained.
           </>
         ) : (
           <>
             At {ratio.toFixed(2)} men per woman, participation maths would close about{" "}
-            {Math.round(closed)} Elo of today's top {depth} gap, leaving {Math.round(predicted)} Elo.
+            {Math.round(closed)} Elo of today's top {depth.toLocaleString()} gap, leaving {Math.round(predicted)} Elo.
           </>
         )}
       </p>
