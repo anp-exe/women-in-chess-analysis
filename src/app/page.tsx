@@ -98,27 +98,6 @@ export default function Home() {
   return (
     <main className="bg-paper text-ink">
       <section className="relative min-h-screen flex flex-col px-6 py-8 md:py-10 bg-gradient-to-b from-sage-50 to-paper">
-        {/* MOBILE: a normal flow row at the top so the two items sit side by side
-            and can never overlap. Hidden at md+. */}
-        <div className="flex md:hidden w-full items-start justify-between gap-4">
-          <div className="w-28 shrink-0">
-            <img
-              src={`${BASE}/battersea.png`}
-              alt="Preview of the Women in Chess, through the data talk slide"
-              className="w-full rounded border border-sage-200 shadow-sm"
-            />
-            <p className="text-matcha text-[0.6rem] uppercase tracking-[0.2em] mt-2 mb-1">Upcoming talk</p>
-            <p className="text-sage-700 text-xs font-serif italic leading-snug">
-              Women in Chess, through the data
-            </p>
-            <p className="text-sage-600 text-[0.7rem] tracking-wide mt-1">Battersea Chess Club · 25 August</p>
-            <p className="text-sage-600 text-[0.7rem] tracking-wide">Open to all</p>
-          </div>
-          <p className="text-matcha text-[0.65rem] tracking-widest text-right shrink">
-            Major revisions made 8 August 2026
-          </p>
-        </div>
-
         {/* DESKTOP: absolutely positioned corners, out of flow, so the headline
             centres against the full viewport height. Hidden below md. */}
         <div className="hidden md:block absolute top-6 left-6 w-48">
@@ -151,6 +130,28 @@ export default function Home() {
           </p>
           <p className="text-sage-600 text-sm tracking-widest">SCROLL ↓</p>
         </div>
+        </div>
+
+        {/* MOBILE: extras sit below the scroll cue at the foot of the hero.
+            A flow row so the two items sit side by side and never overlap.
+            Hidden at md+ (desktop uses the absolute corners above). */}
+        <div className="flex md:hidden w-full items-start justify-between gap-4 mt-10">
+          <div className="w-28 shrink-0">
+            <img
+              src={`${BASE}/battersea.png`}
+              alt="Preview of the Women in Chess, through the data talk slide"
+              className="w-full rounded border border-sage-200 shadow-sm"
+            />
+            <p className="text-matcha text-[0.6rem] uppercase tracking-[0.2em] mt-2 mb-1">Upcoming talk</p>
+            <p className="text-sage-700 text-xs font-serif italic leading-snug">
+              Women in Chess, through the data
+            </p>
+            <p className="text-sage-600 text-[0.7rem] tracking-wide mt-1">Battersea Chess Club · 25 August</p>
+            <p className="text-sage-600 text-[0.7rem] tracking-wide">Open to all</p>
+          </div>
+          <p className="text-matcha text-[0.65rem] tracking-widest text-right shrink">
+            Major revisions made 8 August 2026
+          </p>
         </div>
       </section>
 
