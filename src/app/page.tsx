@@ -629,45 +629,20 @@ export default function Home() {
         </FadeUp>
 
         <FadeUp className="mt-16">
-          <h3 className="text-2xl font-serif mb-6">Why the share grows the deeper you look</h3>
+          <h3 className="text-2xl font-serif mb-6">Why numbers matter</h3>
           <div className="prose-cream">
             <p>
-              The one pattern that runs through every version of this analysis is that participation
-              explains more of the gap the further down the rankings you go. It accounts for roughly a
-              quarter of the gap between the single best man and the single best woman, 44 percent across
-              the top 25, 49 percent across the top 100, 61 percent across the top 1000 and 68 percent
-              across the top 10,000. That looks strange at first. The explanation is not statistical
-              sleight of hand, it is what the phrase "top ten thousand" actually means for two groups of
-              very different sizes.
+              The idea is simple. The more people who play, the more chances at an exceptional one. With
+              about eight men playing for every woman, the male game gets far more rolls of the dice at
+              the top, and that alone lifts the male best above the female best. Give women equal numbers
+              and their top players rise to close much of the gap.
             </p>
             <p>
-              There are 251,137 active rated men and 30,420 active rated women, so taking the same
-              headcount from each side always reaches about eight times deeper into the women's
-              population than the men's. When you take one player from each, both are standing at the
-              very tip of their distribution and the difference is invisible. When you take ten thousand
-              from each, you are comparing men at the 96th percentile against women at the 67th. Those
-              two cut points sit 29 percentage points apart, and a good deal of the wider gap you see at
-              that depth is simply the arithmetic of where the cut lands.
-            </p>
-            <p>
-              Imagine height instead of chess, and suppose for a moment that men and women were
-              distributed identically. Take the tallest person from a group of 250,000 men and from a
-              group of 30,000 women, and you get two outliers who are barely an inch apart, because
-              having eight times more people buys you very little once you are near the ceiling of human
-              height. Now take the average of the tallest ten thousand in each group. For the larger
-              group that is the tallest 4 percent, genuinely tall people. For the smaller group it is the
-              tallest third, people who are merely above average. The difference is suddenly large, and
-              none of it came from any difference between the groups.
-            </p>
-            <p>
-              This is why the top 25 and top 100 figures are the ones worth quoting. They compare slices
-              that are elite on both sides, so the participation effect they measure is doing real work
-              rather than reflecting how far down the list the cut has slid. It is also why the number at
-              the very summit deserves the opposite treatment. At the top of the rankings you are
-              describing one person against one person, the interval on that estimate spans zero, and
-              Magnus Carlsen sits 30 points clear of the second best man in the world. Whatever is
-              happening at the summit, this method cannot resolve it, and neither can anyone arguing the
-              other side.
+              The counterfactual puts a size on it: equal participation closes roughly 44 percent of the
+              gap across the top 25 and about half across the top 100. The effect is smaller right at the
+              summit, where a single outlier, Magnus Carlsen, sits well clear of everyone, and larger
+              across the broader elite. Either way, a substantial part of the gap is not about ability at
+              all. It is about how many women are in the game.
             </p>
           </div>
         </FadeUp>
