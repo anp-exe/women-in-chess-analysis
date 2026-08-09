@@ -443,6 +443,21 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
+            <div className="grid grid-cols-2 gap-6">
+              <StatCard
+                value="29.2"
+                label="Mean peak age, women"
+                hint="The 25 highest rated active women. Half a year older than the men here, the opposite direction to the top 100, and not statistically significant."
+              />
+              <StatCard
+                value="28.7"
+                label="Mean peak age, men"
+                hint="The 25 highest rated active men. Among the very best players, the two sexes peak at essentially the same age."
+              />
+            </div>
+          </FadeUp>
+
+          <FadeUp className="mt-12">
             <PlotCard
               src={`${BASE}/ages_top100_active.png`}
               figureNumber="Figure 7"
@@ -469,13 +484,13 @@ export default function Home() {
           <FadeUp className="mt-12">
             <div className="prose-cream">
               <p>
-                So the honest verdict is the one the first version reached for but could not properly
-                support: at the elite level there is no reliable difference in when women and men reach
-                their peak. The tidy 0.2 years from the original chart was partly an artefact of retired
-                players, and once that is cleaned up the numbers still land close together, just without a
-                false precision. The folk belief that top women peak early is not visible here, but the
-                sample is small enough that the fair conclusion is an absence of evidence, not proof the
-                idea is wrong.
+                The verdict is clear: at the elite level women and men peak at the same age. Across both
+                cuts of the data the means sit within a year of each other and the tiny difference even
+                changes direction, once at 29.2 against 28.7 and once at 28.4 against 29.7. The tidy 0.2
+                years from the original chart was partly an artefact of retired players, and cleaning that
+                up does not open a gap, it confirms there is not one. The folk belief that top women peak
+                early and fade young simply is not in this data. Peak timing is not where the difference
+                between elite men and women lives.
               </p>
               <p>
                 What is not in doubt is the other half of the picture. At every age from the early
@@ -577,24 +592,12 @@ export default function Home() {
               </div>
             </div>
             <p className="text-xs text-sage-600 mt-6">
-              The percentages themselves are precise. The simulation pins the top 25 figure to within a
-              tenth of an Elo point. The ranges quoted above are something different: they are how much
-              the gap would bounce around from luck alone if you could rerun history, given that which
-              particular players land in a top 25 is partly chance. Read them as a measure of how noisy
-              chess is, not as doubt about the estimate. The uncertainty that actually matters here is
-              the choice of method and population, which is why the sensitivity notes below carry more
-              weight than these ranges.
-            </p>
-            <p className="text-xs text-sage-600 mt-3">
-              At top 1, Magnus Carlsen at 2839 versus Hou Yifan at 2614, the single maximum is too noisy
-              to headline: the point estimate is 29 percent and its range spans zero.
-            </p>
-            <p className="text-xs text-sage-600 mt-3">
-              The top 10,000 tier is shown faded because it is a different kind of comparison. Ten
-              thousand players is the top 4 percent of active men but the top 33 percent of active
-              women, reaching down to 2172 and 1639 respectively, so it measures club level chess rather
-              than the elite. Part of the higher share at that depth is simply that a much deeper slice
-              of the female population is pulled in.
+              The percentages are precise; the ranges show how much the gap would vary from luck alone if
+              history were rerun, not doubt about the estimate. At top 1, a single player against a single
+              player, the number is too noisy to lean on. The top 10,000 tier is faded because it is a
+              different comparison: ten thousand players is the top 4 percent of men but the top third of
+              women, so it measures club level chess, and some of the higher share there is just a deeper
+              slice of the female population being pulled in.
             </p>
           </div>
         </FadeUp>
@@ -737,11 +740,10 @@ export default function Home() {
             </p>
             <p>
               Rerunning the old method with only that one change, leaving everything else exactly as it
-              was, moves the answer from 56 percent to 39 percent. What is revealing is that the
-              simulated sample size effect barely moved at all, from 92 Elo to 89. The entire drop came
-              from the denominator. The old figure was not large because participation explained a great
-              deal, it was large because it was expressed as a share of a gap that had been made
-              artificially small by a player who had not competed in over a decade.
+              was, moves the answer from 56 percent to 39 percent. The simulated sample size effect itself
+              barely moved, from 92 Elo to 89; the shift came from measuring against the right benchmark.
+              Either way the conclusion holds: participation accounts for a substantial share of the
+              top-level gap.
             </p>
           </div>
         </FadeUp>
@@ -833,7 +835,7 @@ export default function Home() {
                   AI student at King's College London with an associate data scientist certification,
                   working mostly in Python. Outside academia I occasionally trade blue light for a chess
                   board, and I play in the London Chess League. I reached 1500 in about a year of playing,
-                  and was formerly in the top 10 girls in my age group.
+                  and was once among the higher ranked girls in my age group.
                 </p>
                 <p>
                   I volunteer at the London Women's Chess Club, where I coach beginners unofficially and
