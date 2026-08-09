@@ -242,7 +242,7 @@ export default function Home() {
             <blockquote className="quote-big">
               The boom was real, but it happened online. New fans became online players, not tournament
               competitors, and in the tournament data, women and men recovered from Covid at the same
-              pace. FIDE could not see the boom because the boom happened somewhere else.
+              pace.
             </blockquote>
           </FadeUp>
         </div>
