@@ -399,7 +399,7 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <StatCard
                 value="30.1"
                 label="Mean peak age, women"
@@ -456,7 +456,7 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <StatCard
                 value="29.2"
                 label="Mean peak age, women"
@@ -480,7 +480,7 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <StatCard
                 value="28.4"
                 label="Mean peak age, women"
@@ -604,14 +604,6 @@ export default function Home() {
                 <p className="text-xs text-sage-600 mt-1">322 of the 471 Elo gap · spread across simulated worlds 67 to 69%</p>
               </div>
             </div>
-            <p className="text-xs text-sage-600 mt-6">
-              The percentages are precise; the ranges show how much the gap would vary from luck alone if
-              history were rerun, not doubt about the estimate. At top 1, a single player against a single
-              player, the number is too noisy to lean on. The top 10,000 tier is faded because it is a
-              different comparison: ten thousand players is the top 4 percent of men but the top third of
-              women, so it measures club level chess, and some of the higher share there is just a deeper
-              slice of the female population being pulled in.
-            </p>
           </div>
         </FadeUp>
 
@@ -687,7 +679,7 @@ export default function Home() {
         </FadeUp>
 
         <FadeUp className="mt-12">
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <StatCard value="~2080" label="When women reach just 15% of players" hint="Holding the recent pace of under 0.1 points a year. This is not parity, only 15 percent; genuine parity at 50 percent is centuries away." />
             <StatCard value="7.7 : 1" label="Men-to-women ratio in 25 years" hint="On the current pace, easing only from today's 8.6:1. The pipeline is filling at a crawl." />
           </div>

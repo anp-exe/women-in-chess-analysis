@@ -146,11 +146,6 @@ export default function ParticipationSlider() {
           </>
         )}
       </p>
-      <p className="text-xs text-sage-600 italic mt-4">
-        Assumes the shape of the rating distributions stays fixed while only headcount changes, and holds
-        the distribution difference constant across ratios. Precomputed from the pooled empirical
-        distribution of all active players' ratings; see the notebook for the method.
-      </p>
     </div>
   );
 }
