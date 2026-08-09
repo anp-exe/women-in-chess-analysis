@@ -138,6 +138,19 @@ export default function Home() {
           Major revisions made 8 August 2026
         </p>
 
+        {/* DESKTOP: table of contents, bottom right. */}
+        <nav className="hidden md:block absolute bottom-6 right-6 text-right">
+          <p className="text-matcha text-[0.65rem] uppercase tracking-[0.25em] mb-2">12 min read</p>
+          <ul className="flex flex-col gap-1 text-sm text-sage-600">
+            <li><a href="#boom" className="hover:text-sage-800 transition-colors">1 · Two sides of the boom</a></li>
+            <li><a href="#judit" className="hover:text-sage-800 transition-colors">2 · Judit Polgár</a></li>
+            <li><a href="#peak-age" className="hover:text-sage-800 transition-colors">3 · Peak age</a></li>
+            <li><a href="#counterfactual" className="hover:text-sage-800 transition-colors">4 · The counterfactual</a></li>
+            <li><a href="#prediction" className="hover:text-sage-800 transition-colors">5 · The prediction</a></li>
+            <li><a href="#takeaway" className="hover:text-sage-800 transition-colors">The takeaway</a></li>
+          </ul>
+        </nav>
+
         <div className="flex-1 flex flex-col justify-center items-center">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-sage-600 text-sm uppercase tracking-[0.3em] mb-8">A data story</p>
@@ -176,7 +189,7 @@ export default function Home() {
         </FadeUp>
       </section>
 
-      <section className="bg-sage-50 py-24 px-6">
+      <section id="boom" className="scroll-mt-6 bg-sage-50 py-24 px-6">
         <div className="max-w-3xl mx-auto">
           <FadeUp>
             <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Part one</p>
@@ -248,7 +261,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-2xl mx-auto px-6 py-24">
+      <section id="judit" className="scroll-mt-6 max-w-2xl mx-auto px-6 py-24">
         <FadeUp>
           <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Part two</p>
           <h2 className="text-5xl font-serif mb-6">Judit Polgár</h2>
@@ -353,7 +366,7 @@ export default function Home() {
         </FadeUp>
       </section>
 
-      <section className="bg-sage-50 py-24 px-6">
+      <section id="peak-age" className="scroll-mt-6 bg-sage-50 py-24 px-6">
         <div className="max-w-3xl mx-auto">
           <FadeUp>
             <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Part three</p>
@@ -506,7 +519,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-2xl mx-auto px-6 py-24">
+      <section id="counterfactual" className="scroll-mt-6 max-w-2xl mx-auto px-6 py-24">
         <FadeUp>
           <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Part four</p>
           <h2 className="text-5xl font-serif mb-8">The counterfactual</h2>
@@ -648,7 +661,59 @@ export default function Home() {
         </FadeUp>
       </section>
 
-      <section className="bg-sage-900 text-sage-50 py-24 px-6">
+      <section id="prediction" className="scroll-mt-6 bg-sage-50 py-24 px-6">
+        <div className="max-w-2xl mx-auto">
+        <FadeUp>
+          <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Part five</p>
+          <h2 className="text-5xl font-serif mb-8">The one number that would fix it, and how slowly it moves</h2>
+          <div className="prose-cream">
+            <p>
+              If participation drives roughly half the elite gap, then the honest forward question is not
+              how big the gap is today, but whether the thing that closes it is actually moving. So here is
+              a prediction rather than a description. The share of active FIDE players who are women has
+              risen from 9.5 percent in 2015 to 10.4 percent now. That is real progress, but it is less
+              than one percentage point in a decade.
+            </p>
+          </div>
+        </FadeUp>
+
+        <FadeUp className="mt-12">
+          <PlotCard
+            src={`${BASE}/participation_trend.png`}
+            figureNumber="Figure 8"
+            title="Women as a share of active FIDE players, with the current pace extended"
+            caption="The line is observed monthly data; the dotted extension holds the recent pace constant. It does not reach even 15 percent until around 2080, and true parity, half of all players, is centuries beyond the edge of this chart."
+          />
+        </FadeUp>
+
+        <FadeUp className="mt-12">
+          <div className="grid grid-cols-2 gap-6">
+            <StatCard value="~2080" label="When women reach just 15% of players" hint="Holding the recent pace of under 0.1 points a year. This is not parity, only 15 percent; genuine parity at 50 percent is centuries away." />
+            <StatCard value="7.7 : 1" label="Men-to-women ratio in 25 years" hint="On the current pace, easing only from today's 8.6:1. The pipeline is filling at a crawl." />
+          </div>
+        </FadeUp>
+
+        <FadeUp className="mt-12">
+          <div className="prose-cream">
+            <p>
+              That is the real conclusion, and it reframes everything above it. The Queen's Gambit gave
+              online chess a jolt but barely touched tournament registrations. Judit Polgár was a
+              generational outlier, not the front of a wave. Peak ages are the same, so time is not the
+              issue. The gap at the top is, to a large degree, a headcount problem, and the headcount is
+              inching up so slowly that on its current path it will not close for generations.
+            </p>
+            <p>
+              None of that is fixed by telling women to play better. It is fixed by more girls starting,
+              and by more of them staying, which is exactly where the retention research and the tournament
+              culture research point. The mathematics of the gap is the easy half. The number that drives
+              it is a choice, and right now it is barely changing.
+            </p>
+          </div>
+        </FadeUp>
+        </div>
+      </section>
+
+      <section id="takeaway" className="scroll-mt-6 bg-sage-900 text-sage-50 py-24 px-6">
         <div className="max-w-2xl mx-auto">
           <FadeUp>
             <p className="text-matcha text-sm uppercase tracking-[0.25em] mb-4">The takeaway</p>
@@ -675,7 +740,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-2xl mx-auto px-6 py-24">
+      <section className="bg-sage-50 py-24 px-6">
+        <div className="max-w-2xl mx-auto">
         <FadeUp>
           <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Limitations</p>
           <h2 className="text-4xl font-serif mb-8">What this data cannot tell us</h2>
@@ -722,6 +788,7 @@ export default function Home() {
             </p>
           </div>
         </FadeUp>
+        </div>
       </section>
 
       <section className="max-w-2xl mx-auto px-6 py-24">
