@@ -387,22 +387,104 @@ export default function Home() {
 
           <FadeUp className="mt-12">
             <div className="grid grid-cols-2 gap-6">
-              <StatCard value="30.1" label="Mean peak age, women" />
-              <StatCard value="29.9" label="Mean peak age, men" />
+              <StatCard
+                value="30.1"
+                label="Mean peak age, women"
+                hint="Top 25 per snapshot, all players. 50 women, 9 of them retired with frozen ratings."
+              />
+              <StatCard
+                value="29.9"
+                label="Mean peak age, men"
+                hint="Top 25 per snapshot, all players. 55 men, only 1 of them retired."
+              />
             </div>
           </FadeUp>
 
           <FadeUp className="mt-12">
             <div className="prose-cream">
               <p>
-                The difference is 0.2 years. That is statistically indistinguishable and well within the
-                standard deviation of both distributions. The folk belief that elite female players peak
-                earlier than men is not supported by this data.
+                The difference is 0.2 years, which looks like a clean answer. It is not, and the rest of
+                this section explains why. What is solid is the other half of the picture: at every age
+                the mean rating trajectory for men sits around 250 Elo points above the mean for women,
+                and that gap stays remarkably constant from age 20 to age 50. Whatever separates the two
+                groups, it is a difference in level rather than in timing.
+              </p>
+            </div>
+          </FadeUp>
+
+          <FadeUp className="mt-20">
+            <h3 className="text-2xl font-serif mb-6">One correction, and a steadier answer</h3>
+            <div className="prose-cream">
+              <p>
+                The original figure had a flaw. The pool was never filtered for activity, and retired
+                players keep a frozen rating on file. Nine of the fifty women in it had ratings that
+                barely moved across the entire decade, against one of fifty five men, and picking the
+                highest point on a flat line calls it a career peak when it is really just a retirement
+                rating. Dropping those players is simply the right thing to do.
               </p>
               <p>
-                What does differ is the rating itself. At every age, the mean rating trajectory for men
-                sits around 250 Elo points above the mean for women, and this gap stays remarkably
-                constant from age 20 to age 50. Peak timing is identical. Peak level is not.
+                Rebuilt on active players only, and this time taking exactly the hundred highest rated
+                women and the hundred highest rated men rather than a shifting monthly list, the answer is
+                steadier than the first pass suggested. At the very top, the top 25 a side, women peak at
+                29.2 and men at 28.7. Across the top 100 a side, women peak at 28.4 and men at 29.7. The
+                point estimates are small, they sit within a year or so of each other, and they even swap
+                direction between the two depths. Neither difference is statistically significant.
+              </p>
+            </div>
+          </FadeUp>
+
+          <FadeUp className="mt-12">
+            <PlotCard
+              src={`${BASE}/ages_top25_active.png`}
+              figureNumber="Figure 6"
+              title="Top 25 active players per sex"
+              caption="The 25 highest rated active players of each sex. Dotted lines mark the mean peak age: women 29.2, men 28.7. A difference of half a year, not statistically significant (p = 0.84)."
+            />
+          </FadeUp>
+
+          <FadeUp className="mt-12">
+            <PlotCard
+              src={`${BASE}/ages_top100_active.png`}
+              figureNumber="Figure 7"
+              title="Top 100 active players per sex"
+              caption="The 100 highest rated active players of each sex. Women peak at 28.4, men at 29.7. A difference of 1.3 years, in the other direction to the top 25, and again not statistically significant (p = 0.20)."
+            />
+          </FadeUp>
+
+          <FadeUp className="mt-12">
+            <div className="grid grid-cols-2 gap-6">
+              <StatCard
+                value="28.4"
+                label="Mean peak age, women"
+                hint="The 100 highest rated active women. The original 30.1 figure was inflated by retired players whose frozen ratings were counted as peaks."
+              />
+              <StatCard
+                value="29.7"
+                label="Mean peak age, men"
+                hint="The 100 highest rated active men. The gap to the women is 1.3 years and not statistically significant, so no reliable peak-age difference can be claimed."
+              />
+            </div>
+          </FadeUp>
+
+          <FadeUp className="mt-12">
+            <div className="prose-cream">
+              <p>
+                So the honest verdict is the one the first version reached for but could not properly
+                support: at the elite level there is no reliable difference in when women and men reach
+                their peak. The tidy 0.2 years from the original chart was partly an artefact of retired
+                players, and once that is cleaned up the numbers still land close together, just without a
+                false precision. The folk belief that top women peak early is not visible here, but the
+                sample is small enough that the fair conclusion is an absence of evidence, not proof the
+                idea is wrong.
+              </p>
+              <p>
+                What is not in doubt is the other half of the picture. At every age from the early
+                twenties to the fifties the mean rating line for men sits around 250 Elo above the line
+                for women, and that distance barely changes across the whole span. Whatever the gap
+                between elite men and women is, it is a difference in level, held steady across a career,
+                rather than a difference in the timing of the peak. Peak age is a dead end here. Peak
+                level is where the real question lives, which is exactly what the counterfactual below
+                takes apart.
               </p>
             </div>
           </FadeUp>
