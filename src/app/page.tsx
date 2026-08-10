@@ -182,7 +182,7 @@ export default function Home() {
               covering July 2015 through April 2026. The most recent snapshot contains 545,549 rated
               players, of whom 216,803 are currently active. The rest are inactive or retired players
               carrying frozen ratings, and every claim below about current players filters them out.
-              Roughly one in ten active players is a woman. Alongside that, I sampled around 12,000
+              Alongside that, I sampled around 12,000
               chess.com profiles across six countries to reconstruct online signup patterns.
             </p>
           </div>
@@ -253,9 +253,7 @@ export default function Home() {
 
           <FadeUp className="mt-12">
             <blockquote className="quote-big">
-              The boom was real, but it happened online. New fans became online players, not tournament
-              competitors, and in the tournament data, women and men recovered from Covid at the same
-              pace.
+              The boom was real, but it happened online. FIDE couldn't see it because Covid cancelled it.
             </blockquote>
           </FadeUp>
         </div>
@@ -343,8 +341,7 @@ export default function Home() {
           <img src={`${BASE}/hou_yifan_big.jpg`} alt="Hou Yifan at a tournament" className="w-full rounded shadow-sm" />
           <p className="text-xs text-sage-600 italic mt-3">
             Hou Yifan, the highest rated active female player in this dataset with a peak of 2683 within
-            the dataset window. Her official career peak of 2686 came in March 2015, just before this
-            dataset begins. She remains the only woman to follow Polgár into the global top 100. Source: Wikipedia.
+            the dataset window. Source: Wikipedia.
           </p>
         </FadeUp>
 
@@ -374,74 +371,12 @@ export default function Home() {
             <div className="prose-cream">
               <p>
                 A common claim in chess commentary is that women peak earlier than men, or drop out
-                faster. I wanted to test it. For every monthly snapshot in the dataset I pulled the top
-                25 active players of each sex, unioned those pools across all 130 months, and then
-                reconstructed each player's full rating vs age trajectory.
-              </p>
-            </div>
-          </FadeUp>
-
-          <FadeUp className="mt-12">
-            <PlotCard
-              src={`${BASE}/ages.png`}
-              figureNumber="Figure 4"
-              title="Career trajectories of top 25 ranked players per sex, 2015 to 2026"
-              caption="Thick lines are the mean rating by age within each sex. Thin lines are individual player trajectories."
-            />
-          </FadeUp>
-
-          <FadeUp className="mt-12">
-            <PlotCard
-              src={`${BASE}/ages2.png`}
-              figureNumber="Figure 5"
-              title="Distribution of peak ages across the elite pool"
-            />
-          </FadeUp>
-
-          <FadeUp className="mt-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <StatCard
-                value="30.1"
-                label="Mean peak age, women"
-                hint="Top 25 per snapshot, all players. 50 women, 9 of them retired with frozen ratings."
-              />
-              <StatCard
-                value="29.9"
-                label="Mean peak age, men"
-                hint="Top 25 per snapshot, all players. 55 men, only 1 of them retired."
-              />
-            </div>
-          </FadeUp>
-
-          <FadeUp className="mt-12">
-            <div className="prose-cream">
-              <p>
-                The difference is 0.2 years, which looks like a clean answer. It is not, and the rest of
-                this section explains why. What is solid is the other half of the picture: at every age
-                the mean rating trajectory for men sits around 250 Elo points above the mean for women,
-                and that gap stays remarkably constant from age 20 to age 50. Whatever separates the two
-                groups, it is a difference in level rather than in timing.
-              </p>
-            </div>
-          </FadeUp>
-
-          <FadeUp className="mt-20">
-            <h3 className="text-2xl font-serif mb-6">One correction, and a steadier answer</h3>
-            <div className="prose-cream">
-              <p>
-                The original figure had a flaw. The pool was never filtered for activity, and retired
-                players keep a frozen rating on file. Nine of the fifty women in it had ratings that
-                barely moved across the entire decade, against one of fifty five men, and picking the
-                highest point on a flat line calls it a career peak when it is really just a retirement
-                rating. Dropping those players is simply the right thing to do.
-              </p>
-              <p>
-                Rebuilt on active players only, and this time taking exactly the hundred highest rated
-                women and the hundred highest rated men rather than a shifting monthly list, the answer is
-                steadier than the first pass suggested. At the very top, the top 25 a side, women peak at
-                29.2 and men at 28.7. Across the top 100 a side, women peak at 28.4 and men at 29.7. The
-                point estimates are small, they sit within a year or so of each other, and they even swap
-                direction between the two depths. Neither difference is statistically significant.
+                faster. I wanted to test it. One design decision matters here: retired players keep a
+                frozen rating on file, and the highest point of a flat line is a retirement rating, not
+                a career peak, so the pool is active players only. I took the 100 highest rated active
+                women and the 100 highest rated active men in the dataset, reconstructed each player's
+                full rating vs age trajectory, and measured where each career actually peaked, across
+                the full top 100 a side and at a stricter top 25 a side cut.
               </p>
             </div>
           </FadeUp>
@@ -449,7 +384,7 @@ export default function Home() {
           <FadeUp className="mt-12">
             <PlotCard
               src={`${BASE}/ages_top25_active.png`}
-              figureNumber="Figure 6"
+              figureNumber="Figure 5"
               title="Top 25 active players per sex"
               caption="The 25 highest rated active players of each sex. Dotted lines mark the mean peak age: women 29.2, men 28.7. A difference of half a year, not statistically significant (p = 0.84)."
             />
@@ -473,7 +408,7 @@ export default function Home() {
           <FadeUp className="mt-12">
             <PlotCard
               src={`${BASE}/ages_top100_active.png`}
-              figureNumber="Figure 7"
+              figureNumber="Figure 6"
               title="Top 100 active players per sex"
               caption="The 100 highest rated active players of each sex. Women peak at 28.4, men at 29.7. A difference of 1.3 years, in the other direction to the top 25, and again not statistically significant (p = 0.20)."
             />
@@ -484,7 +419,7 @@ export default function Home() {
               <StatCard
                 value="28.4"
                 label="Mean peak age, women"
-                hint="The 100 highest rated active women. The original 30.1 figure was inflated by retired players whose frozen ratings were counted as peaks."
+                hint="The 100 highest rated active women. A year and a bit younger than the men at this depth, the opposite direction to the top 25."
               />
               <StatCard
                 value="29.7"
@@ -499,9 +434,8 @@ export default function Home() {
               <p>
                 The verdict is clear: at the elite level women and men peak at the same age. Across both
                 cuts of the data the means sit within a year of each other and the tiny difference even
-                changes direction, once at 29.2 against 28.7 and once at 28.4 against 29.7. The tidy 0.2
-                years from the original chart was partly an artefact of retired players, and cleaning that
-                up does not open a gap, it confirms there is not one. The folk belief that top women peak
+                changes direction, once at 29.2 against 28.7 and once at 28.4 against 29.7. Neither
+                difference is statistically significant. The folk belief that top women peak
                 early and fade young simply is not in this data. Peak timing is not where the difference
                 between elite men and women lives.
               </p>
@@ -657,14 +591,11 @@ export default function Home() {
         <div className="max-w-2xl mx-auto">
         <FadeUp>
           <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Part five</p>
-          <h2 className="text-5xl font-serif mb-8">The one number that would fix it, and how slowly it moves</h2>
+          <h2 className="text-5xl font-serif mb-8">When will the participation gap close?</h2>
           <div className="prose-cream">
             <p>
-              If participation drives roughly half the elite gap, then the honest forward question is not
-              how big the gap is today, but whether the thing that closes it is actually moving. So here is
-              a prediction rather than a description. The share of active FIDE players who are women has
-              risen from 9.5 percent in 2015 to 10.4 percent now. That is real progress, but it is less
-              than one percentage point in a decade.
+              The share of active FIDE players who are women rose from 9.5 percent in 2015 to 10.4 percent
+              now. That is progress, but less than one percentage point in a decade.
             </p>
           </div>
         </FadeUp>
@@ -672,7 +603,7 @@ export default function Home() {
         <FadeUp className="mt-12">
           <PlotCard
             src={`${BASE}/participation_trend.png`}
-            figureNumber="Figure 8"
+            figureNumber="Figure 7"
             title="Women as a share of active FIDE players, with the current pace extended"
             caption="The line is observed monthly data; the dotted extension holds the recent pace constant. It does not reach even 15 percent until around 2080, and true parity, half of all players, is centuries beyond the edge of this chart."
           />
@@ -680,25 +611,21 @@ export default function Home() {
 
         <FadeUp className="mt-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <StatCard value="~2080" label="When women reach just 15% of players" hint="Holding the recent pace of under 0.1 points a year. This is not parity, only 15 percent; genuine parity at 50 percent is centuries away." />
-            <StatCard value="7.7 : 1" label="Men-to-women ratio in 25 years" hint="On the current pace, easing only from today's 8.6:1. The pipeline is filling at a crawl." />
+            <StatCard value="~2080" label="Women reach 15% of players" hint="At the current pace, under 0.1 points a year. Not parity, just 15 percent. Real parity is centuries out." />
+            <StatCard value="7.7 : 1" label="Men-to-women ratio in 25 years" hint="Down from today's 8.6:1, at the same slow pace." />
           </div>
         </FadeUp>
 
         <FadeUp className="mt-12">
           <div className="prose-cream">
             <p>
-              That is the real conclusion, and it reframes everything above it. The Queen's Gambit gave
-              online chess a jolt but barely touched tournament registrations. Judit Polgár was a
-              generational outlier, not the front of a wave. Peak ages are the same, so time is not the
-              issue. The gap at the top is, to a large degree, a headcount problem, and the headcount is
-              inching up so slowly that on its current path it will not close for generations.
+              The gap at the top is mostly a headcount problem, and the headcount is barely moving. At
+              this pace it will not close for generations.
             </p>
             <p>
-              None of that is fixed by telling women to play better. It is fixed by more girls starting,
-              and by more of them staying, which is exactly where the retention research and the tournament
-              culture research point. The mathematics of the gap is the easy half. The number that drives
-              it is a choice, and right now it is barely changing.
+              That is not fixed by women playing better. It is fixed by more girls starting, and more of
+              them staying, which is exactly what the retention and culture research points to. The math
+              is the easy part. Participation is a choice, and right now it is barely changing.
             </p>
           </div>
         </FadeUp>
@@ -739,44 +666,21 @@ export default function Home() {
           <h2 className="text-4xl font-serif mb-8">What this data cannot tell us</h2>
           <div className="prose-cream">
             <p>
-              The FIDE dataset starts in July 2015, so players whose peak came earlier, including Polgár,
-              Chiburdanidze, and Gaprindashvili, appear only at their retirement rating. About 60 percent
-              of the FIDE database is inactive at any snapshot; every claim here about current players
-              filters on FIDE's activity flag, and without that filter the numbers change materially. The
-              chess.com signup figures come from a 12,000 profile sample calibrated to three published
-              benchmarks, so the 84 million excess estimate is order of magnitude accurate, not precise,
-              and it measures the whole post 2020 boom rather than the show alone. The Prophet model's
-              pre intervention MAPE was 38.6 percent, which means individual monthly predictions are
-              noisy. The Q4 counterfactual draws from the pooled empirical rating distribution, so it
-              makes no normality assumption, but the share explained depends on ranking depth: 29 percent
-              at top 1 with a wide interval, 44 at top 25, 49 at top 100, 61 at top 1000. The qualitative
-              finding, that sample size is a major but not exclusive factor, is robust. Any single
-              percentage is not.
+              The FIDE dataset starts in July 2015, so pre-2015 peaks like Polgár's are frozen at
+              retirement rating. About 60 percent of the database is inactive at any snapshot, and every
+              current-player claim filters that out. The chess.com sample of 12,000 profiles makes the 84
+              million excess-signups estimate order of magnitude accurate, not precise, and the Prophet
+              model's pre intervention error was 38.6 percent. The participation share explained ranges
+              from 29 percent at top 1 to 61 percent at top 1000; the qualitative finding is robust, any
+              single percentage is not.
             </p>
             <p>
-              A note on revisions: an earlier version of this page reported that 55 percent of a 164 Elo
-              gap was explained by sample size, based on a normal fit Monte Carlo that did not survive
-              review. It mixed inactive players' frozen ratings into the comparison and its decomposition
-              was internally inconsistent. The current figures come from a corrected method, order
-              statistics on the pooled empirical distribution of active players, and the notebook now runs
-              end to end with every number on this page traceable to a cell output. I am constantly
-              reviewing this work and I would rather correct it in public than be quietly wrong. If you
-              spot an error or have a better approach, suggestions and pull requests are welcome.
-            </p>
-            <p>
-              It is worth being specific about why that number fell, because the reason is not the one
-              people assume. Judit Polgár retired in 2014, but FIDE keeps a retired player's last rating
-              on file, so her 2675 sat frozen in the database and was being picked up as the highest
-              rated woman. The gap being measured was therefore Magnus Carlsen today against Judit Polgár
-              twelve years ago, which came to 164 Elo. Compare him instead against the strongest woman
-              actually still competing and the gap is 225.
-            </p>
-            <p>
-              Rerunning the old method with only that one change, leaving everything else exactly as it
-              was, moves the answer from 56 percent to 39 percent. The simulated sample size effect itself
-              barely moved, from 92 Elo to 89; the shift came from measuring against the right benchmark.
-              Either way the conclusion holds: participation accounts for a substantial share of the
-              top-level gap.
+              An earlier version of this page found 55 percent of a 164 Elo gap explained by sample size,
+              using a flawed method that mixed in inactive players' frozen ratings, including Polgár's, so
+              it compared Carlsen today against a rating twelve years stale. Against the strongest woman
+              still competing the gap is 225 Elo, and the corrected method uses order statistics on the
+              pooled empirical distribution. Rerunning the old method with just that fix moves 56 percent
+              to 39; the conclusion holds either way. Corrections and pull requests welcome.
             </p>
           </div>
         </FadeUp>
@@ -786,7 +690,7 @@ export default function Home() {
       <section className="max-w-2xl mx-auto px-6 py-24">
         <FadeUp>
           <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">What is left over</p>
-          <h2 className="text-4xl font-serif mb-8">The candidates, and how good the evidence is</h2>
+          <h2 className="text-4xl font-serif mb-8">So what is the other half?</h2>
           <div className="prose-cream">
             <p>
               Participation arithmetic accounts for roughly half the gap across the elite. The rest is a

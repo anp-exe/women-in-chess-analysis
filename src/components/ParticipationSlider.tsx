@@ -15,14 +15,13 @@ const EXPECTED: Record<number, number[]> = {
   25: [0.3, 9.0, 17.4, 25.5, 32.5, 38.8, 44.3, 49.5, 53.8, 58.6, 62.0, 66.1, 69.5, 73.1, 75.9, 78.8, 81.4, 84.2, 86.8, 89.2, 91.3, 93.8, 96.3, 98.5, 100.3, 102.0, 104.9, 106.1, 110.8],
   100: [0.1, 12.4, 22.3, 31.2, 39.3, 46.3, 52.7, 58.9, 64.1, 69.6, 73.9, 78.6, 82.8, 87.1, 91.1, 95.1, 98.2, 102.3, 105.4, 108.5, 111.6, 114.7, 117.7, 120.7, 123.0, 125.4, 128.5, 130.9, 136.2],
   1000: [0.0, 18.6, 34.1, 47.7, 59.7, 70.6, 80.4, 89.6, 98.1, 106.4, 113.8, 121.0, 127.8, 134.4, 140.6, 146.8, 152.1, 157.9, 163.0, 168.3, 173.3, 178.1, 182.7, 187.2, 191.7, 195.7, 200.0, 204.0, 212.0],
-  10000: [0.0, 29.6, 54.4, 76.1, 95.4, 112.8, 128.7, 143.2, 156.7, 169.1, 180.5, 191.2, 201.3, 210.9, 219.9, 228.6, 236.7, 244.6, 252.1, 259.5, 266.5, 273.4, 280.0, 286.4, 292.7, 298.7, 304.7, 310.4, 321.9],
 };
 
-const OBSERVED: Record<number, number> = { 25: 253.2, 100: 274.8, 1000: 346.3, 10000: 470.9 };
+const OBSERVED: Record<number, number> = { 25: 253.2, 100: 274.8, 1000: 346.3 };
 
 const N_MEN = 251137;
 const N_WOMEN = 30420;
-const DEPTHS = [25, 100, 1000, 10000];
+const DEPTHS = [25, 100, 1000];
 
 export default function ParticipationSlider() {
   const [depth, setDepth] = useState<number>(25);
@@ -35,7 +34,10 @@ export default function ParticipationSlider() {
   const residual = observed - expectedToday; // distribution difference, held fixed
   const predicted = residual + expected;
   const closed = observed - predicted;
-  const women = Math.round(N_MEN / ratio);
+  // At today's ratio, show the actual headcount from the snapshot rather than
+  // the back-computed N_MEN / 8.26 (which rounds to 30,404 and contradicts the
+  // 30,420 quoted in the text).
+  const women = idx === RATIOS.length - 1 ? N_WOMEN : Math.round(N_MEN / ratio);
 
   const residualPct = (residual / observed) * 100;
   const samplePct = (expected / observed) * 100;
@@ -66,17 +68,6 @@ export default function ParticipationSlider() {
           </button>
         ))}
       </div>
-
-      {depth === 10000 && (
-        <p className="text-xs text-sage-600 bg-sage-100 rounded p-3 mb-4">
-          Read this tier carefully. In today's list, ten thousand players is the top{" "}
-          {((10000 / N_MEN) * 100).toFixed(0)} percent of active men but the top{" "}
-          {((10000 / N_WOMEN) * 100).toFixed(0)} percent of active women, reaching down to 2172 for men
-          and 1639 for women. It compares club level players, not elite ones, and part of why the
-          explained share looks higher at this depth is that a much deeper slice of the female
-          population gets pulled in.
-        </p>
-      )}
 
       <div className="mb-2 flex justify-between items-baseline">
         <span className="font-medium">
@@ -124,7 +115,7 @@ export default function ParticipationSlider() {
       />
       <div className="flex justify-between text-xs text-sage-600 mt-1">
         <span>1 : 1 (equal numbers)</span>
-        <span>8.3 : 1 (today)</span>
+        <span>8.26 : 1 (today)</span>
       </div>
 
       <p className="text-sm text-ink/70 leading-relaxed mt-6">

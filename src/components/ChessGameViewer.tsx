@@ -165,7 +165,7 @@ export default function ChessGameViewer() {
 
   return (
       <div className="bg-paper p-6 rounded-lg shadow-sm border border-sage-100">
-        <p className="text-xs uppercase tracking-widest text-sage-600 mb-2">Figure 6</p>
+        <p className="text-xs uppercase tracking-widest text-sage-600 mb-2">Figure 4</p>
         <h3 className="text-2xl font-serif mb-1">Polgár vs Kasparov, Moscow 2002</h3>
         <p className="text-xs text-sage-600 italic mb-6">
           Russia vs The Rest of the World, round 5. Rapid time control. Ruy Lopez, Berlin Defence.
