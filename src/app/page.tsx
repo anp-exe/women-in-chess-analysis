@@ -98,27 +98,6 @@ export default function Home() {
   return (
     <main className="bg-paper text-ink">
       <section className="relative min-h-screen flex flex-col px-6 py-8 md:py-10 bg-gradient-to-b from-sage-50 to-paper">
-        {/* MOBILE: a normal flow row at the top so the two items sit side by side
-            and can never overlap. Hidden at md+. */}
-        <div className="flex md:hidden w-full items-start justify-between gap-4">
-          <div className="w-28 shrink-0">
-            <img
-              src={`${BASE}/battersea.png`}
-              alt="Preview of the Women in Chess, through the data talk slide"
-              className="w-full rounded border border-sage-200 shadow-sm"
-            />
-            <p className="text-matcha text-[0.6rem] uppercase tracking-[0.2em] mt-2 mb-1">Upcoming talk</p>
-            <p className="text-sage-700 text-xs font-serif italic leading-snug">
-              Women in Chess, through the data
-            </p>
-            <p className="text-sage-600 text-[0.7rem] tracking-wide mt-1">Battersea Chess Club · 25 August</p>
-            <p className="text-sage-600 text-[0.7rem] tracking-wide">Open to all</p>
-          </div>
-          <p className="text-matcha text-[0.65rem] tracking-widest text-right shrink">
-            Major revisions made 8 August 2026
-          </p>
-        </div>
-
         {/* DESKTOP: absolutely positioned corners, out of flow, so the headline
             centres against the full viewport height. Hidden below md. */}
         <div className="hidden md:block absolute top-6 left-6 w-48">
@@ -134,10 +113,6 @@ export default function Home() {
           <p className="text-sage-600 text-xs tracking-wide mt-1">Battersea Chess Club · 25 August</p>
           <p className="text-sage-600 text-xs tracking-wide">Open to all</p>
         </div>
-        <p className="hidden md:block absolute top-6 right-6 text-matcha text-xs tracking-widest">
-          Major revisions made 8 August 2026
-        </p>
-
         {/* DESKTOP: table of contents, bottom right. */}
         <nav className="hidden md:block absolute bottom-6 right-6 text-right">
           <p className="text-matcha text-[0.65rem] uppercase tracking-[0.25em] mb-2">12 min read</p>
@@ -253,7 +228,8 @@ export default function Home() {
 
           <FadeUp className="mt-12">
             <blockquote className="quote-big">
-              The boom was real, but it happened online. FIDE couldn't see it because Covid cancelled it.
+              The show worked. It just turned new fans into online players, not tournament
+              competitors. FIDE could not see the boom because the boom happened somewhere else.
             </blockquote>
           </FadeUp>
         </div>
@@ -331,17 +307,15 @@ export default function Home() {
           </div>
           <p className="text-xs text-sage-600 mt-4 italic">
             Judit is listed on her all time peak of 2735 from July 2005, taken from published FIDE
-            records, since it pre dates this dataset and she retired in 2014. The ten players below her
-            are the highest rated active women in the April 2026 FIDE list, shown at their April 2026
-            rating.
+            records, since it pre dates this dataset and she retired in 2014.
           </p>
         </FadeUp>
 
         <FadeUp className="mt-16">
           <img src={`${BASE}/hou_yifan_big.jpg`} alt="Hou Yifan at a tournament" className="w-full rounded shadow-sm" />
           <p className="text-xs text-sage-600 italic mt-3">
-            Hou Yifan, the highest rated active female player in this dataset with a peak of 2683 within
-            the dataset window. Source: Wikipedia.
+            Hou Yifan, the highest rated active female player in this dataset with a peak of 2683.
+            Source: Wikipedia.
           </p>
         </FadeUp>
 
@@ -444,9 +418,7 @@ export default function Home() {
                 twenties to the fifties the mean rating line for men sits around 250 Elo above the line
                 for women, and that distance barely changes across the whole span. Whatever the gap
                 between elite men and women is, it is a difference in level, held steady across a career,
-                rather than a difference in the timing of the peak. Peak age is a dead end here. Peak
-                level is where the real question lives, which is exactly what the counterfactual below
-                takes apart.
+                rather than a difference in the timing of the peak. Peak age is a dead end here.
               </p>
             </div>
           </FadeUp>
@@ -470,8 +442,7 @@ export default function Home() {
               I pooled the ratings of all 251,137 active men and 30,420 active women into one empirical
               distribution (the null hypothesis that both sexes draw from the same skill pool) and then ran
               a Monte Carlo simulation of the top order statistics. If the only difference between the
-              groups were how many people play, how big a gap would we expect at the top? No fitted
-              distribution, no normality assumption: the simulation draws from the actual ratings.
+              groups were how many people play, how big a gap would we expect at the top?
             </p>
           </div>
         </FadeUp>
@@ -557,8 +528,7 @@ export default function Home() {
               the gap lives. The distribution difference is not evidence that women are less capable
               at chess. It is evidence that the women who make it into the international FIDE elite are a
               more heavily filtered group than the men, shaped by coaching access, tournament culture,
-              retention rates, and stereotype threat. The data describes the gap. The chess community has
-              to explain it.
+              retention rates, and stereotype threat.
             </p>
           </div>
         </FadeUp>
@@ -624,8 +594,7 @@ export default function Home() {
             </p>
             <p>
               That is not fixed by women playing better. It is fixed by more girls starting, and more of
-              them staying, which is exactly what the retention and culture research points to. The math
-              is the easy part. Participation is a choice, and right now it is barely changing.
+              them staying, which is exactly what the retention and culture research points to.
             </p>
           </div>
         </FadeUp>
@@ -679,8 +648,7 @@ export default function Home() {
               using a flawed method that mixed in inactive players' frozen ratings, including Polgár's, so
               it compared Carlsen today against a rating twelve years stale. Against the strongest woman
               still competing the gap is 225 Elo, and the corrected method uses order statistics on the
-              pooled empirical distribution. Rerunning the old method with just that fix moves 56 percent
-              to 39; the conclusion holds either way. Corrections and pull requests welcome.
+              pooled empirical distribution.
             </p>
           </div>
         </FadeUp>
@@ -695,9 +663,7 @@ export default function Home() {
             <p>
               Participation arithmetic accounts for roughly half the gap across the elite. The rest is a
               difference between the two rating distributions, and this dataset cannot say what causes
-              it. Other people have studied that question directly, and the evidence is genuinely uneven,
-              so it is worth being clear about which explanations are well supported and which are still
-              contested.
+              it.
             </p>
           </div>
 
@@ -705,44 +671,27 @@ export default function Home() {
             {[
               {
                 title: "Early environment",
-                strength: "Well supported",
-                strong: true,
                 body: "Where girls make up at least half of new young players, their starting ratings are no lower than boys'. Later work found the same pattern geographically: the rating gap is smaller in areas where more girls play.",
                 cite: "Chabris & Glickman 2006, Psychological Science · Li, Glickman & Chabris 2025, CHANCE",
               },
               {
                 title: "Tournament culture",
-                strength: "Documented, not quantified",
-                strong: true,
                 body: "An open letter written by 14 French players in August 2023 grew to over 100 signatories within days and more than 120 since. It states that harassment and assault are among the main reasons women and teenage girls stop playing. Several signatories described being harassed by trainers at 14 or 15 and quitting.",
                 cite: "\"We, women chess players\", open letter, 2023",
               },
               {
                 title: "Retention",
-                strength: "Mixed",
-                strong: false,
                 body: "Girls do drop out at higher rates in the raw data. Across nine years one cohort fell from 18 percent girls to 11 percent. But once boys and girls are matched on rating and starting age, the difference all but disappears and the retention curves track each other closely. Whatever drives the dropout, it is not simply being female.",
                 cite: "Li, Glickman & Chabris 2025 · Chabris & Glickman 2006",
               },
               {
                 title: "Stereotype threat",
-                strength: "Genuinely disputed",
-                strong: false,
                 body: "Found, then not found, then found again. A 2008 experiment reported women playing worse when told their opponent was male. A 2018 analysis of tournament games found the opposite, that women slightly outperform expectations against men. A 2020 reanalysis argued the effect is there after all. This one is unresolved and anyone citing it confidently in either direction is overreaching.",
                 cite: "Maass, D'Ettole & Cadinu 2008 · Stafford 2018 · Smerdon et al. 2020",
               },
             ].map((c) => (
               <div key={c.title} className="border-l-2 border-sage-200 pl-5">
-                <div className="flex items-baseline justify-between gap-4 flex-wrap">
-                  <h3 className="text-xl font-serif">{c.title}</h3>
-                  <span
-                    className={`text-[0.65rem] uppercase tracking-[0.2em] ${
-                      c.strong ? "text-matcha" : "text-sage-600"
-                    }`}
-                  >
-                    {c.strength}
-                  </span>
-                </div>
+                <h3 className="text-xl font-serif">{c.title}</h3>
                 <p className="text-sm text-ink/75 leading-relaxed mt-2">{c.body}</p>
                 <p className="text-xs text-sage-600 italic mt-2">{c.cite}</p>
               </div>
