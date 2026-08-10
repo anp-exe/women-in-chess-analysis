@@ -441,13 +441,92 @@ export default function Home() {
             <p>
               I pooled the ratings of all 251,137 active men and 30,420 active women into one empirical
               distribution (the null hypothesis that both sexes draw from the same skill pool) and then ran
-              a Monte Carlo simulation of the top order statistics. If the only difference between the
-              groups were how many people play, how big a gap would we expect at the top?
+              a Monte Carlo simulation of the top order statistics. Draw 251,137 players from that pool
+              and 30,420 from the same pool, then compare the best of each. How far apart do the two top
+              groups land when headcount is the only thing separating them?
             </p>
           </div>
         </FadeUp>
 
         <FadeUp className="mt-12">
+          <div className="bg-sage-50 p-8 rounded-lg border border-sage-100">
+            <p className="text-xs uppercase tracking-widest text-sage-600 mb-6">
+              Decomposing the 275 Elo top 100 gap
+            </p>
+            <div className="space-y-6">
+              <div>
+                <div className="flex justify-between items-baseline mb-2">
+                  <span className="font-medium">Attributable to sample size alone</span>
+                  <span className="stat-number text-3xl">49%</span>
+                </div>
+                <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-matcha transition-all duration-1000"
+                    style={{ width: "49%" }}
+                  />
+                </div>
+                <p className="text-xs text-sage-600 mt-1">136 Elo points</p>
+              </div>
+              <div>
+                <div className="flex justify-between items-baseline mb-2">
+                  <span className="font-medium">Attributable to distribution shape</span>
+                  <span className="stat-number text-3xl">51%</span>
+                </div>
+                <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-rose transition-all duration-1000"
+                    style={{ width: "51%" }}
+                  />
+                </div>
+                <p className="text-xs text-sage-600 mt-1">139 Elo points</p>
+              </div>
+            </div>
+          </div>
+        </FadeUp>
+
+        <FadeUp className="mt-12">
+          <div className="prose-cream">
+            <p>
+              Around half of the top level gap is explained by participation numbers alone, and the share
+              grows the deeper into the rankings you look. The further you get from the single outlier at
+              the very top, the more of the gap is pure sample size mathematics. What remains at every
+              depth reflects a genuine difference between the male and female rating distributions.
+            </p>
+            <p>
+              This is a weaker effect than the 96 percent Bilalić found at the German national level. The
+              international elite is a more selected pool, and that selection is where the remainder of
+              the gap lives. The distribution difference is not evidence that women are less capable
+              at chess. It is evidence that the women who make it into the international FIDE elite are a
+              more heavily filtered group than the men, shaped by coaching access, tournament culture,
+              retention rates, and stereotype threat.
+            </p>
+          </div>
+        </FadeUp>
+
+        <FadeUp className="mt-12">
+          <ParticipationSlider />
+        </FadeUp>
+
+        <FadeUp className="mt-16">
+          <h3 className="text-2xl font-serif mb-6">Why numbers matter</h3>
+          <div className="prose-cream">
+            <p>
+              The idea is simple. The more people who play, the more chances at an exceptional one. With
+              about eight men playing for every woman, the male game gets far more rolls of the dice at
+              the top, and that alone lifts the male best above the female best. Give women equal numbers
+              and their top players rise to close much of the gap.
+            </p>
+            <p>
+              The counterfactual puts a size on it: equal participation closes roughly 44 percent of the
+              gap across the top 25 and about half across the top 100. The effect is smaller right at the
+              summit, where a single outlier, Magnus Carlsen, sits well clear of everyone, and larger
+              across the broader elite. Either way, a substantial part of the gap is not about ability at
+              all. It is about how many women are in the game.
+            </p>
+          </div>
+        </FadeUp>
+
+        <FadeUp className="mt-16">
           <div className="bg-sage-50 p-8 rounded-lg border border-sage-100">
             <p className="text-xs uppercase tracking-widest text-sage-600 mb-6">
               Share of the gap explained by sample size alone, by ranking depth
@@ -494,10 +573,7 @@ export default function Home() {
               </div>
               <div>
                 <div className="flex justify-between items-baseline mb-2">
-                  <span className="font-medium">
-                    Top 10,000
-                    <span className="text-xs text-sage-600 font-normal ml-2">club level, see note</span>
-                  </span>
+                  <span className="font-medium">Top 10,000</span>
                   <span className="stat-number text-3xl">68%</span>
                 </div>
                 <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
@@ -509,50 +585,6 @@ export default function Home() {
                 <p className="text-xs text-sage-600 mt-1">322 of the 471 Elo gap · spread across simulated worlds 67 to 69%</p>
               </div>
             </div>
-          </div>
-        </FadeUp>
-
-        <FadeUp className="mt-12">
-          <div className="prose-cream">
-            <p>
-              Between 44 and 61 percent of the top level gap is explained by participation numbers alone,
-              and the share grows the deeper into the rankings you look, reaching 68 percent once the
-              comparison widens to ten thousand players a side. The further you get from the single
-              outlier at the very top, the more of the gap is pure sample size mathematics. What remains
-              at every depth reflects a genuine difference between the male and female rating
-              distributions.
-            </p>
-            <p>
-              This is a weaker effect than the 96 percent Bilalić found at the German national level. The
-              international elite is a more selected pool, and that selection is where the remainder of
-              the gap lives. The distribution difference is not evidence that women are less capable
-              at chess. It is evidence that the women who make it into the international FIDE elite are a
-              more heavily filtered group than the men, shaped by coaching access, tournament culture,
-              retention rates, and stereotype threat.
-            </p>
-          </div>
-        </FadeUp>
-
-        <FadeUp className="mt-12">
-          <ParticipationSlider />
-        </FadeUp>
-
-        <FadeUp className="mt-16">
-          <h3 className="text-2xl font-serif mb-6">Why numbers matter</h3>
-          <div className="prose-cream">
-            <p>
-              The idea is simple. The more people who play, the more chances at an exceptional one. With
-              about eight men playing for every woman, the male game gets far more rolls of the dice at
-              the top, and that alone lifts the male best above the female best. Give women equal numbers
-              and their top players rise to close much of the gap.
-            </p>
-            <p>
-              The counterfactual puts a size on it: equal participation closes roughly 44 percent of the
-              gap across the top 25 and about half across the top 100. The effect is smaller right at the
-              summit, where a single outlier, Magnus Carlsen, sits well clear of everyone, and larger
-              across the broader elite. Either way, a substantial part of the gap is not about ability at
-              all. It is about how many women are in the game.
-            </p>
           </div>
         </FadeUp>
       </section>
