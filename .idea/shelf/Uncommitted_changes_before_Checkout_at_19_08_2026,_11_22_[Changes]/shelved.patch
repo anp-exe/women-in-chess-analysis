@@ -1,0 +1,23 @@
+Index: analysis.ipynb
+===================================================================
+diff --git a/analysis.ipynb b/analysis.ipynb
+--- a/analysis.ipynb	(revision 30735e934e13aca33a34b3a7da6bb73656023368)
++++ b/analysis.ipynb	(date 1786376550429)
+@@ -34,7 +34,7 @@
+    "metadata": {},
+    "source": [
+     "**Note on rate limiting:**\n",
+-    " There is a 1-second pause between each file download (`SLEEP_BETWEEN = 1.0`). This is standard web scraping etiquette: hitting a server with 130 rapid requests risks getting your IP blocked and degrades the experience for other users on the site. The delay keeps the pipeline polite and stable. Adjust `SLEEP_BETWEEN` in `fide_pipeline.py` if needed, but don't set it below `0.5`."
++    " There is a 1-second pause between each file download (`SLEEP_BETWEEN = 1.0`). The delay keeps the pipeline stable. Adjust `SLEEP_BETWEEN` in `fide_pipeline.py` if needed, but don't set it below `0.5`."
+    ]
+   },
+   {
+@@ -63,7 +63,7 @@
+    "id": "5120957e90652040",
+    "metadata": {},
+    "source": [
+-    "## Sense check\n",
++    "## EDA\n",
+     "\n",
+     "Coverage, sex breakdown, top players, and a quick timeline plot."
+    ]

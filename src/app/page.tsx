@@ -360,7 +360,7 @@ export default function Home() {
               src={`${BASE}/ages_top25_active.png`}
               figureNumber="Figure 5"
               title="Top 25 active players per sex"
-              caption="The 25 highest rated active players of each sex. Dotted lines mark the mean peak age: women 29.2, men 28.7. A difference of half a year, not statistically significant (p = 0.84)."
+              caption="The 25 highest rated active players of each sex. Dotted lines mark the mean peak age: women 29.2, men 28.7 (p = 0.84)."
             />
           </FadeUp>
 
@@ -369,12 +369,12 @@ export default function Home() {
               <StatCard
                 value="29.2"
                 label="Mean peak age, women"
-                hint="The 25 highest rated active women. Half a year older than the men here, the opposite direction to the top 100, and not statistically significant."
+                hint="Mean career peak of the 25 highest rated active women."
               />
               <StatCard
                 value="28.7"
                 label="Mean peak age, men"
-                hint="The 25 highest rated active men. Among the very best players, the two sexes peak at essentially the same age."
+                hint="Mean career peak of the 25 highest rated active men, half a year earlier than the women at this cut."
               />
             </div>
           </FadeUp>
@@ -384,7 +384,7 @@ export default function Home() {
               src={`${BASE}/ages_top100_active.png`}
               figureNumber="Figure 6"
               title="Top 100 active players per sex"
-              caption="The 100 highest rated active players of each sex. Women peak at 28.4, men at 29.7. A difference of 1.3 years, in the other direction to the top 25, and again not statistically significant (p = 0.20)."
+              caption="The 100 highest rated active players of each sex. Women peak at 28.4, men at 29.7 (p = 0.20)."
             />
           </FadeUp>
 
@@ -393,12 +393,12 @@ export default function Home() {
               <StatCard
                 value="28.4"
                 label="Mean peak age, women"
-                hint="The 100 highest rated active women. A year and a bit younger than the men at this depth, the opposite direction to the top 25."
+                hint="Mean career peak of the 100 highest rated active women."
               />
               <StatCard
                 value="29.7"
                 label="Mean peak age, men"
-                hint="The 100 highest rated active men. The gap to the women is 1.3 years and not statistically significant, so no reliable peak-age difference can be claimed."
+                hint="Mean career peak of the 100 highest rated active men, 1.3 years later than the women at this depth."
               />
             </div>
           </FadeUp>
@@ -406,19 +406,18 @@ export default function Home() {
           <FadeUp className="mt-12">
             <div className="prose-cream">
               <p>
-                The verdict is clear: at the elite level women and men peak at the same age. Across both
-                cuts of the data the means sit within a year of each other and the tiny difference even
-                changes direction, once at 29.2 against 28.7 and once at 28.4 against 29.7. Neither
-                difference is statistically significant. The folk belief that top women peak
-                early and fade young simply is not in this data. Peak timing is not where the difference
-                between elite men and women lives.
+                Elite women and men peak at the same age. Across both cuts the means sit within a year
+                and a half of each other, and the direction of the difference flips between them: 29.2
+                against 28.7 at the top 25, 28.4 against 29.7 at the top 100. Neither difference is
+                statistically significant. The folk belief that top women peak early and fade young is
+                not in this data.
               </p>
               <p>
-                What is not in doubt is the other half of the picture. At every age from the early
-                twenties to the fifties the mean rating line for men sits around 250 Elo above the line
-                for women, and that distance barely changes across the whole span. Whatever the gap
-                between elite men and women is, it is a difference in level, held steady across a career,
-                rather than a difference in the timing of the peak. Peak age is a dead end here.
+                The other half of the picture is unambiguous. At every age from the early twenties to
+                the fifties the mean rating line for men sits around 250 Elo above the line for women,
+                and that distance barely moves across the whole span. The gap between elite men and
+                women is a difference in level, held steady across a career, not a difference in the
+                timing of the peak.
               </p>
             </div>
           </FadeUp>
@@ -457,12 +456,12 @@ export default function Home() {
               <div>
                 <div className="flex justify-between items-baseline mb-2">
                   <span className="font-medium">Attributable to sample size alone</span>
-                  <span className="stat-number text-3xl">49%</span>
+                  <span className="stat-number text-3xl">50%</span>
                 </div>
                 <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-matcha transition-all duration-1000"
-                    style={{ width: "49%" }}
+                    style={{ width: "50%" }}
                   />
                 </div>
                 <p className="text-xs text-sage-600 mt-1">136 Elo points</p>
@@ -470,12 +469,12 @@ export default function Home() {
               <div>
                 <div className="flex justify-between items-baseline mb-2">
                   <span className="font-medium">Attributable to distribution shape</span>
-                  <span className="stat-number text-3xl">51%</span>
+                  <span className="stat-number text-3xl">50%</span>
                 </div>
                 <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-rose transition-all duration-1000"
-                    style={{ width: "51%" }}
+                    style={{ width: "50%" }}
                   />
                 </div>
                 <p className="text-xs text-sage-600 mt-1">139 Elo points</p>
@@ -487,18 +486,24 @@ export default function Home() {
         <FadeUp className="mt-12">
           <div className="prose-cream">
             <p>
-              Around half of the top level gap is explained by participation numbers alone, and the share
-              grows the deeper into the rankings you look. The further you get from the single outlier at
-              the very top, the more of the gap is pure sample size mathematics. What remains at every
-              depth reflects a genuine difference between the male and female rating distributions.
+              The idea is simple. The more people who play, the more chances at an exceptional one.
+              With about eight men playing for every woman, the male game gets far more rolls of the
+              dice at the top, and that alone lifts the male best above the female best. Give women
+              equal numbers and their top players rise to close much of the gap.
             </p>
             <p>
-              This is a weaker effect than the 96 percent Bilalić found at the German national level. The
-              international elite is a more selected pool, and that selection is where the remainder of
-              the gap lives. The distribution difference is not evidence that women are less capable
-              at chess. It is evidence that the women who make it into the international FIDE elite are a
-              more heavily filtered group than the men, shaped by coaching access, tournament culture,
-              retention rates, and stereotype threat.
+              The counterfactual puts a size on it: equal participation closes roughly 44 percent of
+              the gap across the top 25 and about half across the top 100. The effect is smaller right
+              at the summit, where a single outlier, Magnus Carlsen, sits well clear of everyone, and
+              larger across the broader elite. Either way, a substantial part of the gap is not about
+              ability at all. It is about how many women are in the game.
+            </p>
+            <p>
+              That is a weaker effect than the 96 percent Bilalić found in Germany, and the reason is
+              the size of the pool he was working from. His 100 women came out of about 7,000 German
+              players. Mine come out of 30,420 worldwide. The smaller the pool, the less exclusive its
+              top 100 is, and the further down a ranking list you go, the more of the gap headcount
+              explains.
             </p>
           </div>
         </FadeUp>
@@ -507,84 +512,15 @@ export default function Home() {
           <ParticipationSlider />
         </FadeUp>
 
-        <FadeUp className="mt-16">
-          <h3 className="text-2xl font-serif mb-6">Why numbers matter</h3>
+        <FadeUp className="mt-12">
           <div className="prose-cream">
             <p>
-              The idea is simple. The more people who play, the more chances at an exceptional one. With
-              about eight men playing for every woman, the male game gets far more rolls of the dice at
-              the top, and that alone lifts the male best above the female best. Give women equal numbers
-              and their top players rise to close much of the gap.
+              The rest is the part headcount cannot reach. It is the distance between the women who
+              actually play and an ordinary sample of chess players, and this data cannot prove what
+              creates that distance. What it can say is that a game which loses its girls at 15 loses
+              them in the exact years a 2600 is built. Why they leave is the subject of the last
+              section.
             </p>
-            <p>
-              The counterfactual puts a size on it: equal participation closes roughly 44 percent of the
-              gap across the top 25 and about half across the top 100. The effect is smaller right at the
-              summit, where a single outlier, Magnus Carlsen, sits well clear of everyone, and larger
-              across the broader elite. Either way, a substantial part of the gap is not about ability at
-              all. It is about how many women are in the game.
-            </p>
-          </div>
-        </FadeUp>
-
-        <FadeUp className="mt-16">
-          <div className="bg-sage-50 p-8 rounded-lg border border-sage-100">
-            <p className="text-xs uppercase tracking-widest text-sage-600 mb-6">
-              Share of the gap explained by sample size alone, by ranking depth
-            </p>
-            <div className="space-y-6">
-              <div>
-                <div className="flex justify-between items-baseline mb-2">
-                  <span className="font-medium">Top 25</span>
-                  <span className="stat-number text-3xl">44%</span>
-                </div>
-                <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-matcha transition-all duration-1000"
-                    style={{ width: "44%" }}
-                  />
-                </div>
-                <p className="text-xs text-sage-600 mt-1">110 of the 253 Elo gap · spread across simulated worlds 29 to 57%</p>
-              </div>
-              <div>
-                <div className="flex justify-between items-baseline mb-2">
-                  <span className="font-medium">Top 100</span>
-                  <span className="stat-number text-3xl">49%</span>
-                </div>
-                <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-matcha transition-all duration-1000"
-                    style={{ width: "49%" }}
-                  />
-                </div>
-                <p className="text-xs text-sage-600 mt-1">136 of the 275 Elo gap · spread across simulated worlds 40 to 58%</p>
-              </div>
-              <div>
-                <div className="flex justify-between items-baseline mb-2">
-                  <span className="font-medium">Top 1000</span>
-                  <span className="stat-number text-3xl">61%</span>
-                </div>
-                <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-matcha transition-all duration-1000"
-                    style={{ width: "61%" }}
-                  />
-                </div>
-                <p className="text-xs text-sage-600 mt-1">212 of the 346 Elo gap · spread across simulated worlds 58 to 65%</p>
-              </div>
-              <div>
-                <div className="flex justify-between items-baseline mb-2">
-                  <span className="font-medium">Top 10,000</span>
-                  <span className="stat-number text-3xl">68%</span>
-                </div>
-                <div className="w-full h-3 bg-sage-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-matcha/60 transition-all duration-1000"
-                    style={{ width: "68%" }}
-                  />
-                </div>
-                <p className="text-xs text-sage-600 mt-1">322 of the 471 Elo gap · spread across simulated worlds 67 to 69%</p>
-              </div>
-            </div>
           </div>
         </FadeUp>
       </section>
@@ -622,11 +558,9 @@ export default function Home() {
           <div className="prose-cream">
             <p>
               The gap at the top is mostly a headcount problem, and the headcount is barely moving. At
-              this pace it will not close for generations.
-            </p>
-            <p>
-              That is not fixed by women playing better. It is fixed by more girls starting, and more of
-              them staying, which is exactly what the retention and culture research points to.
+              this pace it will not close for generations. That is not fixed by women playing better. It
+              is fixed by more girls starting and more of them staying, which is exactly where the
+              retention and culture research points.
             </p>
           </div>
         </FadeUp>
@@ -640,20 +574,19 @@ export default function Home() {
             <h2 className="text-5xl font-serif mb-8 text-sage-50">What this actually says</h2>
             <div className="prose-cream">
               <p style={{ color: "#E1E7D4" }}>
-                The online chess boom that followed <em>The Queen's Gambit</em> was real and durable, though the
-                show shares the window with Covid and the streaming era, and formal competitive chess
-                missed the wave because Covid cancelled it. Judit Polgár remains the greatest female
-                player of all time at 2735, far ahead of anyone in the modern era. Men and women reach
-                their rating peaks at the same age. And of the gap between the world's best men and best
-                women, between 44 and 61 percent, growing with ranking depth, is just the mathematics of
-                how many people play.
+                The online chess boom that followed <em>The Queen's Gambit</em> was real and it lasted:
+                four years on, signups have never fallen back to the pre show baseline. Competitive
+                chess missed that wave, because Covid had cancelled the tournaments a FIDE rating
+                requires. Judit Polgár remains the greatest female player of all time at 2735, clear of
+                everyone in the modern era. Men and women reach their rating peaks at the same age. And
+                44 to 68 percent of the gap between the world's best men and best women, growing with
+                ranking depth, is the mathematics of how many people play.
               </p>
               <p style={{ color: "#E1E7D4" }}>
-                The conclusion is not that women are worse at chess. It is that we are systematically
-                producing fewer elite female players than we should be, and that even equal participation
-                would not fully close the gap without also addressing how female players are developed,
-                supported, and retained. The sample size effect is the easy half. The harder half is
-                cultural, and it takes longer to fix.
+                The conclusion is not that women are worse at chess. It is that we are producing fewer
+                elite female players than we should be, and that equal participation alone would not
+                close the gap without also changing how female players are developed, supported and
+                retained. The sample size half is the easy half. The cultural half takes longer.
               </p>
             </div>
           </FadeUp>
@@ -671,9 +604,11 @@ export default function Home() {
               retirement rating. About 60 percent of the database is inactive at any snapshot, and every
               current-player claim filters that out. The chess.com sample of 12,000 profiles makes the 84
               million excess-signups estimate order of magnitude accurate, not precise, and the Prophet
-              model's pre intervention error was 38.6 percent. The participation share explained ranges
-              from 29 percent at top 1 to 61 percent at top 1000; the qualitative finding is robust, any
-              single percentage is not.
+              model's pre intervention error was 38.6 percent. The show also shares its window with the
+              pandemic and the rise of chess streaming, so the online boom is attributed to that window
+              rather than to the show alone. The participation share explained ranges from 29 percent at
+              top 1 to 68 percent at top 10,000; the qualitative finding is robust, any single
+              percentage is not.
             </p>
             <p>
               An earlier version of this page found 55 percent of a 164 Elo gap explained by sample size,
@@ -693,9 +628,9 @@ export default function Home() {
           <h2 className="text-4xl font-serif mb-8">So what is the other half?</h2>
           <div className="prose-cream">
             <p>
-              Participation arithmetic accounts for roughly half the gap across the elite. The rest is a
+              Participation arithmetic accounts for half the gap across the elite. The rest is a
               difference between the two rating distributions, and this dataset cannot say what causes
-              it.
+              it. The published research can narrow it down.
             </p>
           </div>
 
@@ -732,11 +667,10 @@ export default function Home() {
 
           <div className="prose-cream mt-8">
             <p>
-              None of these is proven to be the cause, and they are not mutually exclusive. What can be
-              said is that every one of them is a claim about circumstances rather than capacity, and
-              that the two best supported entries on this list both point the same way: when girls enter
-              chess in equal numbers and under equal conditions, the difference at entry is not there to
-              begin with.
+              These are not mutually exclusive, and this data cannot rank them. What is clear is that
+              every one of them is a claim about circumstances rather than capacity, and that the two
+              best supported entries point the same way: where girls enter chess in equal numbers and
+              under equal conditions, there is no gap at entry to explain.
             </p>
           </div>
         </FadeUp>
@@ -753,8 +687,7 @@ export default function Home() {
                 <p>
                   AI student at King's College London with an associate data scientist certification,
                   working mostly in Python. Outside academia I occasionally trade blue light for a chess
-                  board, and I play in the London Chess League. I reached 1500 in about a year of playing,
-                  and was once among the higher ranked girls in my age group.
+                  board, and I play in the London Chess League. I reached 1500 in a year of playing.
                 </p>
                 <p>
                   I volunteer at the London Women's Chess Club, where I coach beginners unofficially and

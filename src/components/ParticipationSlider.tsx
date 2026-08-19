@@ -92,16 +92,23 @@ export default function ParticipationSlider() {
           title="Sample size effect"
         />
       </div>
-      <div className="flex justify-between text-xs text-sage-600 mt-2 mb-6">
+      <div className="flex justify-between text-xs text-sage-600 mt-2">
         <span>
           <span className="inline-block w-2 h-2 rounded-full bg-rose mr-1" />
-          distribution difference: {Math.round(residual)} Elo
+          distribution difference: {Math.round(residual)} Elo ·{" "}
+          <span className="font-medium text-sage-700">{Math.round(residualPct)}%</span>
         </span>
         <span>
           <span className="inline-block w-2 h-2 rounded-full bg-matcha mr-1" />
-          sample size effect: {Math.round(expected)} Elo
+          sample size effect: {Math.round(expected)} Elo ·{" "}
+          <span className="font-medium text-sage-700">{Math.round(samplePct)}%</span>
         </span>
       </div>
+      <p className="text-[0.7rem] text-sage-500 mt-2 mb-6">
+        Percentages are shares of the observed {Math.round(observed)} Elo gap at top{" "}
+        {depth.toLocaleString()}. Switch depth above to see the sample size share rise the deeper
+        into the rankings you look.
+      </p>
 
       <input
         type="range"
