@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+
+# IDE / OS
+.idea/
+.DS_Store
+
+# Node / site build (gh-pages-source branch artifacts)
+node_modules/
+.next/
+out/
+
+# Raw data (parquet snapshots are tracked; raw zips and CSV exports are not)
+data/fide_raw/
+data/*.csv
+data/fide_ratings.parquet

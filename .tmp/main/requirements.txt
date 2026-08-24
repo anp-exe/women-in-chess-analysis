@@ -1,0 +1,11 @@
+requests
+pyarrow
+pandas
+ipykernel
+statsmodels
+matplotlib
+seaborn
+prophet
+scipy
+jupyter
+

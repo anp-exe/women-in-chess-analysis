@@ -1,0 +1,633 @@
+<title>Validation Repertoire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+  :root {
+    --ground: #F3F6FA;
+    --surface: #FFFFFF;
+    --surface-2: #EAEFF6;
+    --ink: #111721;
+    --ink-soft: #3D4757;
+    --muted: #5E6979;
+    --rule: #D8DFE9;
+    --rule-strong: #B9C4D3;
+    --blue: #185FA5;
+    --blue-soft: #E3EDF8;
+    --wine: #993556;
+    --wine-soft: #F6E6EB;
+    --good: #1D6E4F;
+    --warn: #9A5B12;
+
+    --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+    --f-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --f-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0D1117;
+      --surface: #151B24;
+      --surface-2: #1D2531;
+      --ink: #E5EAF2;
+      --ink-soft: #C0C9D6;
+      --muted: #8C97A6;
+      --rule: #2A333F;
+      --rule-strong: #3C4756;
+      --blue: #74AAE6;
+      --blue-soft: #15253A;
+      --wine: #DC8A9C;
+      --wine-soft: #2E1A21;
+      --good: #63BF9A;
+      --warn: #D69A4C;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0D1117;
+    --surface: #151B24;
+    --surface-2: #1D2531;
+    --ink: #E5EAF2;
+    --ink-soft: #C0C9D6;
+    --muted: #8C97A6;
+    --rule: #2A333F;
+    --rule-strong: #3C4756;
+    --blue: #74AAE6;
+    --blue-soft: #15253A;
+    --wine: #DC8A9C;
+    --wine-soft: #2E1A21;
+    --good: #63BF9A;
+    --warn: #D69A4C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 20px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  /* ---------- masthead ---------- */
+
+  header.masthead {
+    padding: 56px 0 32px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 7vw, 3.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    font-family: var(--f-display);
+    font-size: 1.22rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  /* ---------- legend ---------- */
+
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px 22px;
+    padding: 22px 0 30px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+
+  .legend-item { display: flex; gap: 10px; align-items: baseline; }
+
+  .glyph {
+    font-family: var(--f-mono);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--blue);
+    min-width: 2ch;
+  }
+
+  .legend-item p {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  /* ---------- sections ---------- */
+
+  section { margin-bottom: 60px; }
+
+  h2 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.85rem;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    margin: 0 0 8px;
+    text-wrap: balance;
+  }
+
+  .section-note {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin: 0 0 28px;
+    max-width: 62ch;
+  }
+
+  /* ---------- the say-this block ---------- */
+
+  .line {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--blue);
+    border-radius: 2px;
+    padding: 22px 24px;
+    margin: 0 0 18px;
+  }
+
+  .line.opening { border-left-color: var(--wine); }
+
+  .line p {
+    font-family: var(--f-display);
+    font-size: 1.13rem;
+    line-height: 1.62;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+
+  .line p:last-child { margin-bottom: 0; }
+
+  .line-label {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin: 0 0 12px;
+  }
+
+  /* ---------- question entries ---------- */
+
+  .entry {
+    display: grid;
+    grid-template-columns: 3.2rem 1fr;
+    gap: 0 16px;
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .entry:first-of-type { border-top: 1px solid var(--rule-strong); }
+
+  .entry-glyph {
+    font-family: var(--f-mono);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    color: var(--blue);
+    padding-top: 2px;
+  }
+
+  .entry-glyph.trap { color: var(--wine); }
+
+  .q {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.28rem;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+
+  .q-tag {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin: 0 0 16px;
+  }
+
+  .say {
+    margin: 0 0 14px;
+    padding: 0 0 0 16px;
+    border-left: 2px solid var(--rule-strong);
+    font-family: var(--f-display);
+    font-size: 1.06rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .say + .say { margin-top: -4px; }
+
+  .why {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .why strong { color: var(--ink-soft); font-weight: 600; }
+
+  .why + .why { margin-top: 8px; }
+
+  code, .num {
+    font-family: var(--f-mono);
+    font-size: 0.87em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- blunders ---------- */
+
+  .blunders {
+    background: var(--wine-soft);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 26px 28px;
+  }
+
+  .blunders ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 16px; }
+
+  .blunders li {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    gap: 0 12px;
+    font-size: 0.97rem;
+    line-height: 1.55;
+  }
+
+  .blunders li span:first-child {
+    font-family: var(--f-mono);
+    font-weight: 700;
+    color: var(--wine);
+  }
+
+  .blunders strong { font-weight: 600; }
+
+  /* ---------- numbers table ---------- */
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 2px; background: var(--surface); }
+
+  table { border-collapse: collapse; width: 100%; min-width: 480px; }
+
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 0 10px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.9rem;
+  }
+
+  thead th {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    background: var(--surface-2);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.n {
+    font-family: var(--f-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--blue);
+    font-weight: 500;
+  }
+
+  td.n.neg { color: var(--wine); }
+
+  /* ---------- closing ---------- */
+
+  .closer {
+    border-top: 2px solid var(--ink);
+    padding-top: 32px;
+    margin-top: 8px;
+  }
+
+  .closer p {
+    font-family: var(--f-display);
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin: 0 0 16px;
+    max-width: 58ch;
+  }
+
+  .closer .why { font-family: var(--f-body); font-size: 0.9rem; }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; padding: 0 16px 64px; }
+    .entry { grid-template-columns: 2.4rem 1fr; gap: 0 12px; }
+    .entry-glyph { font-size: 1.2rem; }
+    .line { padding: 18px 18px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Talk prep · women in chess analysis · Q&amp;A</p>
+    <h1>Validation Repertoire</h1>
+    <p class="standfirst">Prepared lines for the question a data scientist in the room will ask, and for the eleven that follow it. Every figure here is from the notebook, so you can quote it under pressure.</p>
+  </header>
+
+  <div class="legend">
+    <div class="legend-item"><span class="glyph">!</span><p>Answer plainly. Short line, then stop.</p></div>
+    <div class="legend-item"><span class="glyph">!?</span><p>Probing but friendly. Give the detail, they want it.</p></div>
+    <div class="legend-item"><span class="glyph">?!</span><p>The premise is partly wrong. Concede the true half first.</p></div>
+    <div class="legend-item"><span class="glyph">!!</span><p>Welcome it. You already know the limitation better than they do.</p></div>
+    <div class="legend-item"><span class="glyph">??</span><p>Trap. Defending here loses the room. Concede fast.</p></div>
+  </div>
+
+  <section>
+    <h2>The main line</h2>
+    <p class="section-note">Say this to the first "how did you validate it" and nothing more. Let them choose the branch.</p>
+
+    <div class="line opening">
+      <span class="line-label">Opening answer · roughly 25 seconds</span>
+      <p>"There's no held out set and no ground truth here, so I couldn't validate the estimate. What I validated is the specification. Three things: predictive checks the model has to pass before it's allowed to make a counterfactual claim, a multiverse over every analyst choice I made, and a power check on the null result."</p>
+      <p>"The short version of what that found is that the specification moves the answer more than the data does. Which is why my headline is a range and not a number."</p>
+    </div>
+    <p class="why"><strong>Why this opening.</strong> It classifies the study correctly in one sentence, which is the thing a data scientist is actually testing you on. Everything after it is optional depth you release on request.</p>
+  </section>
+
+  <section>
+    <h2>Prepared variations</h2>
+    <p class="section-note">Three branches off the main line. Use one. Using all three unprompted reads as nerves.</p>
+
+    <div class="line">
+      <span class="line-label">Variation A · the predictive check</span>
+      <p>"The counterfactual draws order statistics from a pooled empirical distribution. Before I let it run at a different N, I required the model to reproduce the observed maximum at the observed N. A fitted normal missed the actual top woman by over 100 Elo, so it was out. The empirical distribution passes by construction, which is a weak test, but a model failing it is informative."</p>
+    </div>
+
+    <div class="line">
+      <span class="line-label">Variation B · the multiverse</span>
+      <p>"Five specification levers, varied one at a time against baseline. Reference pool floor moves the result 20.6 points. Cut depth 18.4. Arena 11.3. Distributional assumption 3.1. Activity filter 1.2. So the objection this class of analysis usually attracts, the distribution, is the second smallest lever. What determines the answer is who counts as a player, and that's a definition, not a statistic."</p>
+    </div>
+
+    <div class="line">
+      <span class="line-label">Variation C · the power check</span>
+      <p>"The longitudinal test was meant to show the residual closing over eleven years. It doesn't. But I ran the power check before interpreting that. Freeze both distributions, move only the participation ratio by the 10% it actually improved, and you predict a 3.0 point drop in explained share. Observed was 3.3. There's no signal left for the test to detect, so it's a null with no power and I report it as one."</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Hostile questions</h2>
+    <p class="section-note">Ranked by how likely a data scientist is to ask, not by difficulty. The glyph tells you how to hold your body.</p>
+
+    <div class="entry">
+      <div class="entry-glyph">?!</div>
+      <div>
+        <p class="q">"In-sample MAPE of 38.6% isn't validation."</p>
+        <span class="q-tag">Premise partly right · concede immediately</span>
+        <p class="say">"Agreed. It's a floor on error, not a test. What carries the claim is that the post intervention divergence runs consistently 2 to 4x the forecast across four years, which is well outside that error. And I say 'associated with', not 'caused', because COVID, PogChamps and streaming growth all sit inside the same window and aren't separable."</p>
+        <p class="why">Conceding in the first four words is what makes the rest land. If you defend the MAPE you lose.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">!!</div>
+      <div>
+        <p class="q">"An empirical distribution has bounded support. You can't draw above the observed maximum."</p>
+        <span class="q-tag">Welcome it · already a documented design choice</span>
+        <p class="say">"Correct, and it's exactly why the null draws from the <em>pooled</em> distribution rather than the female-only one. The female ceiling is Hou Yifan at 2614, which would mechanically cap any counterfactual. Pooled gives support up to 2839."</p>
+        <p class="say">"A GEV fit to block maxima would allow extrapolation past observed support and it's the obvious extension. I haven't run it, so I make no claim about what it would show."</p>
+        <p class="why">Saying "I haven't run it, so I make no claim" is the single most credible sentence available to you. Use it whenever it's true.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">!?</div>
+      <div>
+        <p class="q">"Isn't this a garden of forking paths?"</p>
+        <span class="q-tag">Fair · answer structurally</span>
+        <p class="say">"It would be if I reported one path. I report the whole multiverse and the sensitivity of the result to each fork. Nothing was preregistered, so every figure should be read as exploratory."</p>
+        <p class="why">Do not argue that your forks were principled. Argue that you published them.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">!!</div>
+      <div>
+        <p class="q">"Your Monte Carlo intervals only capture sampling variance. Where's the model uncertainty?"</p>
+        <span class="q-tag">Sharp question · you have the better answer</span>
+        <p class="say">"Right, the Monte Carlo band is sampling variance only. The model uncertainty is the sensitivity analysis, and it's much larger. The bands at top-25 span 29 to 58%. Specification choices span 25 to 79%. So if you want one honest uncertainty statement, it's the second number, not the first."</p>
+        <p class="why">This is your strongest exchange in the whole set. If someone hands you this question, take the extra ten seconds.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph trap">??</div>
+      <div>
+        <p class="q">"So what's the actual number?"</p>
+        <span class="q-tag">Trap · do not be pushed onto a point estimate</span>
+        <p class="say">"It depends on where you cut the ranking, and that's the finding rather than a dodge. 37% at top-10, 44% at top-25, 49% at top-100, 61% at top-1000, 68% at top-10,000. Adjacent points on that curve aren't statistically distinguishable, so quoting any one of them as <em>the</em> number would be overclaiming."</p>
+        <p class="why">Reciting the curve is what makes refusing the point estimate read as rigour instead of evasion. Learn the five numbers.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph trap">??</div>
+      <div>
+        <p class="q">"Doesn't your null result undermine the whole argument?"</p>
+        <span class="q-tag">Trap · agreeing partly is the strong move</span>
+        <p class="say">"Partly, yes, and I say so in the notebook. The residual is not closing. But the statistic goes to zero at parity by construction, so it measures today's imbalance, not a fixed trait. It was never capable of detecting one, which means its flatness is evidence for neither side."</p>
+        <p class="why">"This is not the result the hypothesis wanted, and it should be reported that way" is a line you can say out loud. It buys more credibility than any positive finding in the deck.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">!?</div>
+      <div>
+        <p class="q">"Bilalić found 96%. You found 44 to 61%. Which of you is wrong?"</p>
+        <span class="q-tag">Expect this from anyone who knows the literature</span>
+        <p class="say">"Neither, and that's the point of the depth curve. The quantity is depth-dependent and arena-dependent, so a point estimate hides which question was asked. Their figure is one national federation. Mine is the global elite. When I run my own specification across nine federations I get 44% for Russia to 79% for the US, median 72%, against 49% for the world pool at the same depth. Both answers are right. They answer different questions."</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">!!</div>
+      <div>
+        <p class="q">"You matched on rating and age, but not on selection."</p>
+        <span class="q-tag">Excellent question · already caveat one in the notebook</span>
+        <p class="say">"That's caveat one in the write-up. A rated woman is a more selected individual than a rated man at every level, because the filter into the rated population is tighter. Nothing in the design controls for it and it plausibly inflates the junior odds ratios. It's the limitation I'd fix first."</p>
+        <p class="why">Naming which limitation you'd fix first signals you've ranked them. Very few speakers can do this on demand.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">!</div>
+      <div>
+        <p class="q">"How do you handle FIDE's 2024 rating adjustment? That's a structural break."</p>
+        <span class="q-tag">Answer with the diagnostic · it's a strength</span>
+        <p class="say">"It is, and I found it by plotting the raw series before trusting it. March 2024 lifted the published floor from 1000 to 1400 and adds roughly 50,000 men and 10,000 women to the pool overnight. Any trend fitted across that break measures FIDE's arithmetic, not chess. The diagnostic shows the 2000+ population was untouched, so the longitudinal work runs on a harmonised 2000+ pool, with the raw series shown alongside."</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">?!</div>
+      <div>
+        <p class="q">"Twelve thousand users across six countries isn't a sample of Chess.com."</p>
+        <span class="q-tag">Concede the scope, defend the use</span>
+        <p class="say">"It isn't, and it's only ever used as a volume signal, never for anything gender-related, because the API doesn't expose that. It's country-stratified across six federations and scaled to real volume using the median of three independent public anchors rather than one. The earlier version anchored on November 2020 alone, which made the whole estimate linearly sensitive to sampling error in the single most anomalous month in the series."</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">!</div>
+      <div>
+        <p class="q">"Why standard ratings only?"</p>
+        <span class="q-tag">Known gap · concede in one breath</span>
+        <p class="say">"Because the pipeline downloads the standard lists only. Rapid and blitz columns are parsed but empty for every player in every snapshot, so anyone holding only a rapid or blitz rating is missing from this dataset entirely. That falls hardest on juniors and recent registrations. It's in the limitations and it's fixable."</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-glyph">!</div>
+      <div>
+        <p class="q">"Is the code available? Can I reproduce this?"</p>
+        <span class="q-tag">Easy · the friendliest question you'll get</span>
+        <p class="say">"Yes. The pipeline is resumable and streams the FIDE XML one player at a time, so it rebuilds from scratch on a laptop. The notebook runs end to end off the cached parquet. The Chess.com fetch takes about two hours once and then caches."</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>Blunders</h2>
+    <p class="section-note">Five ways to lose a room you had already won.</p>
+    <div class="blunders">
+      <ul>
+        <li><span>1.</span><span><strong>Defending the MAPE.</strong> It is bad. Say it is bad and move to the effect size.</span></li>
+        <li><span>2.</span><span><strong>Letting "so what's the number" pull you onto a point estimate.</strong> Recite the curve instead.</span></li>
+        <li><span>3.</span><span><strong>Claiming Queen's Gambit caused the boom.</strong> Your own ITS finds no female-specific jump. Saying so is a highlight, not a weakness.</span></li>
+        <li><span>4.</span><span><strong>Leading with the sensitivity analysis because it's the most rigorous part.</strong> Lead with the reframe. Let them pull the detail out of you.</span></li>
+        <li><span>5.</span><span><strong>Answering "I don't know" as an apology.</strong> "I haven't run it, so I make no claim about what it would show" is the same sentence with authority attached.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Numbers at your fingertips</h2>
+    <p class="section-note">The figures most likely to be asked for mid-answer. All from the notebook.</p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Participation share of the elite gap, by depth</caption>
+        <thead>
+          <tr><th>Depth</th><th>Observed gap</th><th>Expected from N</th><th>% explained [95% CI]</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Top-1</td><td class="n">225 Elo</td><td class="n">66</td><td class="n neg">29% [−17 to 60]</td></tr>
+          <tr><td>Top-25 mean</td><td class="n">253 Elo</td><td class="n">110</td><td class="n">44% [29 to 58]</td></tr>
+          <tr><td>Top-100 mean</td><td class="n">275 Elo</td><td class="n">136</td><td class="n">49% [40 to 58]</td></tr>
+          <tr><td>Top-1000 mean</td><td class="n">346 Elo</td><td class="n">212</td><td class="n">61% [58 to 65]</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-scroll" style="margin-top:26px">
+      <table>
+        <caption>Sensitivity: one lever at a time from the 44% baseline</caption>
+        <thead>
+          <tr><th>Change</th><th>Effect</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reference pool restricted to 2000+</td><td class="n">+20.6 pp</td><td class="n">64%</td></tr>
+          <tr><td>Depth: top-1 rather than top-25</td><td class="n neg">−18.4 pp</td><td class="n">25%</td></tr>
+          <tr><td>Arena: Germany rather than the world</td><td class="n">+11.3 pp</td><td class="n">55%</td></tr>
+          <tr><td>Depth: top-100 rather than top-25</td><td class="n">+5.9 pp</td><td class="n">49%</td></tr>
+          <tr><td>Distribution: fitted normal</td><td class="n">+3.1 pp</td><td class="n">47%</td></tr>
+          <tr><td>Activity: inactive players included</td><td class="n">+1.2 pp</td><td class="n">45%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-scroll" style="margin-top:26px">
+      <table>
+        <caption>Everything else worth having on the tip of your tongue</caption>
+        <thead>
+          <tr><th>Quantity</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Panel</td><td class="n">130 monthly FIDE lists, Jul 2015 to Apr 2026</td></tr>
+          <tr><td>Active pool in the counterfactual</td><td class="n">251,137 men vs 30,420 women</td></tr>
+          <tr><td>Participation ratio, all rated actives</td><td class="n">8.3 : 1</td></tr>
+          <tr><td>Participation ratio, 2000+ actives</td><td class="n">19 : 1</td></tr>
+          <tr><td>Ratio change over eleven years</td><td class="n">9.54 : 1 → 8.59 : 1</td></tr>
+          <tr><td>Mean peak age, women vs men</td><td class="n">30.1 vs 29.9</td></tr>
+          <tr><td>Prophet excess signups, Oct 2020 to Dec 2024</td><td class="n">~84M [69 to 100M]</td></tr>
+          <tr><td>ITS: Queen's Gambit level jump, female</td><td class="n neg">−20/month, p = 0.60</td></tr>
+          <tr><td>Attrition, ages 18-24, matched</td><td class="n">OR 0.86 [0.83, 0.89]</td></tr>
+          <tr><td>Attrition, ages 18-24, rated 2200+</td><td class="n">OR 1.28 [1.05, 1.55]</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="closer">
+    <h2 style="font-size:1.3rem;margin-bottom:20px">Close on this</h2>
+    <p>"The result was revised twice during the analysis. Once when the fitted normal failed the predictive check, and once when a missing activity filter let a retired player's frozen rating stand in for the best active woman. Both revisions are in the notebook rather than deleted from it. If your validation never changes your answer, it probably wasn't validation."</p>
+    <p class="why">Works as an answer, works as a closing slide, works as the last thing you say before questions. Do not rush the final sentence.</p>
+  </section>
+
+  <footer>
+    Prepared from analysis.ipynb · women-in-chess-analysis<br>
+    Every figure traceable to a notebook cell. Nothing on this page is rounded in your favour.
+  </footer>
+
+</div>
