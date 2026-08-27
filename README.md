@@ -6,14 +6,14 @@ This project asks a simple question:
 
 > Are the biggest claims in chess culture actually true in the data?
 
-Instead of hot takes, we use monthly FIDE (Fédération Internationale des Échecs, the World Chess Federation) rating snapshots (from July 2015 onward), a sampled slice of Chess.com signups, and run reproducible analysis in `analysis.ipynb`.
+Instead of hot takes, I use monthly FIDE (Fédération Internationale des Échecs, the World Chess Federation) rating snapshots (from July 2015 onward), a sampled slice of Chess.com signups, and run reproducible analysis in `analysis.ipynb`.
 
 ## What This Project Does
 
 - Builds a longitudinal FIDE dataset month by month (resumable and memory-safe)
 - Pulls a country-stratified Chess.com signup sample for volume signals FIDE doesn't carry
 - Tests the *Queen's Gambit* surge with both an interrupted time series and a Prophet counterfactual
-(Meta's open-source time series forecasting tool, designed to capture trend and seasonality)
+(Meta's open-source time series forecasting tool (which I am a contributor to), designed to capture trend and seasonality)
 - Reconstructs elite player trajectories and compares peak ages across sexes
 - Runs an order-statistic Monte Carlo simulation of a participation-equalized world to estimate how much of the rating gap is pure sample-size math
 
