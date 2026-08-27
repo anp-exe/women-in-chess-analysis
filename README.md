@@ -23,7 +23,7 @@ If you like chess + stats + "wait... is that actually true?", you're in the righ
 
 FIDE publishes monthly rating lists as zipped XML files.
 
-This repo's `build_dataset.py` pipeline:
+This repo's `pipeline/build_dataset.py` script:
 
 1. Downloads monthly snapshots from FIDE (`2015-07` to current month)
 2. Skips files already downloaded/processed (fully resumable)
@@ -37,7 +37,7 @@ Result: flat memory usage, restart-safe processing, and fast downstream analysis
 
 FIDE tells you about rated, over-the-board players. It does not tell you how many people went and made a Chess.com account the week after Beth Harmon won them a tournament on Netflix. For that we need a different source.
 
-`chesscom_fetch.py` does a small, polite job:
+`pipeline/chesscom_fetch.py` does a small, polite job:
 
 1. Pulls member lists for six countries (US, GB, IN, RU, DE, FR)
 2. Randomly samples up to 2,000 usernames per country
@@ -54,14 +54,16 @@ At the root of the project, run:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python build_dataset.py
+python pipeline/build_dataset.py
 jupyter notebook analysis.ipynb
 ```
 
 ## Repo Map
 
-- `build_dataset.py` - downloads and parses FIDE monthly lists into parquet
-- `chesscom_fetch.py` - samples Chess.com profiles and builds signup timestamps cache
+- `pipeline/build_dataset.py` - downloads and parses FIDE monthly lists into parquet
+- `pipeline/chesscom_fetch.py` - samples Chess.com profiles and builds signup timestamps cache
+- `pipeline/peak_age_recompute.py` - standalone peak age recompute, writes per-player rows to `figures/`
+- `.github/CONTRIBUTING.md` - how to contribute and how to challenge a result
 - `analysis.ipynb` - main analysis notebook and visualisations
 - `data/fide_parquet/` - month-by-month FIDE parquet snapshots
 - `data/chesscom/signups.parquet` - cached Chess.com signup sample

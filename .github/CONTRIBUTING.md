@@ -11,7 +11,7 @@ than a new feature.
 looks like it is doing more work than it can support, say so. See
 [Challenging a result](#challenging-a-result) below.
 
-**Fix the pipeline.** `build_dataset.py` and `chesscom_fetch.py` talk to live APIs
+**Fix the pipeline.** `pipeline/build_dataset.py` and `pipeline/chesscom_fetch.py` talk to live APIs
 that change under us. FIDE has shifted its URL patterns before.
 
 **Add a question.** The notebook answers four. There are more worth asking: title
@@ -44,12 +44,12 @@ the clone is a couple of gigabytes. The upside is that you do not need to rebuil
 dataset to run the notebook. Everything the analysis reads is already on disk after a
 clone.
 
-**You only need `build_dataset.py` for new months.** It downloads and parses FIDE's
+**You only need `pipeline/build_dataset.py` for new months.** It downloads and parses FIDE's
 monthly XML lists into `data/fide_parquet/YYYY-MM.parquet`. It is fully resumable and
 skips anything already there, so running it just adds whatever month has appeared
 since. A cold build downloads over a gigabyte and takes a while.
 
-`chesscom_fetch.py` is slower still, roughly two hours cold, because it rate limits
+`pipeline/chesscom_fetch.py` is slower still, roughly two hours cold, because it rate limits
 itself to be polite to the public API. The result is cached at
 `data/chesscom/signups.parquet`, which is committed, so you should never need to run it.
 

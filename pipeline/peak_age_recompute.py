@@ -30,8 +30,9 @@ import os
 
 import pyarrow.parquet as pq
 
-DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "fide_parquet")
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figures", "peak_ages_active.csv")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(ROOT, "data", "fide_parquet")
+OUT = os.path.join(ROOT, "figures", "peak_ages_active.csv")
 COLS = ["fideid", "sex", "rating", "birthday", "flag", "snapshot_date"]
 DEPTHS = (25, 100)
 AGE_MIN, AGE_MAX = 8, 95
