@@ -17,3 +17,8 @@ out/
 data/fide_raw/
 data/*.csv
 data/fide_ratings.parquet
+
+# Worktree / build leftovers
+.tmp/
+gh-pages-worktree/
+tsconfig.tsbuildinfo
