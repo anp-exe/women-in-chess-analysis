@@ -14,12 +14,24 @@ Repo: <https://github.com/anp-exe/women-in-chess-analysis> · Write-up: <https:/
 |---|---|---|
 | FIDE monthly standard rating lists | 130 consecutive snapshots, July 2015 to April 2026 | 47M+ player-month records |
 | FIDE latest list (April 2026) | Every rated player | 545,549 rated · 11% women |
-| FIDE active subset (April 2026) | Players without the inactivity flag | 251,137 men · 30,420 women · **8.26 : 1** |
+| FIDE active pool (**the analysis pool**) | Active on **any** of the last 12 monthly lists, May 2025 to April 2026 | 251,137 men · 30,420 women · **8.26 : 1** |
+| FIDE active subset (April 2026 alone) | Without the inactivity flag on that single list | 194,192 men · 22,611 women · 8.59 : 1 |
 | Chess.com public API | Country-stratified sample of join dates (US, GB, IN, RU, DE, FR) | ~12,000 profiles |
 
 `build_dataset.py` streams each monthly zipped XML with `iterparse` one player at a
 time, drops unrated records, and writes typed parquet per month. Memory stays flat
 and the pipeline is resumable.
+
+**Two definitions of "active", and which one is used where.** §4 averages each player's
+rating across the last twelve monthly snapshots, so its pool has to be everyone active
+at some point across those twelve lists, not everyone active on the final one. That
+union is the **8.26 : 1** pool, and it is the pool behind every figure in §4 and §5.
+Where a claim is about a *single* list instead — the share of the April 2026 list that
+is women, or the month-by-month series in §7 — the single-snapshot **8.59 : 1** figure
+applies. The two differ because a quarter of the players active during the year are not
+flagged active on the final list — 22.7% of the men, 25.7% of the women — and it is that
+slightly higher intermittency among women that pulls the union ratio (8.26) below the
+single-month ratio (8.59). Both are quoted below; neither is a correction of the other.
 
 **Two things the dataset does not contain.** Only the **standard** lists are
 downloaded, so players holding a rapid or blitz rating and nothing else are absent
@@ -71,7 +83,7 @@ not mean men are 16 times better at anything. It means that when you go looking 
 the single best man and the single best woman you are searching a pool sixteen times
 larger in one case. From the table, a 16× difference in pool size is worth roughly
 180–250 Elo at the top **with identical underlying distributions for both sexes**.
-Any honest analysis has to subtract that off before claiming anything else.
+Any analysis has to subtract that off before claiming anything else.
 
 ### Where it fails, precisely
 
@@ -151,7 +163,7 @@ Two things change:
 
 The natural distribution for "how many men appear before the k-th woman when you draw
 from a finite mixed pool" is the **negative hypergeometric**. In plain terms: roughly
-every 17th player on the German list is a woman, so the honest comparison for the
+every 17th player on the German list is a woman, so the comparison for the
 n-th woman is the player about **17n places above her on the one real list**, not a
 value read off a fitted curve that overshoots at the tail.
 
@@ -240,8 +252,8 @@ distribution, top-25):
 | Activity: inactive players included | +1.2 pp → 45% |
 
 The two largest levers are restatements of the same decision: **who counts as a
-player**. The rating floor is the participation ratio in disguise — among all rated
-actives the world ratio is 8.3:1, among 2000+ actives it is 19:1, because women's
+player**. The rating floor is the participation ratio in disguise — across the whole
+analysis pool the world ratio is 8.26:1, among 2000+ actives it is 19:1, because women's
 ratings sit lower in the pool and any floor drawn through it removes proportionally
 more women. No player's strength changed.
 
@@ -268,50 +280,46 @@ Both are answers, to different questions.
 
 **The claim tested:** elite women peak earlier and burn out faster.
 
-**Design, in two passes.** The unit of analysis is the **player**, not the snapshot.
+> ⚠️ **Two versions of this analysis exist and they disagree. Only the second is live.**
+> The notebook (`analysis.ipynb`, cells 38–42) still contains a superseded version that
+> ranked on rating alone with **no activity filter**, and reported mean peak ages of
+> **30.1 for women against 29.9 for men** from a pool of 55 men and 50 women. That
+> version let retired women's frozen ratings into the elite pool and its figures are
+> **withdrawn**. The live version — the one behind the deck's figure, in
+> `figs/make_figs.py::fig_peakage` — is active players only and is reported below.
+> **The notebook has not been updated to match.** Anyone reproducing from the notebook
+> will get the withdrawn numbers.
 
-1. *Recruit the pool.* In each of the 130 monthly snapshots take the top 25 by rating
-   for each sex, and **union** those sets across all snapshots. Because the top 25 is
-   stable month to month, the union comes to **55 men and 50 women** — not 25, and
-   not 130 × 25. This pass ranks on rating alone and does **not** apply the activity
-   filter used in §4, on the assumption that anyone in a monthly top 25 is active.
-2. *Reconstruct and peak.* For every player in that pool, pull their rating in every
-   snapshot they appear in, with `age = snapshot year − birth year`. Peak age is the
-   age at that player's single highest observed rating (`idxmax` per `fideid`), giving
-   **one row per player**. Mean and median are then taken over players, by sex.
+**Design.** The unit of analysis is the **player**, not the snapshot. For each monthly
+snapshot take the top N by rating for each sex, union those sets across all 130
+snapshots into an "ever-elite" pool, reconstruct each player's rating-versus-age
+trajectory (`age = snapshot year − birth year`), and take the age at each player's
+single highest observed rating — one row per player. Restricted to **active players**,
+and run at **two ranking depths** so the result is not an artefact of where the cut
+falls.
 
-| Metric | Women | Men |
-|---|---|---|
-| Mean peak age | **30.1** | **29.9** |
-| Median peak age | 28.0 | 29.0 |
-| Standard deviation | 8.6 | 8.0 |
-| Players in pool | 50 | 55 |
+| Depth | Women | Men | Difference | p |
+|---|---|---|---|---|
+| Top 100 a side | **28.4** | **29.7** | women 1.3 years earlier | 0.20 |
+| Top 25 a side | **29.2** | **28.7** | women 0.5 years later | 0.84 |
 
-Mean trajectories plateau around 2750 for men and 2500 for women, and that ~250-point
-gap barely varies with age — so it is not explained by peak timing, career length, or
-age-related decline.
+**Neither difference is significant, and the sign does not survive a change of depth.**
+That second fact is the stronger of the two: a real effect does not reverse when you
+move the cut from 100 to 25. Report this as *no detectable difference*, not as a small
+one in either direction.
 
-### How precise is the 0.2 years?
+Note also that FIDE records birth **year** only, so `age` is an integer. Differences of
+well under a year are finer than the resolution of the variable they are computed from.
 
-Not very, and the honest framing matters more than the point estimate.
+Separately, mean trajectories plateau around 2750 for men and 2500 for women, and that
+~250-point gap barely varies with age — so it is not explained by peak timing, career
+length, or age-related decline.
 
-With n = 55 and 50 and standard deviations of 8.0 and 8.6, the standard error on the
-**difference** of means is 1.63 years, so:
-
-- 95% CI on the 0.2-year difference: **[−3.0, +3.4] years**
-- Smallest difference this design could reliably detect (80% power): **~4.6 years**
-
-Two consequences. First, quoting "0.2 years" as though it were a measured quantity
-overstates the precision — the right statement is *"indistinguishable, and this design
-rules out anything larger than about three years."* Which is fine, because the
-burnout claim asserts a gap far larger than three years. Second, note that
-`age = year − year` makes age an **integer**, so the reported difference is finer
-than the resolution of the variable it is computed from. That is an additional reason
-to report it as *no detectable difference* rather than as a small one.
-
-The earlier note that 0.2 years is "well inside the standard deviation of both
-distributions" is the wrong yardstick — the spread of the distribution is not the
-error bar on a difference of means. Use the CI above instead.
+> **Not currently derivable from the deck's figure:** pool sizes, standard deviations
+> and confidence intervals for the active-only version. `fig_peakage` carries hardcoded
+> means and p-values only. The p-values are enough to support the claim above; a CI
+> would need the analysis re-run and stored. Do not reuse the withdrawn version's
+> n = 55/50 and σ = 8.0/8.6 to construct one — they belong to a different pool.
 
 ### Right-censoring: "how do you know they don't peak next month?"
 
@@ -319,40 +327,52 @@ The fair objection. For any player still active, the observed maximum is a **low
 bound** on the true career peak, and the observed peak age is biased *downward* by
 however much career is still to come.
 
-Three things bound the damage:
+Two things bound the damage:
 
 1. **It is symmetric.** Censoring applies to men and women in the same window under
-   the same rule. The quantity on the slide is a *difference* between two means, and
-   a bias that hits both sides equally largely cancels out of it.
-2. **The window is wide relative to the effect claimed.** The burnout hypothesis is
-   that women peak *substantially* earlier — a difference of years. Eleven years of
-   continuous monthly observation with a mean peak age of 30 covers the disputed
-   region directly.
-3. **The distributions are not truncated at the top end.** Both histograms fall away
-   well before the right edge of the observed age range, so the mass is genuinely
-   interior, not piled up against the censoring boundary.
+   the same rule. The quantity reported is a *difference* between two means, and a
+   bias that hits both sides equally largely cancels out of it. This assumes the two
+   pools sit at comparable career stages relative to the window — see below.
+2. **The window is wide relative to the effect claimed.** The burnout hypothesis
+   asserts that women peak *substantially* earlier. Eleven years of continuous monthly
+   observation, centred on mean peak ages of 28–30, covers the disputed region.
 
-**What would settle it,** and is not yet run: restrict to players whose observed peak
-is followed by a sustained decline (so the peak is interior to their own observed
-career), and separately report the share of players whose maximum falls in their last
-observed month, by sex. If those shares are similar, censoring is symmetric in fact
-and not only in principle. Until then the correct statement is *"no earlier peak is
-visible in eleven years of monthly data"*, not *"women definitively do not peak
-earlier."*
+The claim this supports is therefore bounded: **no earlier peak is visible in eleven
+years of monthly data.** That is a different sentence from *"women do not peak earlier"*,
+and the difference matters, because for anyone still playing the observed peak is a lower
+bound on the real one.
 
-**Also note:** trajectories are truncated to the 2015–2026 window at the *left* too.
-Players who peaked before 2015 — Judit Polgár, the Kasparov-era men — appear only in
-their late careers, which may slightly inflate the apparent peak age in both
-distributions.
+**Also note:** trajectories are truncated at the *left* too. Players who peaked before
+2015 — Judit Polgár, the Kasparov-era men — appear only in their late careers, which
+may inflate the apparent peak age in both distributions.
 
----
+### On the pool-construction rule
+
+An alternative design is to rank by **career peak rating within the window** and take a
+fixed 25 or 50 a side, rather than unioning the monthly top-N. It is defensible but
+carries a bias the current rule avoids: peak-within-window is a maximum over however
+many months a player was observed, so long-tenured players post higher observed maxima
+than equally strong short-tenured ones. That selects the pool toward players already
+established in 2015, who are **older** — which is precisely the variable being
+measured. The per-month rule compares each player against contemporaries instead.
+
+Worth running as a **robustness check** rather than a replacement: if both rules give
+the same answer, that is a one-line strengthening of the result.
 
 ## 7. Participation over time
 
-Women were **9.5%** of active FIDE players in July 2015 and are **10.4%** now: less
-than one percentage point in a decade, a linear rate of **0.086 pp/year**. Held at
-that pace the line crosses 15% around **2080** and 50% around **2485**. The ratio
-moves from 8.3:1 today to 7.7:1 in 25 years.
+Women were **9.5%** of active FIDE players in July 2015 and are **10.4%** now — both
+figures on single monthly lists, so the ratio here is the single-snapshot 8.59:1 rather
+than the analysis pool's 8.26:1 (§1). That is less than one percentage point in a
+decade, a linear rate of **0.086 pp/year** taken between the two endpoints. Held at that
+pace the line crosses 15% around **2080** and 50% around **2485**, and the ratio moves
+from 8.59:1 today to 7.0:1 in 25 years.
+
+Those dates are worth about as much as the model behind them, which is not much. A
+straight line through a bounded quantity has to break eventually, and fitting the slope
+across all 130 snapshots rather than between the endpoints gives 0.059 pp/year, which
+pushes 15% out to the 2100s. Read the dates as *"not within any planning horizon"*
+rather than as forecasts.
 
 Running the whole decomposition month by month across all 130 snapshots (single-month
 ratings, harmonised 2000+ pool) shows **no trend in the residual** over eleven years:
@@ -442,7 +462,7 @@ the rated game.
 
 ---
 
-## 10. Limitations, stated before anyone asks
+## 10. Limitations
 
 - **The normal fit overstates the extreme tail.** Sampling-based estimates of the
   very top are optimistic for both sexes. This partly cancels in a comparison, but
@@ -470,8 +490,16 @@ Four candidates, named because refusing to name them looks evasive:
    all, the female rating distribution is already a filtered object, and its shape
    reflects the filter.
 2. **Greater male variance.** The variability hypothesis: same mean, wider male
-   spread, so more men at both extremes. A real and actively debated possibility.
-   **This data cannot separate it from (1)**, and does not pretend to.
+   spread, so more men at both extremes. The spread difference is **present and
+   measurable in this dataset** — on the April 2026 active list, σ = 223 for men
+   against 198 for women, a variance ratio of **1.27**, stable across rating floors
+   (σ ratio 1.08–1.16 from a 1400 floor up to a 2000 floor, so not a floor artefact).
+   That is a fact about *ratings*, not about ability, and **this data cannot separate
+   it from (1)**: a rated woman is a more selected individual than a rated man, and
+   selection compresses a distribution, so a smaller observed spread is exactly what
+   a tighter filter produces. Note also that this difference is not a counterargument
+   to §4 — §4's null is one shared distribution, and the residual it measures *is*
+   this distributional difference, quantified rather than denied.
 3. **Retention and investment.** Time in the game, coaching hours, tournament access.
    These shift both mean and tail without touching innate anything.
 4. **Model error.** See above.
@@ -492,8 +520,13 @@ the observed female maximum by over 100 Elo — a model that cannot reproduce re
 at the observed N cannot support a counterfactual at a different N. **Do not quote
 55%.** The corrected figures are in §4.
 
-**Population figures reconciled.** 545,549 is everyone with a rating. The analysis
-runs on active players only: 251,137 men and 30,420 women, 8.26:1.
+**Population figures reconciled.** 545,549 is everyone with a rating on the April 2026
+list. The analysis runs on active players only, and "active" means active on any of the
+last twelve monthly lists rather than on the April list alone, because §4 averages each
+player's rating across those twelve snapshots: 251,137 men and 30,420 women, 8.26:1. On
+the April list by itself the figures are 194,192 men and 22,611 women, 8.59:1, which is
+the pair §7 quotes. An earlier version of this document labelled the union counts as the
+April subset and carried 8.3:1 into §7, where it did not belong.
 
 ---
 
