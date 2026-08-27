@@ -2,11 +2,10 @@
 """Peak age by sex, recomputed from the monthly FIDE snapshots.
 
 This is the code behind slide 15 of the deck. It existed only as hardcoded
-means before (METHODS.md section 6 notes that pool sizes, standard deviations
-and CIs "are not currently derivable from the deck's figure"); this script
-stores the per-player rows so they are.
+means before, with no pool sizes, standard deviations or confidence intervals
+derivable from the figure; this script stores the per-player rows so they are.
 
-Design, per METHODS.md section 6:
+Design:
   * unit of analysis is the PLAYER, not the snapshot
   * for each monthly snapshot take the top N by standard rating for each sex,
     counting ACTIVE players only (FIDE flag without "i")
