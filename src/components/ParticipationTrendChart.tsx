@@ -30,6 +30,23 @@ type View = "long" | "observed" | "parity";
 const PARITY = 50;
 const SWEEP_MS = 14000; // how long the run to parity takes end to end
 
+/* Tick spacing has to follow the zoom: five year steps while the camera is
+   on the observed decade, hundreds once the whole run is in shot. */
+function yearStep(span: number) {
+  if (span <= 20) return 5;
+  if (span <= 60) return 10;
+  if (span <= 150) return 25;
+  if (span <= 350) return 50;
+  return 100;
+}
+
+function shareTicks(lo: number, hi: number) {
+  const step = hi - lo <= 6 ? 1 : hi - lo <= 16 ? 5 : 10;
+  const out: number[] = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) out.push(v);
+  return out;
+}
+
 function ChartTooltip({ active, payload }: any) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
@@ -109,14 +126,32 @@ export default function ParticipationTrendChart() {
   const headShare = head.projected ?? head.share ?? lastShare;
   const headYear = new Date(head.t).getUTCFullYear();
 
+  // The parity run starts tight on the decade we actually have and pulls back
+  // as the line advances, so the observed wiggle is legible at the start and
+  // the full 453 years are in shot by the end. The camera follows the head,
+  // so scrubbing zooms too.
+  const progress = Math.min(1, Math.max(0, (headShare - data.share_first) / (PARITY - data.share_first)));
+  const lead = Math.max(5, (headYear - 2015) * 0.12) * (1 - progress);
+  const camXMax = Date.UTC(Math.min(parityYear + 1, Math.round(headYear + lead)), 3, 1);
+  const camYMin = 8 * (1 - progress);
+  const camYMax = 12 + (55 - 12) * progress;
+
   const from = rows[0].t;
-  const to = view === "long" ? rows[rows.length - 1].t : view === "observed" ? lastObserved : Date.UTC(parityYear, 3, 1);
-  const ticks = useYearTicks(from, to, view === "long" ? 10 : view === "observed" ? 2 : 50);
+  const to = view === "long" ? rows[rows.length - 1].t : view === "observed" ? lastObserved : camXMax;
+  const ticks = useYearTicks(
+    from,
+    to,
+    view === "long" ? 10 : view === "observed" ? 2 : yearStep(new Date(to).getUTCFullYear() - 2015)
+  );
   const plotted = view === "long" ? rows : view === "observed" ? rows.filter((r) => r.t <= lastObserved) : shown;
   const yDomain: [number, number] =
-    view === "long" ? [8, 16] : view === "observed" ? [9, 11] : [0, 55];
+    view === "long" ? [8, 16] : view === "observed" ? [9, 11] : [camYMin, camYMax];
   const yTicks =
-    view === "long" ? [8, 10, 12, 14, 16] : view === "observed" ? [9, 9.5, 10, 10.5, 11] : [0, 10, 20, 30, 40, 50];
+    view === "long"
+      ? [8, 10, 12, 14, 16]
+      : view === "observed"
+      ? [9, 9.5, 10, 10.5, 11]
+      : shareTicks(camYMin, camYMax);
 
   return (
     <ChartFrame
@@ -244,6 +279,7 @@ export default function ParticipationTrendChart() {
             width={54}
             domain={yDomain}
             ticks={yTicks}
+            allowDataOverflow
             {...AXIS}
             tickFormatter={(v) => `${v}%`}
             label={{
