@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import ChessGameViewer from "@/components/ChessGameViewer";
 import ParticipationSlider from "@/components/ParticipationSlider";
+import ChessComSignupsChart from "@/components/ChessComSignupsChart";
+import FideSignupsChart from "@/components/FideSignupsChart";
+import PeakAgeChart from "@/components/PeakAgeChart";
+import ParticipationTrendChart from "@/components/ParticipationTrendChart";
 
 const BASE = "/women-in-chess-analysis";
 
@@ -59,27 +63,6 @@ function FadeUp({ children, className = "" }: { children: React.ReactNode; class
   return (
     <div ref={ref} className={`fade-up ${inView ? "in-view" : ""} ${className}`}>
       {children}
-    </div>
-  );
-}
-
-function PlotCard({
-  src,
-  figureNumber,
-  title,
-  caption,
-}: {
-  src: string;
-  figureNumber: string;
-  title: string;
-  caption?: string;
-}) {
-  return (
-    <div className="bg-paper p-6 rounded-lg shadow-sm border border-sage-100">
-      <p className="text-xs uppercase tracking-widest text-sage-600 mb-2">{figureNumber}</p>
-      <h3 className="text-2xl font-serif mb-4">{title}</h3>
-      <img src={src} alt={title} className="w-full rounded" />
-      {caption ? <p className="text-xs text-sage-600 mt-3 italic">{caption}</p> : null}
     </div>
   );
 }
@@ -184,12 +167,7 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
-            <PlotCard
-              src={`${BASE}/chesscomsignup.png`}
-              figureNumber="Figure 1"
-              title="Chess.com signups vs Prophet counterfactual"
-              caption="Calibrated to the median of three public benchmarks: 2.8 million signups in November 2020, 100 million total members by December 2022, and 150 million by October 2023. Pre intervention training MAPE 38.6 percent."
-            />
+            <ChessComSignupsChart />
           </FadeUp>
 
           <FadeUp className="mt-16">
@@ -218,12 +196,7 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
-            <PlotCard
-              src={`${BASE}/fidenewsignup.png`}
-              figureNumber="Figure 2"
-              title="New FIDE registrations by sex, 2017 to 2026"
-              caption="The dashed line is the interrupted time series counterfactual with the Covid term kept but no show effect. Covid cancelled in person tournaments worldwide in 2020, and FIDE registrations require tournament play. Both series recover after late 2020 at a proportionally similar rate, which is what a pandemic recovery looks like, not a female specific Queen's Gambit surge."
-            />
+            <FideSignupsChart />
           </FadeUp>
 
           <FadeUp className="mt-12">
@@ -356,12 +329,7 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
-            <PlotCard
-              src={`${BASE}/ages_top25_active.png`}
-              figureNumber="Figure 5"
-              title="Top 25 active players per sex"
-              caption="The 25 highest rated active players of each sex. Dotted lines mark the mean peak age: women 29.2, men 28.7 (p = 0.84)."
-            />
+            <PeakAgeChart depth={25} figureNumber="Figure 5" />
           </FadeUp>
 
           <FadeUp className="mt-12">
@@ -380,18 +348,13 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
-            <PlotCard
-              src={`${BASE}/ages_top100_active.png`}
-              figureNumber="Figure 6"
-              title="Top 100 active players per sex"
-              caption="The 100 highest rated active players of each sex. Women peak at 28.4, men at 29.7 (p = 0.20)."
-            />
+            <PeakAgeChart depth={100} figureNumber="Figure 6" />
           </FadeUp>
 
           <FadeUp className="mt-12">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <StatCard
-                value="28.4"
+                value="28.3"
                 label="Mean peak age, women"
                 hint="Mean career peak of the 100 highest rated active women."
               />
@@ -539,12 +502,7 @@ export default function Home() {
         </FadeUp>
 
         <FadeUp className="mt-12">
-          <PlotCard
-            src={`${BASE}/participation_trend.png`}
-            figureNumber="Figure 7"
-            title="Women as a share of active FIDE players, with the current pace extended"
-            caption="The line is observed monthly data; the dotted extension holds the recent pace constant. It does not reach even 15 percent until around 2080, and true parity, half of all players, is centuries beyond the edge of this chart."
-          />
+          <ParticipationTrendChart />
         </FadeUp>
 
         <FadeUp className="mt-12">
