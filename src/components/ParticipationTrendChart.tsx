@@ -28,7 +28,12 @@ import {
 type View = "long" | "observed" | "parity";
 
 const PARITY = 50;
-const SWEEP_MS = 14000; // how long the run to parity takes end to end
+/* Two phases, because they carry different amounts of time. The observed
+   decade is 130 monthly points covering eleven years and gets a slow pass of
+   its own; the projection is one point a year for 453 years and runs at a
+   constant rate after that. */
+const OBSERVED_MS = 5000;
+const PROJECTION_MS = 11000;
 
 /* Tick spacing has to follow the zoom: five year steps while the camera is
    on the observed decade, hundreds once the whole run is in shot. */
@@ -60,7 +65,7 @@ function ChartTooltip({ active, payload }: any) {
 }
 
 export default function ParticipationTrendChart() {
-  const [view, setView] = useState<View>("long");
+  const [view, setView] = useState<View>("parity");
 
   const rows = useMemo(() => {
     const byT = new Map<number, any>();
@@ -90,19 +95,34 @@ export default function ParticipationTrendChart() {
 
   const parityYear = lastYear + Math.ceil((PARITY - lastShare) / data.slope_recent);
 
-  const [frame, setFrame] = useState(parityRows.length);
+  const observedFrames = data.observed.length;
+  const total = parityRows.length;
+
+  const [frame, setFrame] = useState(total);
   const [playing, setPlaying] = useState(false);
   const raf = useRef<number | null>(null);
+  const frameRef = useRef(total);
+  frameRef.current = frame;
+
+  // frame <-> clock, so pressing play after scrubbing resumes from where the
+  // scrubber was left rather than restarting the phase.
+  const frameAt = (ms: number) => {
+    if (ms < OBSERVED_MS) return Math.round((ms / OBSERVED_MS) * observedFrames);
+    const on = (ms - OBSERVED_MS) / PROJECTION_MS;
+    return Math.min(total, observedFrames + Math.round(on * (total - observedFrames)));
+  };
+  const msAt = (f: number) =>
+    f <= observedFrames
+      ? (f / observedFrames) * OBSERVED_MS
+      : OBSERVED_MS + ((f - observedFrames) / (total - observedFrames)) * PROJECTION_MS;
 
   useEffect(() => {
     if (view !== "parity" || !playing) return;
-    const total = parityRows.length;
-    const startedAt = performance.now();
-    const from = frame >= total ? 0 : frame;
+    const offset = frameRef.current >= total ? 0 : msAt(frameRef.current);
+    const startedAt = performance.now() - offset;
     const step = (now: number) => {
-      const done = (now - startedAt) / SWEEP_MS;
-      const next = Math.min(total, Math.round(from + done * (total - from)));
-      setFrame(next);
+      const next = frameAt(now - startedAt);
+      if (next !== frameRef.current) setFrame(next);
       if (next >= total) {
         setPlaying(false);
         return;
@@ -114,12 +134,35 @@ export default function ParticipationTrendChart() {
       if (raf.current) cancelAnimationFrame(raf.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playing, view, parityRows.length]);
+  }, [playing, view, total]);
 
   const play = () => {
-    if (frame >= parityRows.length) setFrame(0);
+    if (frame >= total) setFrame(0);
     setPlaying(true);
   };
+
+  // Start the run the first time it scrolls into view, once per page load, so
+  // scrolling back past it later does not yank the chart back to 2015. Anyone
+  // who has asked their system for less motion gets the finished chart.
+  const autoplayed = useRef(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el || autoplayed.current) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || autoplayed.current) return;
+        autoplayed.current = true;
+        setFrame(0);
+        setPlaying(true);
+        io.disconnect();
+      },
+      { threshold: 0.6 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [view]);
 
   const shown = parityRows.slice(0, Math.max(2, frame));
   const head = shown[shown.length - 1] ?? parityRows[0];
@@ -127,14 +170,14 @@ export default function ParticipationTrendChart() {
   const headYear = new Date(head.t).getUTCFullYear();
 
   // The parity run starts tight on the decade we actually have and pulls back
-  // as the line advances, so the observed wiggle is legible at the start and
-  // the full 453 years are in shot by the end. The camera follows the head,
-  // so scrubbing zooms too.
-  const progress = Math.min(1, Math.max(0, (headShare - data.share_first) / (PARITY - data.share_first)));
-  const lead = Math.max(5, (headYear - 2015) * 0.12) * (1 - progress);
-  const camXMax = Date.UTC(Math.min(parityYear + 1, Math.round(headYear + lead)), 3, 1);
-  const camYMin = 8 * (1 - progress);
-  const camYMax = 12 + (55 - 12) * progress;
+  // as the line advances. The camera follows the head's year, not its share:
+  // the observed share wobbles month to month and a camera tied to it shakes.
+  // u is 0 for the whole observed pass, so the opening frame holds still, then
+  // rises linearly with the projection, so the pull back is at a constant rate.
+  const u = Math.min(1, Math.max(0, (headYear - lastYear) / (parityYear - lastYear)));
+  const camXMax = Date.UTC(Math.round(lastYear + 5 + u * (parityYear - lastYear - 5)), 3, 1);
+  const camYMin = 8 * (1 - u);
+  const camYMax = 12 + (55 - 12) * u;
 
   const from = rows[0].t;
   const to = view === "long" ? rows[rows.length - 1].t : view === "observed" ? lastObserved : camXMax;
@@ -169,9 +212,9 @@ export default function ParticipationTrendChart() {
         <div className="space-y-3">
           <div className="flex flex-wrap gap-2">
             {([
+              { key: "parity", label: "Run it to parity" },
               { key: "long", label: "The long view, to 2080" },
               { key: "observed", label: "The decade we have" },
-              { key: "parity", label: "Run it to parity" },
             ] as { key: View; label: string }[]).map((v) => (
               <button
                 key={v.key}
@@ -190,13 +233,13 @@ export default function ParticipationTrendChart() {
           </div>
 
           {view === "parity" ? (
-            <div className="bg-sage-50 border border-sage-100 rounded p-4">
+            <div ref={panelRef} className="bg-sage-50 border border-sage-100 rounded p-4">
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => (playing ? setPlaying(false) : play())}
                   className="px-4 py-2 rounded text-sm tracking-wide bg-sage-700 text-paper hover:bg-sage-800 transition-colors"
                 >
-                  {playing ? "Pause" : frame >= parityRows.length ? "Play again" : "Play"}
+                  {playing ? "Pause" : "Play"}
                 </button>
                 <div className="flex items-baseline gap-3">
                   <span className="stat-number text-3xl">{headYear}</span>
@@ -243,12 +286,11 @@ export default function ParticipationTrendChart() {
           </>
         ) : (
           <>
-            The whole journey at the pace of the last five years, {data.slope_recent} points a year: press
-            play and the line crawls from {data.share_first} percent in 2015 to half of all rated players in{" "}
-            {parityYear}. That is {parityYear - lastYear} years from now. Every observation this project
-            actually has is the first flick of the line, before the axis has moved at all. The pace is not a
-            forecast, it is arithmetic on what the last decade did, and it is the argument for changing the
-            pace rather than waiting it out.
+            The whole journey at the pace of the last five years, {data.slope_recent} points a year: from{" "}
+            {data.share_first} percent in 2015 to half of all rated players in {parityYear},{" "}
+            {parityYear - lastYear} years out. Every observation this project has is the first flick, before
+            the axis moves. It is arithmetic on what the last decade did, not a forecast, and it is the
+            argument for changing the pace rather than waiting it out.
           </>
         )
       }
