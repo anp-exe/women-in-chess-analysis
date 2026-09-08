@@ -274,9 +274,9 @@ export default function ParticipationTrendChart() {
           <>
             The solid line is observed monthly data, {data.share_first} percent in July 2015 to{" "}
             {data.share_last} percent today. The dotted extension holds the pace of the last five years,{" "}
-            {data.slope_recent} points a year, constant: it does not reach even 15 percent until around{" "}
-            {data.year_reach_15}, and true parity, half of all players, is centuries beyond the edge of this
-            chart. Hover any point for the men per woman ratio it implies.
+            {data.slope_recent} points a year, constant: six decades of it still leaves women under a sixth
+            of all rated players, and parity is centuries past the right edge of this chart. Hover any point
+            for the men per woman ratio it implies.
           </>
         ) : view === "observed" ? (
           <>
@@ -333,9 +333,6 @@ export default function ParticipationTrendChart() {
             }}
           />
           <Tooltip content={<ChartTooltip />} cursor={{ stroke: "#C3CFA8", strokeWidth: 1 }} />
-          {view === "long" ? (
-            <ReferenceLine y={15} stroke="#B6B6AC" strokeDasharray="3 3" label={<EventLabel text="15 percent" muted />} />
-          ) : null}
           {view === "parity" ? (
             <ReferenceLine y={PARITY} stroke="#B6B6AC" strokeDasharray="3 3" label={<EventLabel text="parity" muted />} />
           ) : null}
