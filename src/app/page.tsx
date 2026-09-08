@@ -6,6 +6,7 @@ import ParticipationSlider from "@/components/ParticipationSlider";
 import ChessComSignupsChart from "@/components/ChessComSignupsChart";
 import FideSignupsChart from "@/components/FideSignupsChart";
 import PeakAgeChart from "@/components/PeakAgeChart";
+import PeakAgeHistogram from "@/components/PeakAgeHistogram";
 import ParticipationTrendChart from "@/components/ParticipationTrendChart";
 
 const BASE = "/women-in-chess-analysis";
@@ -329,7 +330,7 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp className="mt-12">
-            <PeakAgeChart depth={25} figureNumber="Figure 5" />
+            <PeakAgeHistogram figureNumber="Figure 5" />
           </FadeUp>
 
           <FadeUp className="mt-12">

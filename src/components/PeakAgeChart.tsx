@@ -32,17 +32,26 @@ function ageTicks([lo, hi]: [number, number]) {
   return out;
 }
 
+const CENS_NOTE: Record<string, string> = {
+  left: "peaked in the first months of the window, real peak likely earlier",
+  right: "peaked in their own last active month, may still have been rising",
+};
+
 function ChartTooltip({ active, payload }: any) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
+  const rows = [
+    { label: "Peak rating", value: String(d.rating), color: d.sex === "F" ? WOMEN : MEN },
+    { label: "Age at peak", value: `${d.age}` },
+  ];
+  if (d.cens) rows.push({ label: "At the window edge", value: d.cens === "left" ? "before 2015" : "still rising" });
   return (
-    <TooltipShell
-      title={d.sex === "F" ? "Woman" : "Man"}
-      rows={[
-        { label: "Peak rating", value: String(d.rating), color: d.sex === "F" ? WOMEN : MEN },
-        { label: "Age at peak", value: `${d.age}` },
-      ]}
-    />
+    <>
+      <TooltipShell title={d.sex === "F" ? "Woman" : "Man"} rows={rows} />
+      {d.cens ? (
+        <p className="text-[0.65rem] text-sage-600 italic mt-1 max-w-[15rem]">{CENS_NOTE[d.cens]}</p>
+      ) : null}
+    </>
   );
 }
 
@@ -56,7 +65,16 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
         sex,
         x: p.age + jitter(i, block.points[key].length),
       }));
-    return { women: build("women", "F"), men: build("men", "M") };
+    const women = build("women", "F");
+    const men = build("men", "M");
+    return {
+      women,
+      men,
+      womenSolid: women.filter((p: any) => !p.cens),
+      womenEdge: women.filter((p: any) => p.cens),
+      menSolid: men.filter((p: any) => !p.cens),
+      menEdge: men.filter((p: any) => p.cens),
+    };
   }, [block]);
 
   const ages = [...series.women, ...series.men].map((p: any) => p.age);
@@ -69,7 +87,12 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
 
   const tableRows = [...series.women, ...series.men]
     .sort((a: any, b: any) => b.rating - a.rating)
-    .map((p: any) => [p.sex === "F" ? "Woman" : "Man", p.age, p.rating]);
+    .map((p: any) => [
+      p.sex === "F" ? "Woman" : "Man",
+      p.age,
+      p.rating,
+      p.cens === "left" ? "before 2015" : p.cens === "right" ? "still rising" : "",
+    ]);
 
   return (
     <ChartFrame
@@ -78,6 +101,7 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
       legend={[
         { label: `Women (mean peak age ${block.mean.women})`, color: WOMEN },
         { label: `Men (mean peak age ${block.mean.men})`, color: MEN },
+        { label: "Hollow: peak sits at the edge of the window", color: "#9A9A90" },
       ]}
       caption={
         <>
@@ -85,12 +109,19 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
           that career peaked against the rating it peaked at. Dashed lines mark the group means, {block.mean.women}{" "}
           for women and {block.mean.men} for men (p = {block.p.toFixed(2)}). Mean peak rating is{" "}
           {block.mean_rating.women} against {block.mean_rating.men}, a gap of{" "}
-          {block.mean_rating.men - block.mean_rating.women} Elo. Points are nudged horizontally to
-          separate players who peaked at the same age; hover for the real numbers.
+          {block.mean_rating.men - block.mean_rating.women} Elo. Hollow dots are the{" "}
+          {block.n.women + block.n.men - block.inwindow.n.women - block.inwindow.n.men} players whose
+          highest observed rating sits on an edge of the eleven year window, either in its first months,
+          so the real peak is probably before July 2015, or in their own last active month, so the career
+          may still have been rising. The two women far out to the right are both of these. Counting only
+          peaks that fall inside the window the means are {block.inwindow.mean.women} and{" "}
+          {block.inwindow.mean.men} (p = {block.inwindow.p.toFixed(2)}), so the finding does not turn on
+          them. Points are nudged horizontally to separate players who peaked at the same age; hover for
+          the real numbers.
         </>
       }
       height={360}
-      table={{ head: ["Sex", "Age at peak", "Peak rating"], rows: tableRows }}
+      table={{ head: ["Sex", "Age at peak", "Peak rating", "Window edge"], rows: tableRows }}
     >
       <ResponsiveContainer>
         <ScatterChart margin={{ top: 12, right: 16, bottom: 8, left: 0 }}>
@@ -125,8 +156,10 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
           />
           <ZAxis range={[46, 46]} />
           <Tooltip content={<ChartTooltip />} cursor={{ stroke: "#C3CFA8", strokeWidth: 1 }} />
+          <Scatter data={series.menEdge} fill="none" stroke={MEN} strokeWidth={1.4} isAnimationActive={false} />
+          <Scatter data={series.womenEdge} fill="none" stroke={WOMEN} strokeWidth={1.4} isAnimationActive={false} />
           <Scatter
-            data={series.men}
+            data={series.menSolid}
             fill={MEN}
             fillOpacity={0.7}
             stroke="#FAF6ED"
@@ -134,7 +167,7 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
             isAnimationActive={false}
           />
           <Scatter
-            data={series.women}
+            data={series.womenSolid}
             fill={WOMEN}
             fillOpacity={0.7}
             stroke="#FAF6ED"
