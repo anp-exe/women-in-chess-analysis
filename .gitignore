@@ -15,4 +15,8 @@ yarn-error.log*
 .vercel
 *.tsbuildinfo
 next-env.d.ts
-/.idea/workspace.xml
+
+
+# IDE settings are per machine, not per branch: tracking them here meant
+# switching branches wiped PyCharm.s config and dropped version control.
+.idea/
