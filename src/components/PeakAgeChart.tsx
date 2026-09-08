@@ -105,19 +105,15 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
       ]}
       caption={
         <>
-          The {depth} highest rated active players of each sex, one dot per player: the age at which
-          that career peaked against the rating it peaked at. Dashed lines mark the group means, {block.mean.women}{" "}
-          for women and {block.mean.men} for men (p = {block.p.toFixed(2)}). Mean peak rating is{" "}
-          {block.mean_rating.women} against {block.mean_rating.men}, a gap of{" "}
-          {block.mean_rating.men - block.mean_rating.women} Elo. Hollow dots are the{" "}
-          {block.n.women + block.n.men - block.inwindow.n.women - block.inwindow.n.men} players whose
-          highest observed rating sits on an edge of the eleven year window, either in its first months,
-          so the real peak is probably before July 2015, or in their own last active month, so the career
-          may still have been rising. The two women far out to the right are both of these. Counting only
-          peaks that fall inside the window the means are {block.inwindow.mean.women} and{" "}
-          {block.inwindow.mean.men} (p = {block.inwindow.p.toFixed(2)}), so the finding does not turn on
-          them. Points are nudged horizontally to separate players who peaked at the same age; hover for
-          the real numbers.
+          One dot per player: age at peak against peak rating. Dashed lines are the group means,{" "}
+          {block.mean.women} for women and {block.mean.men} for men (p = {block.p.toFixed(2)}); mean peak
+          rating {block.mean_rating.women} against {block.mean_rating.men}, a{" "}
+          {block.mean_rating.men - block.mean_rating.women} Elo gap. Hollow dots are the{" "}
+          {block.n.women + block.n.men - block.inwindow.n.women - block.inwindow.n.men} players whose best
+          rating sits at an edge of the eleven year window, so the true peak is either before July 2015 or
+          had not arrived. The two women far right are both of these; without all of them the means are{" "}
+          {block.inwindow.mean.women} and {block.inwindow.mean.men} (p = {block.inwindow.p.toFixed(2)}).
+          Points are nudged sideways where ages tie; hover for exact numbers.
         </>
       }
       height={360}

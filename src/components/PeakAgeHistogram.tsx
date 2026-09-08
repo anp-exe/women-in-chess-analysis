@@ -5,6 +5,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Customized,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -21,6 +22,35 @@ const LAST = 55;
 
 function binLabel(start: number) {
   return `${start}–${start + BIN - 1}`;
+}
+
+/* The x axis is categorical (five year bands), so a mean of 28.3 has no
+   category to sit on. The bands are uniform, so map age to pixels linearly
+   across the plot area and draw the two means where they actually fall. */
+function meanLines(props: any, firstStart: number, bandCount: number, means: { women: number; men: number }) {
+  const o = props?.offset;
+  if (!o?.width) return null;
+  const span = bandCount * BIN;
+  const xOf = (age: number) => o.left + ((age - firstStart) / span) * o.width;
+  return (
+    <g>
+      {([
+        [means.men, MEN],
+        [means.women, WOMEN],
+      ] as [number, string][]).map(([age, colour]) => (
+        <line
+          key={colour}
+          x1={xOf(age)}
+          x2={xOf(age)}
+          y1={o.top}
+          y2={o.top + o.height}
+          stroke={colour}
+          strokeWidth={1.5}
+          strokeDasharray="5 4"
+        />
+      ))}
+    </g>
+  );
 }
 
 function ChartTooltip({ active, payload, label }: any) {
@@ -71,6 +101,7 @@ export default function PeakAgeHistogram({ figureNumber }: { figureNumber: strin
       legend={[
         { label: `Women (mean ${stats.mean.women})`, color: WOMEN },
         { label: `Men (mean ${stats.mean.men})`, color: MEN },
+        { label: "Dashed: group mean", color: "#9A9A90", dashed: true },
       ]}
       controls={
         <div className="flex flex-wrap gap-2">
@@ -99,9 +130,9 @@ export default function PeakAgeHistogram({ figureNumber }: { figureNumber: strin
         <>
           How many of the {depth} highest rated active players of each sex peaked in each five year
           band. The two distributions have the same
-          shape, the women's shifted very slightly left: mean peak age {stats.mean.women} for women
-          against {stats.mean.men} for men, p = {stats.p.toFixed(2)}, with the same thin tail of players
-          who peaked in their forties on both sides. Switch depth to check the
+          shape and their means sit {Math.abs(stats.mean.women - stats.mean.men).toFixed(1)} of a year
+          apart, {stats.mean.women} for women against {stats.mean.men} for men (p = {stats.p.toFixed(2)}),
+          with a thin tail on both sides of players who peaked in their forties or later. Switch depth to check the
           shape is not an artefact of where the cut is made.{" "}
           {edges ? (
             <>
@@ -152,6 +183,7 @@ export default function PeakAgeHistogram({ figureNumber }: { figureNumber: strin
           <Tooltip content={<ChartTooltip />} cursor={{ fill: "#E1E7D4", fillOpacity: 0.45 }} />
           <Bar dataKey="women" fill={WOMEN} radius={[4, 4, 0, 0]} isAnimationActive={false} />
           <Bar dataKey="men" fill={MEN} radius={[4, 4, 0, 0]} isAnimationActive={false} />
+          <Customized component={(p: any) => meanLines(p, bins[0].start, bins.length, stats.mean)} />
         </BarChart>
       </ResponsiveContainer>
     </ChartFrame>
