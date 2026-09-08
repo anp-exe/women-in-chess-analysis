@@ -25,7 +25,7 @@ import {
   useYearTicks,
 } from "./chart-kit";
 
-type View = "long" | "observed" | "parity";
+type View = "observed" | "parity";
 
 const PARITY = 50;
 /* Two phases, because they carry different amounts of time. The observed
@@ -180,21 +180,11 @@ export default function ParticipationTrendChart() {
   const camYMax = 12 + (55 - 12) * u;
 
   const from = rows[0].t;
-  const to = view === "long" ? rows[rows.length - 1].t : view === "observed" ? lastObserved : camXMax;
-  const ticks = useYearTicks(
-    from,
-    to,
-    view === "long" ? 10 : view === "observed" ? 2 : yearStep(new Date(to).getUTCFullYear() - 2015)
-  );
-  const plotted = view === "long" ? rows : view === "observed" ? rows.filter((r) => r.t <= lastObserved) : shown;
-  const yDomain: [number, number] =
-    view === "long" ? [8, 16] : view === "observed" ? [9, 11] : [camYMin, camYMax];
-  const yTicks =
-    view === "long"
-      ? [8, 10, 12, 14, 16]
-      : view === "observed"
-      ? [9, 9.5, 10, 10.5, 11]
-      : shareTicks(camYMin, camYMax);
+  const to = view === "observed" ? lastObserved : camXMax;
+  const ticks = useYearTicks(from, to, view === "observed" ? 2 : yearStep(new Date(to).getUTCFullYear() - 2015));
+  const plotted = view === "observed" ? rows.filter((r) => r.t <= lastObserved) : shown;
+  const yDomain: [number, number] = view === "observed" ? [9, 11] : [camYMin, camYMax];
+  const yTicks = view === "observed" ? [9, 9.5, 10, 10.5, 11] : shareTicks(camYMin, camYMax);
 
   return (
     <ChartFrame
@@ -213,7 +203,6 @@ export default function ParticipationTrendChart() {
           <div className="flex flex-wrap gap-2">
             {([
               { key: "parity", label: "Run it to parity" },
-              { key: "long", label: "The long view, to 2080" },
               { key: "observed", label: "The decade we have" },
             ] as { key: View; label: string }[]).map((v) => (
               <button
@@ -270,18 +259,10 @@ export default function ParticipationTrendChart() {
         </div>
       }
       caption={
-        view === "long" ? (
-          <>
-            The solid line is observed monthly data, {data.share_first} percent in July 2015 to{" "}
-            {data.share_last} percent today. The dotted extension holds the pace of the last five years,{" "}
-            {data.slope_recent} points a year, constant: six decades of it still leaves women under a sixth
-            of all rated players, and parity is centuries past the right edge of this chart. Hover any point
-            for the men per woman ratio it implies.
-          </>
-        ) : view === "observed" ? (
+        view === "observed" ? (
           <>
             The same observed line on its own scale, {data.share_first} to {data.share_last} percent across
-            eleven years. On a two point axis a decade of progress is visible; on the axis the other view
+            eleven years. On a two point axis a decade of progress is visible; on the axis the run to parity
             uses, it is almost flat. Hover any point for the men per woman ratio it implies.
           </>
         ) : (

@@ -509,7 +509,7 @@ export default function Home() {
         <FadeUp className="mt-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <StatCard value="2479" label="Women reach parity" hint="At the current pace, under 0.1 points a year, half of all rated players are women in 2479. That is 453 years away." />
-            <StatCard value="7.7 : 1" label="Men-to-women ratio in 25 years" hint="Down from today's 8.6:1, at the same slow pace." />
+            <StatCard value="8.6 : 1" label="Men per woman today" hint="194,192 active rated men against 22,611 women in the April 2026 list. Women are 10.4 percent of active players." />
           </div>
         </FadeUp>
 
