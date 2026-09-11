@@ -1,214 +1,376 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Women as a share of active FIDE players</title>
-<style>
+<title>Women as a share of active FIDE players, pace extended</title><style>
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:transparent}
-body{font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#44443f}
-.card{background:#faf6ed;border:1px solid #e1e7d4;border-radius:8px;padding:18px}
-.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:10px;color:#55692c;margin:0 0 3px}
-h1{font:600 17px/1.3 Georgia,serif;color:#2d2d2b;margin:0 0 8px}
-.legend{font-size:12px;color:#6e7a58;margin:0 0 10px}
+body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+ color:#312e2b;-webkit-font-smoothing:antialiased}
+.card{background:#fff;border-radius:5px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.20)}
+.hd{background:#f1f1f1;padding:12px 16px;border-bottom:1px solid #e4e4e2}
+.hd h1{margin:0;font:700 17px/1.25 inherit;color:#312e2b}
+.hd p{margin:3px 0 0;font-size:13px;color:#8b8987}
+.bd{padding:14px 16px 8px}
+.legend{font-size:12px;color:#7a7a76;margin:0 0 10px}
 .legend span{margin-right:16px;white-space:nowrap;display:inline-block}
-.cap{font-size:12px;line-height:1.5;color:#6e7a58;margin:12px 0 0}
-.cap a{color:#b85c74}
-@media(max-width:520px){.card{padding:12px}h1{font-size:15px}.legend,.cap{font-size:11px}}
+.plot{position:relative}
+.ft{background:#f7f7f7;border-top:1px solid #e4e4e2;padding:10px 16px;font-size:12px;
+ line-height:1.5;color:#7a7a76}
+.ft a{color:#6a9b3f;text-decoration:none;font-weight:600}
+.ft a:hover{text-decoration:underline}
+.tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .08s;background:#312e2b;
+ color:#fff;font-size:12px;line-height:1.45;padding:7px 10px;border-radius:3px;white-space:pre;
+ z-index:20;transform:translate(-50%,-115%)}
+@media(max-width:520px){.hd h1{font-size:15px}.bd{padding:12px}.legend,.ft{font-size:11px}}
+</style></head>
+<body><div class="card">
+<div class="hd"><h1>Women as a share of active FIDE players, pace extended</h1><p>Figure 4 &middot; 1 in 9, a data story about women in chess</p></div>
+<div class="bd"><p class="legend"><span><span style="display:inline-block;width:18px;height:0;border-top:2px solid #B85C74;vertical-align:middle;margin-right:6px"></span>Observed, monthly</span><span><span style="display:inline-block;width:18px;height:0;border-top:2px dashed #8A8A80;vertical-align:middle;margin-right:6px"></span>Recent pace held constant</span></p><div class="plot"><svg viewBox="0 0 760 330" role="img" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:auto;overflow:visible;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" data-chart="f7"><line x1="52" x2="744" y1="294.0" y2="294.0" stroke="#E9E9E7" stroke-width="1"/><text x="44" y="298.0" text-anchor="end" font-size="11" fill="#7A7A76">0%</text><line x1="52" x2="744" y1="243.8" y2="243.8" stroke="#E9E9E7" stroke-width="1"/><text x="44" y="247.8" text-anchor="end" font-size="11" fill="#7A7A76">10%</text><line x1="52" x2="744" y1="193.6" y2="193.6" stroke="#E9E9E7" stroke-width="1"/><text x="44" y="197.6" text-anchor="end" font-size="11" fill="#7A7A76">20%</text><line x1="52" x2="744" y1="143.5" y2="143.5" stroke="#E9E9E7" stroke-width="1"/><text x="44" y="147.5" text-anchor="end" font-size="11" fill="#7A7A76">30%</text><line x1="52" x2="744" y1="93.3" y2="93.3" stroke="#E9E9E7" stroke-width="1"/><text x="44" y="97.3" text-anchor="end" font-size="11" fill="#7A7A76">40%</text><line x1="52" x2="744" y1="43.1" y2="43.1" stroke="#E9E9E7" stroke-width="1"/><text x="44" y="47.1" text-anchor="end" font-size="11" fill="#7A7A76">50%</text><text x="67.4" y="312" text-anchor="middle" font-size="11" fill="#7A7A76">2026</text><text x="176.2" y="312" text-anchor="middle" font-size="11" fill="#7A7A76">2100</text><text x="323.1" y="312" text-anchor="middle" font-size="11" fill="#7A7A76">2200</text><text x="470.0" y="312" text-anchor="middle" font-size="11" fill="#7A7A76">2300</text><text x="616.9" y="312" text-anchor="middle" font-size="11" fill="#7A7A76">2400</text><text x="733.0" y="312" text-anchor="middle" font-size="11" fill="#7A7A76">2479</text><text x="12" y="156.0" font-size="11" fill="#7A7A76" transform="rotate(-90 12 156.0)" text-anchor="middle">Women, share of active players</text><line x1="52" x2="744" y1="43.1" y2="43.1" stroke="#312E2B" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/><text x="58" y="37.1" font-size="11" fill="#312E2B" opacity="0.7">Parity, 50 percent</text><path d="M67.8,241.7 L75.1,239.5 L82.5,237.3 L89.8,235.1 L97.2,232.9 L104.5,230.7 L111.9,228.5 L119.2,226.3 L126.6,224.1 L133.9,221.9 L141.3,219.7 L148.6,217.5 L155.9,215.3 L163.3,213.1 L170.6,210.9 L178.0,208.7 L185.3,206.5 L192.7,204.3 L200.0,202.1 L207.4,200.0 L214.7,197.8 L222.1,195.6 L229.4,193.4 L236.8,191.2 L244.1,189.0 L251.5,186.8 L258.8,184.6 L266.1,182.4 L273.5,180.2 L280.8,178.0 L288.2,175.8 L295.5,173.6 L302.9,171.4 L310.2,169.2 L317.6,167.0 L324.9,164.8 L332.3,162.6 L339.6,160.4 L347.0,158.2 L354.3,156.0 L361.6,153.8 L369.0,151.7 L376.3,149.5 L383.7,147.3 L391.0,145.1 L398.4,142.9 L405.7,140.7 L413.1,138.5 L420.4,136.3 L427.8,134.1 L435.1,131.9 L442.5,129.7 L449.8,127.5 L457.1,125.3 L464.5,123.1 L471.8,120.9 L479.2,118.7 L486.5,116.5 L493.9,114.3 L501.2,112.1 L508.6,109.9 L515.9,107.7 L523.3,105.5 L530.6,103.4 L538.0,101.2 L545.3,99.0 L552.6,96.8 L560.0,94.6 L567.3,92.4 L574.7,90.2 L582.0,88.0 L589.4,85.8 L596.7,83.6 L604.1,81.4 L611.4,79.2 L618.8,77.0 L626.1,74.8 L633.5,72.6 L640.8,70.4 L648.1,68.2 L655.5,66.0 L662.8,63.8 L670.2,61.6 L677.5,59.4 L684.9,57.2 L692.2,55.1 L699.6,52.9 L706.9,50.7 L714.3,48.5 L721.6,46.3 L729.0,44.1" fill="none" stroke="#8B8987" stroke-width="2" stroke-dasharray="7 5"/><path d="M52.0,246.4 L52.1,246.0 L52.2,245.7 L52.4,245.8 L52.5,245.6 L52.6,245.3 L52.7,245.3 L52.9,245.1 L53.0,245.0 L53.1,245.0 L53.2,245.1 L53.3,244.9 L53.5,245.0 L53.6,244.7 L53.7,244.4 L53.8,244.0 L54.0,244.1 L54.1,244.0 L54.2,244.2 L54.3,244.3 L54.4,244.3 L54.6,244.3 L54.7,244.3 L54.8,244.4 L54.9,244.1 L55.1,243.9 L55.2,244.1 L55.3,244.3 L55.4,244.4 L55.6,244.8 L55.7,244.9 L55.8,244.7 L55.9,244.6 L56.0,244.3 L56.2,244.4 L56.3,244.3 L56.4,244.3 L56.5,244.3 L56.7,244.0 L56.8,244.0 L56.9,243.9 L57.0,243.7 L57.1,243.4 L57.3,243.5 L57.4,243.5 L57.5,243.3 L57.6,243.3 L57.8,243.2 L57.9,243.2 L58.0,243.4 L58.1,243.2 L58.2,243.0 L58.4,243.2 L58.5,243.5 L58.6,243.5 L58.7,243.4 L58.9,243.3 L59.0,243.4 L59.1,243.2 L59.2,243.4 L59.3,243.4 L59.5,244.2 L59.6,244.8 L59.7,245.3 L59.8,243.4 L60.0,243.5 L60.1,243.4 L60.2,243.4 L60.3,243.3 L60.4,243.1 L60.6,242.8 L60.7,242.9 L60.8,242.7 L60.9,243.3 L61.1,243.7 L61.2,244.0 L61.3,244.0 L61.4,244.1 L61.6,244.6 L61.7,244.8 L61.8,245.2 L61.9,243.8 L62.0,243.8 L62.2,243.6 L62.3,243.5 L62.4,243.5 L62.5,243.4 L62.7,243.5 L62.8,243.5 L62.9,243.6 L63.0,244.0 L63.1,244.1 L63.3,244.0 L63.4,244.4 L63.5,244.1 L63.6,243.9 L63.8,243.9 L63.9,243.5 L64.0,243.7 L64.1,243.6 L64.2,243.6 L64.4,243.7 L64.5,243.7 L64.6,244.0 L64.7,244.1 L64.9,242.9 L65.0,242.8 L65.1,241.8 L65.2,242.0 L65.3,242.1 L65.5,242.0 L65.6,241.9 L65.7,241.9 L65.8,242.0 L66.0,242.0 L66.1,242.2 L66.2,242.2 L66.3,242.3 L66.4,242.7 L66.6,242.4 L66.7,242.3 L66.8,242.4 L66.9,242.2 L67.1,242.3 L67.2,242.4 L67.3,242.2 L67.4,242.1 L67.5,242.0 L67.7,241.6 L67.8,241.7" fill="none" stroke="#B85C74" stroke-width="2.6"/><circle cx="732.2" cy="43.1" r="4.5" fill="#B85C74"/><text x="724.2" y="29.1" text-anchor="end" font-size="13" fill="#B85C74" font-weight="600">2479</text><text x="77.4" y="227.8" font-size="11" fill="#B85C74" stroke="#ffffff" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round">2026: 10.4 percent</text><g class="hit" fill="none" pointer-events="all"><rect x="58.8" y="18" width="18" height="276"><title>2026
+10.4 percent women
+8.6 men per woman</title></rect><rect x="88.2" y="18" width="18" height="276"><title>2046
+12.2 percent women
+7.2 men per woman</title></rect><rect x="117.6" y="18" width="18" height="276"><title>2066
+13.9 percent women
+6.2 men per woman</title></rect><rect x="146.9" y="18" width="18" height="276"><title>2086
+15.7 percent women
+5.4 men per woman</title></rect><rect x="176.3" y="18" width="18" height="276"><title>2106
+17.4 percent women
+4.7 men per woman</title></rect><rect x="205.7" y="18" width="18" height="276"><title>2126
+19.2 percent women
+4.2 men per woman</title></rect><rect x="235.1" y="18" width="18" height="276"><title>2146
+20.9 percent women
+3.8 men per woman</title></rect><rect x="264.5" y="18" width="18" height="276"><title>2166
+22.7 percent women
+3.4 men per woman</title></rect><rect x="293.9" y="18" width="18" height="276"><title>2186
+24.4 percent women
+3.1 men per woman</title></rect><rect x="323.3" y="18" width="18" height="276"><title>2206
+26.2 percent women
+2.8 men per woman</title></rect><rect x="352.6" y="18" width="18" height="276"><title>2226
+27.9 percent women
+2.6 men per woman</title></rect><rect x="382.0" y="18" width="18" height="276"><title>2246
+29.7 percent women
+2.4 men per woman</title></rect><rect x="411.4" y="18" width="18" height="276"><title>2266
+31.4 percent women
+2.2 men per woman</title></rect><rect x="440.8" y="18" width="18" height="276"><title>2286
+33.2 percent women
+2.0 men per woman</title></rect><rect x="470.2" y="18" width="18" height="276"><title>2306
+34.9 percent women
+1.9 men per woman</title></rect><rect x="499.6" y="18" width="18" height="276"><title>2326
+36.7 percent women
+1.7 men per woman</title></rect><rect x="529.0" y="18" width="18" height="276"><title>2346
+38.4 percent women
+1.6 men per woman</title></rect><rect x="558.3" y="18" width="18" height="276"><title>2366
+40.2 percent women
+1.5 men per woman</title></rect><rect x="587.7" y="18" width="18" height="276"><title>2386
+41.9 percent women
+1.4 men per woman</title></rect><rect x="617.1" y="18" width="18" height="276"><title>2406
+43.7 percent women
+1.3 men per woman</title></rect><rect x="646.5" y="18" width="18" height="276"><title>2426
+45.4 percent women
+1.2 men per woman</title></rect><rect x="675.9" y="18" width="18" height="276"><title>2446
+47.2 percent women
+1.1 men per woman</title></rect><rect x="705.3" y="18" width="18" height="276"><title>2466
+48.9 percent women
+1.0 men per woman</title></rect></g></svg><div style="margin-top:14px;max-width:420px"><svg viewBox="0 0 372 200" role="img" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:auto;overflow:visible;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" data-chart="f7b"><text x="44" y="14" font-size="12" fill="#312E2B" font-weight="600">The decade we actually have</text><line x1="44" x2="360" y1="170.0" y2="170.0" stroke="#E9E9E7" stroke-width="1"/><text x="36" y="174.0" text-anchor="end" font-size="11" fill="#7A7A76">9%</text><line x1="44" x2="360" y1="134.0" y2="134.0" stroke="#E9E9E7" stroke-width="1"/><text x="36" y="138.0" text-anchor="end" font-size="11" fill="#7A7A76">9.5%</text><line x1="44" x2="360" y1="98.0" y2="98.0" stroke="#E9E9E7" stroke-width="1"/><text x="36" y="102.0" text-anchor="end" font-size="11" fill="#7A7A76">10%</text><line x1="44" x2="360" y1="62.0" y2="62.0" stroke="#E9E9E7" stroke-width="1"/><text x="36" y="66.0" text-anchor="end" font-size="11" fill="#7A7A76">10.5%</text><line x1="44" x2="360" y1="26.0" y2="26.0" stroke="#E9E9E7" stroke-width="1"/><text x="36" y="30.0" text-anchor="end" font-size="11" fill="#7A7A76">11%</text><text x="58.7" y="188" text-anchor="middle" font-size="11" fill="#7A7A76">2016</text><text x="146.9" y="188" text-anchor="middle" font-size="11" fill="#7A7A76">2019</text><text x="235.1" y="188" text-anchor="middle" font-size="11" fill="#7A7A76">2022</text><text x="323.3" y="188" text-anchor="middle" font-size="11" fill="#7A7A76">2025</text><path d="M44.0,134.7 L46.4,128.7 L48.9,124.9 L51.3,126.0 L53.8,123.8 L56.2,119.2 L58.7,119.0 L61.1,115.9 L63.6,115.6 L66.0,115.2 L68.5,116.6 L70.9,113.1 L73.4,114.9 L75.8,110.0 L78.3,105.8 L80.7,101.1 L83.2,102.0 L85.6,101.1 L88.1,103.1 L90.5,104.8 L93.0,104.9 L95.4,105.5 L97.9,105.1 L100.3,106.1 L102.8,102.0 L105.2,99.9 L107.7,101.7 L110.1,104.9 L112.6,106.0 L115.0,112.0 L117.5,113.2 L119.9,110.4 L122.4,108.7 L124.8,105.0 L127.3,106.4 L129.7,104.6 L132.2,104.7 L134.6,104.6 L137.1,100.7 L139.5,101.2 L142.0,98.9 L144.4,95.8 L146.9,92.2 L149.3,92.8 L151.8,93.1 L154.2,90.1 L156.7,90.4 L159.1,89.0 L161.6,89.4 L164.0,91.7 L166.5,89.8 L168.9,86.0 L171.4,89.6 L173.8,93.2 L176.3,93.2 L178.7,92.6 L181.2,90.6 L183.6,91.3 L186.1,88.6 L188.5,91.6 L191.0,92.6 L193.4,104.1 L195.9,112.7 L198.3,119.7 L200.8,92.5 L203.2,93.0 L205.7,92.7 L208.1,91.7 L210.6,89.9 L213.0,87.0 L215.5,83.7 L217.9,85.3 L220.4,82.2 L222.8,90.2 L225.3,96.1 L227.7,100.9 L230.2,100.6 L232.6,101.9 L235.1,109.0 L237.5,112.3 L240.0,118.3 L242.4,98.0 L244.9,98.4 L247.3,95.4 L249.8,93.3 L252.2,92.7 L254.7,91.8 L257.1,93.2 L259.6,93.6 L262.0,95.0 L264.5,100.4 L266.9,101.6 L269.4,100.9 L271.8,105.8 L274.3,102.0 L276.7,99.3 L279.2,98.6 L281.6,93.6 L284.1,95.6 L286.5,95.0 L289.0,94.3 L291.4,96.1 L293.9,96.6 L296.3,100.5 L298.8,101.7 L301.2,85.1 L303.7,84.0 L306.1,69.3 L308.6,72.4 L311.0,73.1 L313.5,71.6 L315.9,70.7 L318.4,70.6 L320.8,72.4 L323.3,71.7 L325.7,74.5 L328.2,75.0 L330.6,75.8 L333.1,81.6 L335.5,77.8 L338.0,76.1 L340.4,77.3 L342.9,75.1 L345.3,76.5 L347.8,77.1 L350.2,74.1 L352.7,72.8 L355.1,71.4 L357.6,66.1 L360.0,67.1" fill="none" stroke="#B85C74" stroke-width="2.2"/><g class="hit" fill="none" pointer-events="all"><rect x="42.8" y="26" width="2.4" height="144"  data-x="44.0"><title>Jul 2015
+9.49 percent women
+9.5 men per woman</title></rect><rect x="45.2" y="26" width="2.4" height="144"  data-x="46.4"><title>Aug 2015
+9.57 percent women
+9.4 men per woman</title></rect><rect x="47.7" y="26" width="2.4" height="144"  data-x="48.9"><title>Sep 2015
+9.63 percent women
+9.4 men per woman</title></rect><rect x="50.1" y="26" width="2.4" height="144"  data-x="51.3"><title>Oct 2015
+9.61 percent women
+9.4 men per woman</title></rect><rect x="52.6" y="26" width="2.4" height="144"  data-x="53.8"><title>Nov 2015
+9.64 percent women
+9.4 men per woman</title></rect><rect x="55.0" y="26" width="2.4" height="144"  data-x="56.2"><title>Dec 2015
+9.71 percent women
+9.3 men per woman</title></rect><rect x="57.5" y="26" width="2.4" height="144"  data-x="58.7"><title>Jan 2016
+9.71 percent women
+9.3 men per woman</title></rect><rect x="59.9" y="26" width="2.4" height="144"  data-x="61.1"><title>Feb 2016
+9.75 percent women
+9.3 men per woman</title></rect><rect x="62.4" y="26" width="2.4" height="144"  data-x="63.6"><title>Mar 2016
+9.76 percent women
+9.3 men per woman</title></rect><rect x="64.8" y="26" width="2.4" height="144"  data-x="66.0"><title>Apr 2016
+9.76 percent women
+9.2 men per woman</title></rect><rect x="67.3" y="26" width="2.4" height="144"  data-x="68.5"><title>May 2016
+9.74 percent women
+9.3 men per woman</title></rect><rect x="69.7" y="26" width="2.4" height="144"  data-x="70.9"><title>Jun 2016
+9.79 percent women
+9.2 men per woman</title></rect><rect x="72.2" y="26" width="2.4" height="144"  data-x="73.4"><title>Jul 2016
+9.77 percent women
+9.2 men per woman</title></rect><rect x="74.6" y="26" width="2.4" height="144"  data-x="75.8"><title>Aug 2016
+9.83 percent women
+9.2 men per woman</title></rect><rect x="77.1" y="26" width="2.4" height="144"  data-x="78.3"><title>Sep 2016
+9.89 percent women
+9.1 men per woman</title></rect><rect x="79.5" y="26" width="2.4" height="144"  data-x="80.7"><title>Oct 2016
+9.96 percent women
+9.0 men per woman</title></rect><rect x="82.0" y="26" width="2.4" height="144"  data-x="83.2"><title>Nov 2016
+9.95 percent women
+9.1 men per woman</title></rect><rect x="84.4" y="26" width="2.4" height="144"  data-x="85.6"><title>Dec 2016
+9.96 percent women
+9.0 men per woman</title></rect><rect x="86.9" y="26" width="2.4" height="144"  data-x="88.1"><title>Jan 2017
+9.93 percent women
+9.1 men per woman</title></rect><rect x="89.3" y="26" width="2.4" height="144"  data-x="90.5"><title>Feb 2017
+9.90 percent women
+9.1 men per woman</title></rect><rect x="91.8" y="26" width="2.4" height="144"  data-x="93.0"><title>Mar 2017
+9.90 percent women
+9.1 men per woman</title></rect><rect x="94.2" y="26" width="2.4" height="144"  data-x="95.4"><title>Apr 2017
+9.90 percent women
+9.1 men per woman</title></rect><rect x="96.7" y="26" width="2.4" height="144"  data-x="97.9"><title>May 2017
+9.90 percent women
+9.1 men per woman</title></rect><rect x="99.1" y="26" width="2.4" height="144"  data-x="100.3"><title>Jun 2017
+9.89 percent women
+9.1 men per woman</title></rect><rect x="101.6" y="26" width="2.4" height="144"  data-x="102.8"><title>Jul 2017
+9.94 percent women
+9.1 men per woman</title></rect><rect x="104.0" y="26" width="2.4" height="144"  data-x="105.2"><title>Aug 2017
+9.97 percent women
+9.0 men per woman</title></rect><rect x="106.5" y="26" width="2.4" height="144"  data-x="107.7"><title>Sep 2017
+9.95 percent women
+9.1 men per woman</title></rect><rect x="108.9" y="26" width="2.4" height="144"  data-x="110.1"><title>Oct 2017
+9.90 percent women
+9.1 men per woman</title></rect><rect x="111.4" y="26" width="2.4" height="144"  data-x="112.6"><title>Nov 2017
+9.89 percent women
+9.1 men per woman</title></rect><rect x="113.8" y="26" width="2.4" height="144"  data-x="115.0"><title>Dec 2017
+9.80 percent women
+9.2 men per woman</title></rect><rect x="116.3" y="26" width="2.4" height="144"  data-x="117.5"><title>Jan 2018
+9.79 percent women
+9.2 men per woman</title></rect><rect x="118.7" y="26" width="2.4" height="144"  data-x="119.9"><title>Feb 2018
+9.83 percent women
+9.2 men per woman</title></rect><rect x="121.2" y="26" width="2.4" height="144"  data-x="122.4"><title>Mar 2018
+9.85 percent women
+9.2 men per woman</title></rect><rect x="123.6" y="26" width="2.4" height="144"  data-x="124.8"><title>Apr 2018
+9.90 percent women
+9.1 men per woman</title></rect><rect x="126.1" y="26" width="2.4" height="144"  data-x="127.3"><title>May 2018
+9.88 percent women
+9.1 men per woman</title></rect><rect x="128.5" y="26" width="2.4" height="144"  data-x="129.7"><title>Jun 2018
+9.91 percent women
+9.1 men per woman</title></rect><rect x="131.0" y="26" width="2.4" height="144"  data-x="132.2"><title>Jul 2018
+9.91 percent women
+9.1 men per woman</title></rect><rect x="133.4" y="26" width="2.4" height="144"  data-x="134.6"><title>Aug 2018
+9.91 percent women
+9.1 men per woman</title></rect><rect x="135.9" y="26" width="2.4" height="144"  data-x="137.1"><title>Sep 2018
+9.96 percent women
+9.0 men per woman</title></rect><rect x="138.3" y="26" width="2.4" height="144"  data-x="139.5"><title>Oct 2018
+9.96 percent women
+9.0 men per woman</title></rect><rect x="140.8" y="26" width="2.4" height="144"  data-x="142.0"><title>Nov 2018
+9.99 percent women
+9.0 men per woman</title></rect><rect x="143.2" y="26" width="2.4" height="144"  data-x="144.4"><title>Dec 2018
+10.03 percent women
+9.0 men per woman</title></rect><rect x="145.7" y="26" width="2.4" height="144"  data-x="146.9"><title>Jan 2019
+10.08 percent women
+8.9 men per woman</title></rect><rect x="148.1" y="26" width="2.4" height="144"  data-x="149.3"><title>Feb 2019
+10.07 percent women
+8.9 men per woman</title></rect><rect x="150.6" y="26" width="2.4" height="144"  data-x="151.8"><title>Mar 2019
+10.07 percent women
+8.9 men per woman</title></rect><rect x="153.0" y="26" width="2.4" height="144"  data-x="154.2"><title>Apr 2019
+10.11 percent women
+8.9 men per woman</title></rect><rect x="155.5" y="26" width="2.4" height="144"  data-x="156.7"><title>May 2019
+10.11 percent women
+8.9 men per woman</title></rect><rect x="157.9" y="26" width="2.4" height="144"  data-x="159.1"><title>Jun 2019
+10.12 percent women
+8.9 men per woman</title></rect><rect x="160.4" y="26" width="2.4" height="144"  data-x="161.6"><title>Jul 2019
+10.12 percent women
+8.9 men per woman</title></rect><rect x="162.8" y="26" width="2.4" height="144"  data-x="164.0"><title>Aug 2019
+10.09 percent women
+8.9 men per woman</title></rect><rect x="165.3" y="26" width="2.4" height="144"  data-x="166.5"><title>Sep 2019
+10.11 percent women
+8.9 men per woman</title></rect><rect x="167.7" y="26" width="2.4" height="144"  data-x="168.9"><title>Oct 2019
+10.17 percent women
+8.8 men per woman</title></rect><rect x="170.2" y="26" width="2.4" height="144"  data-x="171.4"><title>Nov 2019
+10.12 percent women
+8.9 men per woman</title></rect><rect x="172.6" y="26" width="2.4" height="144"  data-x="173.8"><title>Dec 2019
+10.07 percent women
+8.9 men per woman</title></rect><rect x="175.1" y="26" width="2.4" height="144"  data-x="176.3"><title>Jan 2020
+10.07 percent women
+8.9 men per woman</title></rect><rect x="177.5" y="26" width="2.4" height="144"  data-x="178.7"><title>Feb 2020
+10.07 percent women
+8.9 men per woman</title></rect><rect x="180.0" y="26" width="2.4" height="144"  data-x="181.2"><title>Mar 2020
+10.10 percent women
+8.9 men per woman</title></rect><rect x="182.4" y="26" width="2.4" height="144"  data-x="183.6"><title>Apr 2020
+10.09 percent women
+8.9 men per woman</title></rect><rect x="184.9" y="26" width="2.4" height="144"  data-x="186.1"><title>May 2020
+10.13 percent women
+8.9 men per woman</title></rect><rect x="187.3" y="26" width="2.4" height="144"  data-x="188.5"><title>Jun 2020
+10.09 percent women
+8.9 men per woman</title></rect><rect x="189.8" y="26" width="2.4" height="144"  data-x="191.0"><title>Jul 2020
+10.07 percent women
+8.9 men per woman</title></rect><rect x="192.2" y="26" width="2.4" height="144"  data-x="193.4"><title>Aug 2020
+9.91 percent women
+9.1 men per woman</title></rect><rect x="194.7" y="26" width="2.4" height="144"  data-x="195.9"><title>Sep 2020
+9.80 percent women
+9.2 men per woman</title></rect><rect x="197.1" y="26" width="2.4" height="144"  data-x="198.3"><title>Oct 2020
+9.70 percent women
+9.3 men per woman</title></rect><rect x="199.6" y="26" width="2.4" height="144"  data-x="200.8"><title>Nov 2020
+10.08 percent women
+8.9 men per woman</title></rect><rect x="202.0" y="26" width="2.4" height="144"  data-x="203.2"><title>Dec 2020
+10.07 percent women
+8.9 men per woman</title></rect><rect x="204.4" y="26" width="2.4" height="144"  data-x="205.7"><title>Jan 2021
+10.07 percent women
+8.9 men per woman</title></rect><rect x="206.9" y="26" width="2.4" height="144"  data-x="208.1"><title>Feb 2021
+10.09 percent women
+8.9 men per woman</title></rect><rect x="209.3" y="26" width="2.4" height="144"  data-x="210.6"><title>Mar 2021
+10.11 percent women
+8.9 men per woman</title></rect><rect x="211.8" y="26" width="2.4" height="144"  data-x="213.0"><title>Apr 2021
+10.15 percent women
+8.8 men per woman</title></rect><rect x="214.2" y="26" width="2.4" height="144"  data-x="215.5"><title>May 2021
+10.20 percent women
+8.8 men per woman</title></rect><rect x="216.7" y="26" width="2.4" height="144"  data-x="217.9"><title>Jun 2021
+10.18 percent women
+8.8 men per woman</title></rect><rect x="219.1" y="26" width="2.4" height="144"  data-x="220.4"><title>Jul 2021
+10.22 percent women
+8.8 men per woman</title></rect><rect x="221.6" y="26" width="2.4" height="144"  data-x="222.8"><title>Aug 2021
+10.11 percent women
+8.9 men per woman</title></rect><rect x="224.0" y="26" width="2.4" height="144"  data-x="225.3"><title>Sep 2021
+10.03 percent women
+9.0 men per woman</title></rect><rect x="226.5" y="26" width="2.4" height="144"  data-x="227.7"><title>Oct 2021
+9.96 percent women
+9.0 men per woman</title></rect><rect x="228.9" y="26" width="2.4" height="144"  data-x="230.2"><title>Nov 2021
+9.96 percent women
+9.0 men per woman</title></rect><rect x="231.4" y="26" width="2.4" height="144"  data-x="232.6"><title>Dec 2021
+9.95 percent women
+9.1 men per woman</title></rect><rect x="233.8" y="26" width="2.4" height="144"  data-x="235.1"><title>Jan 2022
+9.85 percent women
+9.2 men per woman</title></rect><rect x="236.3" y="26" width="2.4" height="144"  data-x="237.5"><title>Feb 2022
+9.80 percent women
+9.2 men per woman</title></rect><rect x="238.7" y="26" width="2.4" height="144"  data-x="240.0"><title>Mar 2022
+9.72 percent women
+9.3 men per woman</title></rect><rect x="241.2" y="26" width="2.4" height="144"  data-x="242.4"><title>Apr 2022
+10.00 percent women
+9.0 men per woman</title></rect><rect x="243.6" y="26" width="2.4" height="144"  data-x="244.9"><title>May 2022
+9.99 percent women
+9.0 men per woman</title></rect><rect x="246.1" y="26" width="2.4" height="144"  data-x="247.3"><title>Jun 2022
+10.04 percent women
+9.0 men per woman</title></rect><rect x="248.5" y="26" width="2.4" height="144"  data-x="249.8"><title>Jul 2022
+10.06 percent women
+8.9 men per woman</title></rect><rect x="251.0" y="26" width="2.4" height="144"  data-x="252.2"><title>Aug 2022
+10.07 percent women
+8.9 men per woman</title></rect><rect x="253.4" y="26" width="2.4" height="144"  data-x="254.7"><title>Sep 2022
+10.09 percent women
+8.9 men per woman</title></rect><rect x="255.9" y="26" width="2.4" height="144"  data-x="257.1"><title>Oct 2022
+10.07 percent women
+8.9 men per woman</title></rect><rect x="258.3" y="26" width="2.4" height="144"  data-x="259.6"><title>Nov 2022
+10.06 percent women
+8.9 men per woman</title></rect><rect x="260.8" y="26" width="2.4" height="144"  data-x="262.0"><title>Dec 2022
+10.04 percent women
+9.0 men per woman</title></rect><rect x="263.2" y="26" width="2.4" height="144"  data-x="264.5"><title>Jan 2023
+9.97 percent women
+9.0 men per woman</title></rect><rect x="265.7" y="26" width="2.4" height="144"  data-x="266.9"><title>Feb 2023
+9.95 percent women
+9.1 men per woman</title></rect><rect x="268.1" y="26" width="2.4" height="144"  data-x="269.4"><title>Mar 2023
+9.96 percent women
+9.0 men per woman</title></rect><rect x="270.6" y="26" width="2.4" height="144"  data-x="271.8"><title>Apr 2023
+9.89 percent women
+9.1 men per woman</title></rect><rect x="273.0" y="26" width="2.4" height="144"  data-x="274.3"><title>May 2023
+9.95 percent women
+9.1 men per woman</title></rect><rect x="275.5" y="26" width="2.4" height="144"  data-x="276.7"><title>Jun 2023
+9.98 percent women
+9.0 men per woman</title></rect><rect x="277.9" y="26" width="2.4" height="144"  data-x="279.2"><title>Jul 2023
+9.99 percent women
+9.0 men per woman</title></rect><rect x="280.4" y="26" width="2.4" height="144"  data-x="281.6"><title>Aug 2023
+10.06 percent women
+8.9 men per woman</title></rect><rect x="282.8" y="26" width="2.4" height="144"  data-x="284.1"><title>Sep 2023
+10.03 percent women
+9.0 men per woman</title></rect><rect x="285.3" y="26" width="2.4" height="144"  data-x="286.5"><title>Oct 2023
+10.04 percent women
+9.0 men per woman</title></rect><rect x="287.7" y="26" width="2.4" height="144"  data-x="289.0"><title>Nov 2023
+10.05 percent women
+8.9 men per woman</title></rect><rect x="290.2" y="26" width="2.4" height="144"  data-x="291.4"><title>Dec 2023
+10.03 percent women
+9.0 men per woman</title></rect><rect x="292.6" y="26" width="2.4" height="144"  data-x="293.9"><title>Jan 2024
+10.02 percent women
+9.0 men per woman</title></rect><rect x="295.1" y="26" width="2.4" height="144"  data-x="296.3"><title>Feb 2024
+9.96 percent women
+9.0 men per woman</title></rect><rect x="297.5" y="26" width="2.4" height="144"  data-x="298.8"><title>Mar 2024
+9.95 percent women
+9.1 men per woman</title></rect><rect x="300.0" y="26" width="2.4" height="144"  data-x="301.2"><title>Apr 2024
+10.18 percent women
+8.8 men per woman</title></rect><rect x="302.4" y="26" width="2.4" height="144"  data-x="303.7"><title>May 2024
+10.19 percent women
+8.8 men per woman</title></rect><rect x="304.9" y="26" width="2.4" height="144"  data-x="306.1"><title>Jun 2024
+10.40 percent women
+8.6 men per woman</title></rect><rect x="307.3" y="26" width="2.4" height="144"  data-x="308.6"><title>Jul 2024
+10.36 percent women
+8.7 men per woman</title></rect><rect x="309.8" y="26" width="2.4" height="144"  data-x="311.0"><title>Aug 2024
+10.35 percent women
+8.7 men per woman</title></rect><rect x="312.2" y="26" width="2.4" height="144"  data-x="313.5"><title>Sep 2024
+10.37 percent women
+8.6 men per woman</title></rect><rect x="314.7" y="26" width="2.4" height="144"  data-x="315.9"><title>Oct 2024
+10.38 percent women
+8.6 men per woman</title></rect><rect x="317.1" y="26" width="2.4" height="144"  data-x="318.4"><title>Nov 2024
+10.38 percent women
+8.6 men per woman</title></rect><rect x="319.6" y="26" width="2.4" height="144"  data-x="320.8"><title>Dec 2024
+10.36 percent women
+8.7 men per woman</title></rect><rect x="322.0" y="26" width="2.4" height="144"  data-x="323.3"><title>Jan 2025
+10.37 percent women
+8.6 men per woman</title></rect><rect x="324.5" y="26" width="2.4" height="144"  data-x="325.7"><title>Feb 2025
+10.33 percent women
+8.7 men per woman</title></rect><rect x="326.9" y="26" width="2.4" height="144"  data-x="328.2"><title>Mar 2025
+10.32 percent women
+8.7 men per woman</title></rect><rect x="329.4" y="26" width="2.4" height="144"  data-x="330.6"><title>Apr 2025
+10.31 percent women
+8.7 men per woman</title></rect><rect x="331.8" y="26" width="2.4" height="144"  data-x="333.1"><title>May 2025
+10.23 percent women
+8.8 men per woman</title></rect><rect x="334.3" y="26" width="2.4" height="144"  data-x="335.5"><title>Jun 2025
+10.28 percent women
+8.7 men per woman</title></rect><rect x="336.7" y="26" width="2.4" height="144"  data-x="338.0"><title>Jul 2025
+10.30 percent women
+8.7 men per woman</title></rect><rect x="339.2" y="26" width="2.4" height="144"  data-x="340.4"><title>Aug 2025
+10.29 percent women
+8.7 men per woman</title></rect><rect x="341.6" y="26" width="2.4" height="144"  data-x="342.9"><title>Sep 2025
+10.32 percent women
+8.7 men per woman</title></rect><rect x="344.1" y="26" width="2.4" height="144"  data-x="345.3"><title>Oct 2025
+10.30 percent women
+8.7 men per woman</title></rect><rect x="346.5" y="26" width="2.4" height="144"  data-x="347.8"><title>Nov 2025
+10.29 percent women
+8.7 men per woman</title></rect><rect x="349.0" y="26" width="2.4" height="144"  data-x="350.2"><title>Dec 2025
+10.33 percent women
+8.7 men per woman</title></rect><rect x="351.4" y="26" width="2.4" height="144"  data-x="352.7"><title>Jan 2026
+10.35 percent women
+8.7 men per woman</title></rect><rect x="353.9" y="26" width="2.4" height="144"  data-x="355.1"><title>Feb 2026
+10.37 percent women
+8.6 men per woman</title></rect><rect x="356.3" y="26" width="2.4" height="144"  data-x="357.6"><title>Mar 2026
+10.44 percent women
+8.6 men per woman</title></rect><rect x="358.8" y="26" width="2.4" height="144"  data-x="360.0"><title>Apr 2026
+10.43 percent women
+8.6 men per woman</title></rect></g><line class="guide" x1="0" x2="0" y1="26" y2="170" stroke="#312E2B" stroke-width="1" opacity="0" pointer-events="none"/></svg></div></div></div>
+<div class="ft"><a href="https://anp-exe.github.io/women-in-chess-analysis/" target="_blank" rel="noopener">Full write up &rarr;</a></div>
+</div><script>
+(function(){
+ var p=document.querySelector('.plot'); if(!p) return;
+ var tip=document.createElement('div'); tip.className='tip'; p.appendChild(tip);
+ p.querySelectorAll('svg rect > title, svg circle > title').forEach(function(t){
+  var o=t.parentNode; o.setAttribute('data-tip',t.textContent); o.removeChild(t); });
+ function show(e,cx,cy){
+  var t=e.target.closest('[data-tip]'); if(!t){ tip.style.opacity=0; return; }
+  var r=p.getBoundingClientRect();
+  tip.textContent=t.getAttribute('data-tip');
+  tip.style.left=(cx-r.left)+'px'; tip.style.top=(cy-r.top)+'px'; tip.style.opacity=1;
+  var s=t.ownerSVGElement, g=s&&s.querySelector('.guide');
+  if(g){ var b=t.getBBox(), x=b.x+b.width/2;
+   g.setAttribute('x1',x); g.setAttribute('x2',x); g.setAttribute('opacity','0.35'); }
+ }
+ p.addEventListener('mousemove',function(e){ show(e,e.clientX,e.clientY); });
+ p.addEventListener('touchstart',function(e){
+  var t=e.touches[0]; var el=document.elementFromPoint(t.clientX,t.clientY);
+  show({target:el||e.target},t.clientX,t.clientY); },{passive:true});
+ p.addEventListener('mouseleave',function(){ tip.style.opacity=0;
+  p.querySelectorAll('.guide').forEach(function(g){ g.setAttribute('opacity','0'); }); });
+})();
 
-.panel{background:#f1f3e8;border:1px solid #e1e7d4;border-radius:6px;padding:12px;margin-top:12px}
-.row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-button{font:inherit;font-size:13px;letter-spacing:.03em;padding:8px 16px;border-radius:5px;
- border:1px solid transparent;background:#e4e8d8;color:#55692c;cursor:pointer}
-button:hover{background:#d8dec8}
-button.on{background:#55692c;color:#faf6ed}
-button.play{background:#55692c;color:#faf6ed;min-width:82px}
-.read{display:flex;align-items:baseline;gap:10px}
-.read b{font:500 26px Georgia,serif;color:#2d2d2b}
-.read span{font-size:13px;color:#5d5d56}
-input[type=range]{width:100%;margin-top:12px;accent-color:#7a8b6f;cursor:pointer}
-.ends{display:flex;justify-content:space-between;font-size:11px;color:#6e7a58;margin-top:2px}
-.views{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-</style></head><body><div class="card">
-<p class="kicker">1 in 9 &middot; Figure 4</p>
-<h1>Women as a share of active FIDE players, with the current pace extended</h1>
-<div class="views">
-  <button id="vp" class="on">Run it to parity</button>
-  <button id="vo">The decade we have</button>
-</div>
-<p class="legend">
-  <span><span style="display:inline-block;width:18px;height:0;border-top:2px solid #B85C74;vertical-align:middle;margin-right:6px"></span>Observed, monthly</span>
-  <span><span style="display:inline-block;width:18px;height:0;border-top:2px dashed #8A8A80;vertical-align:middle;margin-right:6px"></span>Recent pace held constant</span>
-</p>
-<svg id="plot" style="display:block;width:100%;height:auto;overflow:visible;font-family:inherit"></svg>
-<div class="panel" id="ctl">
-  <div class="row">
-    <button id="pp" class="play">Play</button>
-    <div class="read"><b id="yr">2479</b><span id="sh"></span></div>
-  </div>
-  <input type="range" id="sl" min="2" value="2" aria-label="Year">
-  <div class="ends"><span>2015</span><span>2479, parity</span></div>
-</div>
-<p class="cap">The whole journey at the pace of the last five years, 0.0875 points a year. The share of
-active FIDE players who are women went from 9.49 percent in July 2015 to 10.43 percent in April 2026,
-which is 8.6 men for every woman. Held at that pace the line reaches 50 percent in 2479. Drag the
-slider, or switch to the observed decade to see the same line on an axis where a decade of progress is
-actually visible. <a href="https://anp-exe.github.io/women-in-chess-analysis/" target="_blank" rel="noopener">Full project</a>.</p>
-</div>
-<script>var __D__={"observed":[{"month":"2015-07","share":9.49},{"month":"2015-08","share":9.573},{"month":"2015-09","share":9.626},{"month":"2015-10","share":9.611},{"month":"2015-11","share":9.641},{"month":"2015-12","share":9.706},{"month":"2016-01","share":9.709},{"month":"2016-02","share":9.751},{"month":"2016-03","share":9.756},{"month":"2016-04","share":9.761},{"month":"2016-05","share":9.742},{"month":"2016-06","share":9.79},{"month":"2016-07","share":9.765},{"month":"2016-08","share":9.834},{"month":"2016-09","share":9.892},{"month":"2016-10","share":9.957},{"month":"2016-11","share":9.945},{"month":"2016-12","share":9.957},{"month":"2017-01","share":9.929},{"month":"2017-02","share":9.905},{"month":"2017-03","share":9.904},{"month":"2017-04","share":9.896},{"month":"2017-05","share":9.902},{"month":"2017-06","share":9.887},{"month":"2017-07","share":9.944},{"month":"2017-08","share":9.974},{"month":"2017-09","share":9.949},{"month":"2017-10","share":9.904},{"month":"2017-11","share":9.889},{"month":"2017-12","share":9.805},{"month":"2018-01","share":9.789},{"month":"2018-02","share":9.828},{"month":"2018-03","share":9.851},{"month":"2018-04","share":9.903},{"month":"2018-05","share":9.883},{"month":"2018-06","share":9.909},{"month":"2018-07","share":9.907},{"month":"2018-08","share":9.908},{"month":"2018-09","share":9.962},{"month":"2018-10","share":9.955},{"month":"2018-11","share":9.988},{"month":"2018-12","share":10.03},{"month":"2019-01","share":10.081},{"month":"2019-02","share":10.072},{"month":"2019-03","share":10.068},{"month":"2019-04","share":10.11},{"month":"2019-05","share":10.106},{"month":"2019-06","share":10.125},{"month":"2019-07","share":10.119},{"month":"2019-08","share":10.088},{"month":"2019-09","share":10.114},{"month":"2019-10","share":10.167},{"month":"2019-11","share":10.116},{"month":"2019-12","share":10.066},{"month":"2020-01","share":10.067},{"month":"2020-02","share":10.075},{"month":"2020-03","share":10.103},{"month":"2020-04","share":10.093},{"month":"2020-05","share":10.13},{"month":"2020-06","share":10.089},{"month":"2020-07","share":10.075},{"month":"2020-08","share":9.915},{"month":"2020-09","share":9.796},{"month":"2020-10","share":9.699},{"month":"2020-11","share":10.076},{"month":"2020-12","share":10.069},{"month":"2021-01","share":10.074},{"month":"2021-02","share":10.088},{"month":"2021-03","share":10.112},{"month":"2021-04","share":10.153},{"month":"2021-05","share":10.199},{"month":"2021-06","share":10.177},{"month":"2021-07","share":10.22},{"month":"2021-08","share":10.109},{"month":"2021-09","share":10.027},{"month":"2021-10","share":9.96},{"month":"2021-11","share":9.964},{"month":"2021-12","share":9.946},{"month":"2022-01","share":9.847},{"month":"2022-02","share":9.801},{"month":"2022-03","share":9.718},{"month":"2022-04","share":10.0},{"month":"2022-05","share":9.995},{"month":"2022-06","share":10.036},{"month":"2022-07","share":10.065},{"month":"2022-08","share":10.073},{"month":"2022-09","share":10.086},{"month":"2022-10","share":10.067},{"month":"2022-11","share":10.061},{"month":"2022-12","share":10.042},{"month":"2023-01","share":9.967},{"month":"2023-02","share":9.95},{"month":"2023-03","share":9.96},{"month":"2023-04","share":9.892},{"month":"2023-05","share":9.945},{"month":"2023-06","share":9.982},{"month":"2023-07","share":9.991},{"month":"2023-08","share":10.061},{"month":"2023-09","share":10.033},{"month":"2023-10","share":10.041},{"month":"2023-11","share":10.051},{"month":"2023-12","share":10.026},{"month":"2024-01","share":10.019},{"month":"2024-02","share":9.965},{"month":"2024-03","share":9.948},{"month":"2024-04","share":10.179},{"month":"2024-05","share":10.194},{"month":"2024-06","share":10.399},{"month":"2024-07","share":10.355},{"month":"2024-08","share":10.346},{"month":"2024-09","share":10.367},{"month":"2024-10","share":10.379},{"month":"2024-11","share":10.381},{"month":"2024-12","share":10.356},{"month":"2025-01","share":10.365},{"month":"2025-02","share":10.326},{"month":"2025-03","share":10.319},{"month":"2025-04","share":10.309},{"month":"2025-05","share":10.228},{"month":"2025-06","share":10.281},{"month":"2025-07","share":10.304},{"month":"2025-08","share":10.288},{"month":"2025-09","share":10.318},{"month":"2025-10","share":10.298},{"month":"2025-11","share":10.29},{"month":"2025-12","share":10.332},{"month":"2026-01","share":10.35},{"month":"2026-02","share":10.369},{"month":"2026-03","share":10.443},{"month":"2026-04","share":10.429}],"share_last":10.43,"slope_recent":0.0875};</script>
-<script>
-var D = __D__;
-var W = '#B85C74', G = '#8A8A80', INK = '#2D2D2B', GRID = '#E1E7D4', MUTED = '#6E7A58';
-var PARITY = 50, OBS_MS = 5000, PROJ_MS = 11000;
-
-function ym(m){ var p = m.split('-'); return +p[0] + (+p[1] - 1) / 12; }
-var obs = D.observed.map(function(r){ return {x: ym(r.month), share: r.share}; });
-var lastShare = D.share_last, slope = D.slope_recent;
-var lastX = obs[obs.length - 1].x, lastYear = Math.floor(lastX);
-var yearsToParity = Math.ceil((PARITY - lastShare) / slope);
-var parityYear = lastYear + yearsToParity;
-
-var rows = obs.slice();
-for (var y = 0; y <= yearsToParity; y++)
-  rows.push({x: lastYear + y + 0.25, proj: Math.min(PARITY, lastShare + slope * y)});
-var nObs = obs.length, total = rows.length;
-
-function yearStep(s){ return s<=20?5 : s<=60?10 : s<=150?25 : s<=350?50 : 100; }
-function shareTicks(lo, hi){
-  var step = hi-lo<=6 ? 1 : hi-lo<=16 ? 5 : 10, out = [];
-  for (var v = Math.ceil(lo/step)*step; v <= hi; v += step) out.push(v);
-  return out;
-}
-function frameAt(ms){
-  if (ms < OBS_MS) return Math.round(ms / OBS_MS * nObs);
-  return Math.min(total, nObs + Math.round((ms - OBS_MS) / PROJ_MS * (total - nObs)));
-}
-function msAt(f){
-  return f <= nObs ? f / nObs * OBS_MS
-                   : OBS_MS + (f - nObs) / (total - nObs) * PROJ_MS;
-}
-
-var svg = document.getElementById('plot');
-var VB = {w: 760, h: 320, ml: 54, mr: 16, mt: 16, mb: 34};
-svg.setAttribute('viewBox', '0 0 ' + VB.w + ' ' + VB.h);
-
-var view = 'parity', frame = total, playing = false, rafId = null;
-
-function draw(){
-  var shown = rows.slice(0, Math.max(2, frame));
-  var head = shown[shown.length - 1];
-  var headShare = head.proj != null ? head.proj : head.share;
-  var headYear = Math.floor(head.x);
-  var u = Math.min(1, Math.max(0, (headYear - lastYear) / (parityYear - lastYear)));
-
-  var x0 = obs[0].x, x1, yLo, yHi, plotted;
-  if (view === 'observed'){
-    x1 = lastX; yLo = 9; yHi = 11; plotted = obs;
-  } else {
-    x1 = Math.round(lastYear + 5 + u * (parityYear - lastYear - 5)) + 0.25;
-    yLo = 8 * (1 - u); yHi = 12 + (55 - 12) * u; plotted = shown;
-  }
-  var X = function(v){ return VB.ml + (v - x0) / (x1 - x0) * (VB.w - VB.ml - VB.mr); };
-  var Y = function(v){ return (VB.h - VB.mb) - (v - yLo) / (yHi - yLo) * (VB.h - VB.mb - VB.mt); };
-
-  var yt = view === 'observed' ? [9, 9.5, 10, 10.5, 11] : shareTicks(yLo, yHi);
-  var step = yearStep(x1 - x0), xt = [];
-  for (var yv = Math.ceil(x0 / step) * step; yv <= x1; yv += step) xt.push(yv);
-  /* the run starts at 2015 but the first round tick can be a century away,
-     so label the start unless a tick already sits near it */
-  var start = Math.ceil(x0);
-  if (!xt.length || xt[0] - start > step * 0.35) xt.unshift(start);
-
-  var s = '';
-  yt.forEach(function(v){
-    s += '<line x1="' + VB.ml + '" x2="' + (VB.w - VB.mr) + '" y1="' + Y(v).toFixed(1) +
-         '" y2="' + Y(v).toFixed(1) + '" stroke="' + GRID + '"/>';
-    s += '<text x="' + (VB.ml - 8) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="' +
-         MUTED + '">' + (v % 1 ? v.toFixed(1) : v) + '%</text>';
-  });
-  xt.forEach(function(v){
-    s += '<text x="' + X(v).toFixed(1) + '" y="' + (VB.h - VB.mb + 18) + '" text-anchor="middle" font-size="11" fill="' +
-         MUTED + '">' + v + '</text>';
-  });
-
-  if (yHi >= PARITY){
-    s += '<line x1="' + VB.ml + '" x2="' + (VB.w - VB.mr) + '" y1="' + Y(PARITY).toFixed(1) + '" y2="' +
-         Y(PARITY).toFixed(1) + '" stroke="' + INK + '" stroke-dasharray="4 4" opacity="0.5"/>';
-    s += '<text x="' + (VB.ml + 6) + '" y="' + (Y(PARITY) - 6).toFixed(1) +
-         '" font-size="11" fill="' + INK + '" opacity="0.7">Parity, 50 percent</text>';
-  }
-
-  function path(pts){
-    return pts.length < 2 ? '' : 'M' + pts.map(function(p){ return X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1); }).join(' L');
-  }
-  var obsPts = plotted.filter(function(r){ return r.share != null; }).map(function(r){ return [r.x, r.share]; });
-  var projPts = plotted.filter(function(r){ return r.proj != null; }).map(function(r){ return [r.x, r.proj]; });
-  if (projPts.length) s += '<path d="' + path(projPts) + '" fill="none" stroke="' + G + '" stroke-width="2" stroke-dasharray="7 5"/>';
-  if (obsPts.length)  s += '<path d="' + path(obsPts) + '" fill="none" stroke="' + W + '" stroke-width="2.6"/>';
-
-  if (view === 'parity'){
-    s += '<circle cx="' + X(head.x).toFixed(1) + '" cy="' + Y(headShare).toFixed(1) + '" r="4.5" fill="' + W + '"/>';
-    s += '<text x="' + (X(head.x) - 9).toFixed(1) + '" y="' + (Y(headShare) - 12).toFixed(1) +
-         '" text-anchor="end" font-size="13" font-weight="600" fill="' + W +
-         '" stroke="#faf6ed" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round">' + headYear + '</text>';
-  }
-  svg.innerHTML = s;
-
-  document.getElementById('yr').textContent = view === 'observed' ? lastYear : headYear;
-  var hs = view === 'observed' ? lastShare : headShare;
-  document.getElementById('sh').textContent =
-    hs.toFixed(1) + ' percent women' + (hs >= PARITY ? ', parity' : ', ' + ((100 - hs) / hs).toFixed(1) + ' men per woman');
-  var sl = document.getElementById('sl');
-  if (+sl.value !== frame) sl.value = frame;
-}
-
-function stop(){ playing = false; if (rafId) cancelAnimationFrame(rafId); document.getElementById('pp').textContent = 'Play'; }
-function play(){
-  if (view !== 'parity') return;
-  if (frame >= total) frame = 0;
-  playing = true;
-  document.getElementById('pp').textContent = 'Pause';
-  var started = performance.now() - msAt(frame);
-  (function tick(now){
-    if (!playing) return;
-    var next = frameAt(now - started);
-    if (next !== frame){ frame = next; draw(); }
-    if (next >= total){ stop(); return; }
-    rafId = requestAnimationFrame(tick);
-  })(performance.now());
-}
-
-document.getElementById('pp').onclick = function(){ playing ? stop() : play(); };
-document.getElementById('sl').max = total;
-document.getElementById('sl').oninput = function(){ stop(); frame = +this.value; draw(); };
-[['vp','parity'],['vo','observed']].forEach(function(p){
-  document.getElementById(p[0]).onclick = function(){
-    stop(); view = p[1];
-    document.getElementById('vp').className = view === 'parity' ? 'on' : '';
-    document.getElementById('vo').className = view === 'observed' ? 'on' : '';
-    document.getElementById('ctl').style.display = view === 'parity' ? '' : 'none';
-    if (view === 'parity') frame = total;
-    draw();
-  };
-});
-
-draw();
-if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
-  setTimeout(function(){ frame = 0; draw(); play(); }, 500);
-}
-</script>
-<script>
+/* Report height to the host page, same message shape chess.com's own diagram
+   embeds use, so a fixed iframe height is never wrong at any column width. */
 (function(){
  if(window.parent===window) return;
- var id=(location.search.match(/[?&]id=([^&]+)/)||[])[1]; if(!id) return;
+ var id=(location.search.match(/[?&]id=([^&]+)/)||[])[1];
+ if(!id) return;
  var last=0;
  function send(){
   var c=document.querySelector('.card');
   var h=Math.ceil(c?c.getBoundingClientRect().height:document.body.scrollHeight);
   if(h&&h!==last){ last=h; window.parent.postMessage({id:id,frameHeight:h},'*'); }
  }
- window.addEventListener('load',send); window.addEventListener('resize',send);
+ window.addEventListener('load',send);
+ window.addEventListener('resize',send);
  if(window.ResizeObserver){ new ResizeObserver(send).observe(document.querySelector('.card')||document.body); }
  setTimeout(send,60); setTimeout(send,400);
 })();
-</script>
-</body></html>
+</script></body></html>
