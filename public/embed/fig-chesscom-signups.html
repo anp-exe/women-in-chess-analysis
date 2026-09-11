@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chess.com signups against the Prophet counterfactual</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:transparent}
+body{font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#44443f}
+.card{background:#faf6ed;border:1px solid #e1e7d4;border-radius:8px;padding:18px}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:10px;color:#55692c;margin:0 0 3px}
+h1{font:600 17px/1.3 Georgia,serif;color:#2d2d2b;margin:0 0 8px}
+.legend{font-size:12px;color:#6e7a58;margin:0 0 10px}
+.legend span{margin-right:16px;white-space:nowrap;display:inline-block}
+.plot{position:relative}
+.cap{font-size:12px;line-height:1.5;color:#6e7a58;margin:12px 0 0}
+.cap a{color:#b85c74}
+.tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .08s;background:#2d2d2b;
+ color:#faf6ed;font-size:12px;line-height:1.45;padding:7px 10px;border-radius:4px;white-space:pre;
+ z-index:20;transform:translate(-50%,-115%)}
+@media(max-width:520px){.card{padding:12px}h1{font-size:15px}.legend,.cap{font-size:11px}}
+</style></head>
+<body><div class="card">
+<p class="kicker">1 in 9 &middot; Figure 2</p>
+<h1>Chess.com signups against the Prophet counterfactual</h1>
+<p class="legend"><span><span style="display:inline-block;width:18px;height:0;border-top:2px solid #B85C74;vertical-align:middle;margin-right:6px"></span>Estimated signups</span><span><span style="display:inline-block;width:18px;height:0;border-top:2px dashed #8A8A80;vertical-align:middle;margin-right:6px"></span>Forecast if the show never aired</span></p>
+<div class="plot"><svg viewBox="0 0 760 330" width="100%" height="auto" role="img" preserveAspectRatio="xMidYMid meet" style="display:block;overflow:visible;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" data-chart="f1"><line x1="52" x2="746" y1="296.0" y2="296.0" stroke="#E1E7D4" stroke-width="1"/><text x="44" y="300.0" text-anchor="end" font-size="11" fill="#6E7A58">0M</text><line x1="52" x2="746" y1="245.1" y2="245.1" stroke="#E1E7D4" stroke-width="1"/><text x="44" y="249.1" text-anchor="end" font-size="11" fill="#6E7A58">2M</text><line x1="52" x2="746" y1="194.2" y2="194.2" stroke="#E1E7D4" stroke-width="1"/><text x="44" y="198.2" text-anchor="end" font-size="11" fill="#6E7A58">4M</text><line x1="52" x2="746" y1="143.3" y2="143.3" stroke="#E1E7D4" stroke-width="1"/><text x="44" y="147.3" text-anchor="end" font-size="11" fill="#6E7A58">6M</text><line x1="52" x2="746" y1="92.4" y2="92.4" stroke="#E1E7D4" stroke-width="1"/><text x="44" y="96.4" text-anchor="end" font-size="11" fill="#6E7A58">8M</text><line x1="52" x2="746" y1="41.5" y2="41.5" stroke="#E1E7D4" stroke-width="1"/><text x="44" y="45.5" text-anchor="end" font-size="11" fill="#6E7A58">10M</text><text x="52.0" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2015</text><text x="122.0" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2016</text><text x="192.0" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2017</text><text x="261.9" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2018</text><text x="331.9" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2019</text><text x="401.9" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2020</text><text x="471.9" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2021</text><text x="541.9" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2022</text><text x="611.9" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2023</text><text x="681.8" y="314" text-anchor="middle" font-size="11" fill="#6E7A58">2024</text><text x="12" y="156.0" font-size="11" fill="#6E7A58" transform="rotate(-90 12 156.0)" text-anchor="middle">New signups per month</text><polygon points="151.1,278.1 180.3,284.9 186.1,276.3 192.0,287.3 203.6,285.0 209.5,283.5 215.3,286.5 221.1,277.2 232.8,282.7 238.6,287.7 244.5,287.5 250.3,280.3 256.1,275.1 261.9,279.2 267.8,287.0 273.6,274.2 279.4,276.6 285.3,279.4 291.1,276.7 296.9,279.2 302.8,274.3 308.6,275.3 314.4,276.4 320.3,275.3 326.1,274.1 331.9,271.6 337.8,273.3 343.6,264.5 349.4,269.3 355.3,272.2 361.1,275.2 366.9,268.4 372.8,265.9 378.6,263.1 384.4,266.2 390.3,270.3 396.1,273.8 401.9,264.4 407.7,261.2 413.6,264.2 419.4,259.5 425.2,262.1 431.1,246.7 436.9,269.7 442.7,259.6 448.6,268.8 454.4,265.5 460.2,253.6 466.1,245.3 471.9,255.6 477.7,266.8 483.6,254.1 489.4,251.8 495.2,254.5 501.1,246.4 506.9,259.3 512.7,251.7 518.6,256.2 524.4,255.0 530.2,248.8 536.1,244.4 541.9,248.1 547.7,254.7 553.5,243.1 559.4,245.1 565.2,247.6 571.0,245.0 576.9,248.4 582.7,243.6 588.5,244.4 594.4,245.4 600.2,244.1 606.0,243.4 611.9,241.0 617.7,242.8 623.5,234.0 629.4,238.5 635.2,241.3 641.0,243.6 646.9,236.6 652.7,235.9 658.5,230.9 664.4,235.5 670.2,239.3 676.0,241.8 681.8,232.9 687.7,228.8 693.5,232.1 699.3,227.8 705.2,230.7 711.0,215.4 716.8,238.5 722.7,228.6 728.5,237.5 734.3,234.5 740.2,222.7 746.0,214.0 746.0,229.6 740.2,238.1 734.3,249.7 728.5,252.4 722.7,243.8 716.8,253.3 711.0,231.1 705.2,246.3 699.3,243.1 693.5,248.3 687.7,244.6 681.8,248.5 676.0,258.1 670.2,254.9 664.4,250.1 658.5,247.2 652.7,250.8 646.9,252.8 641.0,259.6 635.2,256.2 629.4,253.0 623.5,249.0 617.7,257.3 611.9,256.3 606.0,258.7 600.2,259.6 594.4,260.6 588.5,259.7 582.7,259.7 576.9,263.8 571.0,260.6 565.2,263.3 559.4,260.4 553.5,258.8 547.7,270.2 541.9,263.5 536.1,259.6 530.2,264.1 524.4,270.5 518.6,271.8 512.7,267.2 506.9,274.5 501.1,261.7 495.2,270.3 489.4,267.1 483.6,268.8 477.7,283.4 471.9,271.1 466.1,261.1 460.2,268.9 454.4,281.6 448.6,284.0 442.7,274.6 436.9,285.1 431.1,262.4 425.2,277.6 419.4,274.4 413.6,278.7 407.7,276.4 401.9,279.6 396.1,288.1 390.3,286.3 384.4,282.0 378.6,278.8 372.8,281.6 366.9,284.1 361.1,291.3 355.3,286.9 349.4,285.0 343.6,280.0 337.8,289.3 331.9,287.4 326.1,289.6 320.3,291.0 314.4,292.2 308.6,291.0 302.8,290.2 296.9,294.8 291.1,291.6 285.3,294.4 279.4,292.1 273.6,289.9 267.8,296.0 261.9,294.5 256.1,290.5 250.3,295.9 244.5,296.0 238.6,296.0 232.8,296.0 221.1,293.1 215.3,296.0 209.5,296.0 203.6,296.0 192.0,296.0 186.1,291.9 180.3,296.0 151.1,293.2" fill="#8A8A80" opacity="0.18"/><path d="M151.1,285.8 L180.3,292.6 L186.1,284.3 L192.0,294.8 L203.6,292.5 L209.5,290.9 L215.3,294.0 L221.1,285.0 L232.8,290.6 L238.6,295.3 L244.5,294.6 L250.3,287.7 L256.1,283.3 L261.9,287.3 L267.8,293.7 L273.6,282.4 L279.4,284.0 L285.3,286.9 L291.1,284.2 L296.9,287.4 L302.8,282.5 L308.6,283.0 L314.4,284.3 L320.3,282.9 L326.1,282.2 L331.9,279.5 L337.8,281.1 L343.6,272.4 L349.4,277.1 L355.3,279.9 L361.1,283.3 L366.9,276.5 L372.8,274.2 L378.6,270.7 L384.4,274.1 L390.3,278.3 L396.1,281.0 L401.9,271.6 L407.7,268.5 L413.6,271.4 L419.4,266.8 L425.2,270.0 L431.1,254.5 L436.9,277.6 L442.7,267.4 L448.6,276.3 L454.4,273.8 L460.2,261.3 L466.1,253.0 L471.9,263.5 L477.7,274.8 L483.6,261.2 L489.4,259.6 L495.2,262.7 L501.1,253.7 L506.9,266.9 L512.7,259.3 L518.6,264.0 L524.4,263.3 L530.2,256.3 L536.1,251.9 L541.9,256.0 L547.7,262.4 L553.5,251.0 L559.4,252.6 L565.2,255.6 L571.0,252.9 L576.9,256.1 L582.7,251.1 L588.5,251.7 L594.4,252.9 L600.2,251.6 L606.0,250.8 L611.9,248.2 L617.7,249.8 L623.5,241.0 L629.4,245.7 L635.2,248.5 L641.0,252.0 L646.9,245.2 L652.7,242.9 L658.5,239.3 L664.4,242.7 L670.2,246.9 L676.0,249.7 L681.8,240.2 L687.7,237.1 L693.5,240.1 L699.3,235.4 L705.2,238.6 L711.0,223.1 L716.8,246.2 L722.7,236.1 L728.5,245.0 L734.3,242.4 L740.2,229.9 L746.0,221.6" fill="none" stroke="#8A8A80" stroke-width="2" stroke-dasharray="6 4"/><path d="M52.0,294.4 L57.8,292.7 L63.7,287.9 L69.5,293.6 L75.3,293.6 L81.2,291.9 L87.0,293.6 L92.8,291.9 L98.7,292.7 L104.5,288.7 L110.3,290.3 L116.2,291.1 L122.0,291.1 L127.8,293.6 L133.6,291.1 L139.5,291.9 L145.3,293.6 L151.1,291.9 L157.0,292.7 L162.8,291.1 L168.6,291.9 L174.5,291.9 L180.3,289.5 L186.1,291.9 L192.0,288.7 L197.8,292.7 L203.6,287.9 L209.5,293.6 L215.3,291.9 L221.1,292.7 L227.0,286.2 L232.8,283.8 L238.6,286.2 L244.5,291.9 L250.3,285.4 L256.1,279.7 L261.9,284.6 L267.8,287.9 L273.6,287.9 L279.4,287.0 L285.3,288.7 L291.1,290.3 L296.9,287.0 L302.8,283.8 L308.6,282.2 L314.4,279.7 L320.3,282.2 L326.1,285.4 L331.9,278.9 L337.8,279.7 L343.6,275.7 L349.4,283.8 L355.3,288.7 L361.1,289.5 L366.9,286.2 L372.8,283.0 L378.6,279.7 L384.4,281.4 L390.3,281.4 L396.1,281.4 L401.9,274.8 L407.7,275.7 L413.6,262.6 L419.4,256.9 L425.2,259.4 L431.1,242.3 L436.9,268.3 L442.7,264.3 L448.6,277.3 L454.4,266.7 L460.2,210.6 L466.1,182.9 L471.9,178.0 L477.7,188.6 L483.6,219.5 L489.4,236.6 L495.2,239.8 L501.1,247.2 L506.9,245.5 L512.7,257.8 L518.6,251.2 L524.4,241.5 L530.2,252.1 L536.1,240.7 L541.9,227.6 L547.7,246.4 L553.5,235.0 L559.4,238.2 L565.2,252.9 L571.0,253.7 L576.9,258.6 L582.7,245.5 L588.5,226.0 L594.4,216.3 L600.2,203.2 L606.0,145.5 L611.9,38.9 L617.7,88.5 L623.5,132.4 L629.4,177.2 L635.2,196.7 L641.0,213.0 L646.9,204.9 L652.7,191.0 L658.5,200.0 L664.4,213.0 L670.2,209.7 L676.0,216.3 L681.8,188.6 L687.7,209.7 L693.5,204.9 L699.3,200.0 L705.2,209.7 L711.0,206.5 L716.8,214.6 L722.7,200.8 L728.5,181.3 L734.3,185.3 L740.2,179.6 L746.0,143.8" fill="none" stroke="#B85C74" stroke-width="2.2"/><line x1="454.4" x2="454.4" y1="16" y2="296" stroke="#2D2D2B" stroke-width="1" stroke-dasharray="3 3" opacity="0.55"/><text x="448.4" y="29" text-anchor="end" font-size="11" fill="#2D2D2B" opacity="0.75">The Queen&#8217;s Gambit, Oct 2020</text><g class="hit" fill="none" pointer-events="all"><rect x="49.1" y="16" width="5.8" height="280"><title>Jan 2015
+Actual 0.06M</title></rect><rect x="54.9" y="16" width="5.8" height="280"><title>Feb 2015
+Actual 0.13M</title></rect><rect x="60.7" y="16" width="5.8" height="280"><title>Mar 2015
+Actual 0.32M</title></rect><rect x="66.6" y="16" width="5.8" height="280"><title>Apr 2015
+Actual 0.10M</title></rect><rect x="72.4" y="16" width="5.8" height="280"><title>May 2015
+Actual 0.10M</title></rect><rect x="78.2" y="16" width="5.8" height="280"><title>Jun 2015
+Actual 0.16M</title></rect><rect x="84.1" y="16" width="5.8" height="280"><title>Jul 2015
+Actual 0.10M</title></rect><rect x="89.9" y="16" width="5.8" height="280"><title>Aug 2015
+Actual 0.16M</title></rect><rect x="95.7" y="16" width="5.8" height="280"><title>Sep 2015
+Actual 0.13M</title></rect><rect x="101.6" y="16" width="5.8" height="280"><title>Oct 2015
+Actual 0.29M</title></rect><rect x="107.4" y="16" width="5.8" height="280"><title>Nov 2015
+Actual 0.22M</title></rect><rect x="113.2" y="16" width="5.8" height="280"><title>Dec 2015
+Actual 0.19M</title></rect><rect x="119.1" y="16" width="5.8" height="280"><title>Jan 2016
+Actual 0.19M</title></rect><rect x="124.9" y="16" width="5.8" height="280"><title>Feb 2016
+Actual 0.10M</title></rect><rect x="130.7" y="16" width="5.8" height="280"><title>Mar 2016
+Actual 0.19M</title></rect><rect x="136.6" y="16" width="5.8" height="280"><title>Apr 2016
+Actual 0.16M</title></rect><rect x="142.4" y="16" width="5.8" height="280"><title>May 2016
+Actual 0.10M</title></rect><rect x="148.2" y="16" width="5.8" height="280"><title>Jun 2016
+Actual 0.16M
+Forecast without the show 0.40M</title></rect><rect x="154.1" y="16" width="5.8" height="280"><title>Jul 2016
+Actual 0.13M</title></rect><rect x="159.9" y="16" width="5.8" height="280"><title>Aug 2016
+Actual 0.19M</title></rect><rect x="165.7" y="16" width="5.8" height="280"><title>Sep 2016
+Actual 0.16M</title></rect><rect x="171.6" y="16" width="5.8" height="280"><title>Oct 2016
+Actual 0.16M</title></rect><rect x="177.4" y="16" width="5.8" height="280"><title>Nov 2016
+Actual 0.26M
+Forecast without the show 0.13M</title></rect><rect x="183.2" y="16" width="5.8" height="280"><title>Dec 2016
+Actual 0.16M
+Forecast without the show 0.46M</title></rect><rect x="189.1" y="16" width="5.8" height="280"><title>Jan 2017
+Actual 0.29M
+Forecast without the show 0.05M</title></rect><rect x="194.9" y="16" width="5.8" height="280"><title>Feb 2017
+Actual 0.13M</title></rect><rect x="200.7" y="16" width="5.8" height="280"><title>Mar 2017
+Actual 0.32M
+Forecast without the show 0.14M</title></rect><rect x="206.5" y="16" width="5.8" height="280"><title>Apr 2017
+Actual 0.10M
+Forecast without the show 0.20M</title></rect><rect x="212.4" y="16" width="5.8" height="280"><title>May 2017
+Actual 0.16M
+Forecast without the show 0.08M</title></rect><rect x="218.2" y="16" width="5.8" height="280"><title>Jun 2017
+Actual 0.13M
+Forecast without the show 0.43M</title></rect><rect x="224.0" y="16" width="5.8" height="280"><title>Jul 2017
+Actual 0.38M</title></rect><rect x="229.9" y="16" width="5.8" height="280"><title>Aug 2017
+Actual 0.48M
+Forecast without the show 0.21M</title></rect><rect x="235.7" y="16" width="5.8" height="280"><title>Sep 2017
+Actual 0.38M
+Forecast without the show 0.03M</title></rect><rect x="241.5" y="16" width="5.8" height="280"><title>Oct 2017
+Actual 0.16M
+Forecast without the show 0.06M</title></rect><rect x="247.4" y="16" width="5.8" height="280"><title>Nov 2017
+Actual 0.42M
+Forecast without the show 0.33M</title></rect><rect x="253.2" y="16" width="5.8" height="280"><title>Dec 2017
+Actual 0.64M
+Forecast without the show 0.50M</title></rect><rect x="259.0" y="16" width="5.8" height="280"><title>Jan 2018
+Actual 0.45M
+Forecast without the show 0.34M</title></rect><rect x="264.9" y="16" width="5.8" height="280"><title>Feb 2018
+Actual 0.32M
+Forecast without the show 0.09M</title></rect><rect x="270.7" y="16" width="5.8" height="280"><title>Mar 2018
+Actual 0.32M
+Forecast without the show 0.54M</title></rect><rect x="276.5" y="16" width="5.8" height="280"><title>Apr 2018
+Actual 0.35M
+Forecast without the show 0.47M</title></rect><rect x="282.4" y="16" width="5.8" height="280"><title>May 2018
+Actual 0.29M
+Forecast without the show 0.36M</title></rect><rect x="288.2" y="16" width="5.8" height="280"><title>Jun 2018
+Actual 0.22M
+Forecast without the show 0.46M</title></rect><rect x="294.0" y="16" width="5.8" height="280"><title>Jul 2018
+Actual 0.35M
+Forecast without the show 0.34M</title></rect><rect x="299.9" y="16" width="5.8" height="280"><title>Aug 2018
+Actual 0.48M
+Forecast without the show 0.53M</title></rect><rect x="305.7" y="16" width="5.8" height="280"><title>Sep 2018
+Actual 0.54M
+Forecast without the show 0.51M</title></rect><rect x="311.5" y="16" width="5.8" height="280"><title>Oct 2018
+Actual 0.64M
+Forecast without the show 0.46M</title></rect><rect x="317.4" y="16" width="5.8" height="280"><title>Nov 2018
+Actual 0.54M
+Forecast without the show 0.51M</title></rect><rect x="323.2" y="16" width="5.8" height="280"><title>Dec 2018
+Actual 0.42M
+Forecast without the show 0.54M</title></rect><rect x="329.0" y="16" width="5.8" height="280"><title>Jan 2019
+Actual 0.67M
+Forecast without the show 0.65M</title></rect><rect x="334.8" y="16" width="5.8" height="280"><title>Feb 2019
+Actual 0.64M
+Forecast without the show 0.58M</title></rect><rect x="340.7" y="16" width="5.8" height="280"><title>Mar 2019
+Actual 0.80M
+Forecast without the show 0.93M</title></rect><rect x="346.5" y="16" width="5.8" height="280"><title>Apr 2019
+Actual 0.48M
+Forecast without the show 0.74M</title></rect><rect x="352.3" y="16" width="5.8" height="280"><title>May 2019
+Actual 0.29M
+Forecast without the show 0.63M</title></rect><rect x="358.2" y="16" width="5.8" height="280"><title>Jun 2019
+Actual 0.26M
+Forecast without the show 0.50M</title></rect><rect x="364.0" y="16" width="5.8" height="280"><title>Jul 2019
+Actual 0.38M
+Forecast without the show 0.77M</title></rect><rect x="369.8" y="16" width="5.8" height="280"><title>Aug 2019
+Actual 0.51M
+Forecast without the show 0.86M</title></rect><rect x="375.7" y="16" width="5.8" height="280"><title>Sep 2019
+Actual 0.64M
+Forecast without the show 1.00M</title></rect><rect x="381.5" y="16" width="5.8" height="280"><title>Oct 2019
+Actual 0.58M
+Forecast without the show 0.86M</title></rect><rect x="387.3" y="16" width="5.8" height="280"><title>Nov 2019
+Actual 0.58M
+Forecast without the show 0.69M</title></rect><rect x="393.2" y="16" width="5.8" height="280"><title>Dec 2019
+Actual 0.58M
+Forecast without the show 0.59M</title></rect><rect x="399.0" y="16" width="5.8" height="280"><title>Jan 2020
+Actual 0.83M
+Forecast without the show 0.96M</title></rect><rect x="404.8" y="16" width="5.8" height="280"><title>Feb 2020
+Actual 0.80M
+Forecast without the show 1.08M</title></rect><rect x="410.7" y="16" width="5.8" height="280"><title>Mar 2020
+Actual 1.31M
+Forecast without the show 0.97M</title></rect><rect x="416.5" y="16" width="5.8" height="280"><title>Apr 2020
+Actual 1.53M
+Forecast without the show 1.15M</title></rect><rect x="422.3" y="16" width="5.8" height="280"><title>May 2020
+Actual 1.44M
+Forecast without the show 1.02M</title></rect><rect x="428.2" y="16" width="5.8" height="280"><title>Jun 2020
+Actual 2.11M
+Forecast without the show 1.63M</title></rect><rect x="434.0" y="16" width="5.8" height="280"><title>Jul 2020
+Actual 1.09M
+Forecast without the show 0.72M</title></rect><rect x="439.8" y="16" width="5.8" height="280"><title>Aug 2020
+Actual 1.25M
+Forecast without the show 1.12M</title></rect><rect x="445.7" y="16" width="5.8" height="280"><title>Sep 2020
+Actual 0.74M
+Forecast without the show 0.77M</title></rect><rect x="451.5" y="16" width="5.8" height="280"><title>Oct 2020
+Actual 1.15M
+Forecast without the show 0.87M</title></rect><rect x="457.3" y="16" width="5.8" height="280"><title>Nov 2020
+Actual 3.36M
+Forecast without the show 1.36M</title></rect><rect x="463.2" y="16" width="5.8" height="280"><title>Dec 2020
+Actual 4.44M
+Forecast without the show 1.69M</title></rect><rect x="469.0" y="16" width="5.8" height="280"><title>Jan 2021
+Actual 4.64M
+Forecast without the show 1.28M</title></rect><rect x="474.8" y="16" width="5.8" height="280"><title>Feb 2021
+Actual 4.22M
+Forecast without the show 0.83M</title></rect><rect x="480.6" y="16" width="5.8" height="280"><title>Mar 2021
+Actual 3.01M
+Forecast without the show 1.37M</title></rect><rect x="486.5" y="16" width="5.8" height="280"><title>Apr 2021
+Actual 2.33M
+Forecast without the show 1.43M</title></rect><rect x="492.3" y="16" width="5.8" height="280"><title>May 2021
+Actual 2.21M
+Forecast without the show 1.31M</title></rect><rect x="498.1" y="16" width="5.8" height="280"><title>Jun 2021
+Actual 1.92M
+Forecast without the show 1.66M</title></rect><rect x="504.0" y="16" width="5.8" height="280"><title>Jul 2021
+Actual 1.98M
+Forecast without the show 1.14M</title></rect><rect x="509.8" y="16" width="5.8" height="280"><title>Aug 2021
+Actual 1.50M
+Forecast without the show 1.44M</title></rect><rect x="515.6" y="16" width="5.8" height="280"><title>Sep 2021
+Actual 1.76M
+Forecast without the show 1.26M</title></rect><rect x="521.5" y="16" width="5.8" height="280"><title>Oct 2021
+Actual 2.14M
+Forecast without the show 1.29M</title></rect><rect x="527.3" y="16" width="5.8" height="280"><title>Nov 2021
+Actual 1.73M
+Forecast without the show 1.56M</title></rect><rect x="533.1" y="16" width="5.8" height="280"><title>Dec 2021
+Actual 2.17M
+Forecast without the show 1.73M</title></rect><rect x="539.0" y="16" width="5.8" height="280"><title>Jan 2022
+Actual 2.69M
+Forecast without the show 1.57M</title></rect><rect x="544.8" y="16" width="5.8" height="280"><title>Feb 2022
+Actual 1.95M
+Forecast without the show 1.32M</title></rect><rect x="550.6" y="16" width="5.8" height="280"><title>Mar 2022
+Actual 2.40M
+Forecast without the show 1.77M</title></rect><rect x="556.5" y="16" width="5.8" height="280"><title>Apr 2022
+Actual 2.27M
+Forecast without the show 1.70M</title></rect><rect x="562.3" y="16" width="5.8" height="280"><title>May 2022
+Actual 1.69M
+Forecast without the show 1.59M</title></rect><rect x="568.1" y="16" width="5.8" height="280"><title>Jun 2022
+Actual 1.66M
+Forecast without the show 1.69M</title></rect><rect x="574.0" y="16" width="5.8" height="280"><title>Jul 2022
+Actual 1.47M
+Forecast without the show 1.57M</title></rect><rect x="579.8" y="16" width="5.8" height="280"><title>Aug 2022
+Actual 1.98M
+Forecast without the show 1.76M</title></rect><rect x="585.6" y="16" width="5.8" height="280"><title>Sep 2022
+Actual 2.75M
+Forecast without the show 1.74M</title></rect><rect x="591.5" y="16" width="5.8" height="280"><title>Oct 2022
+Actual 3.13M
+Forecast without the show 1.69M</title></rect><rect x="597.3" y="16" width="5.8" height="280"><title>Nov 2022
+Actual 3.64M
+Forecast without the show 1.75M</title></rect><rect x="603.1" y="16" width="5.8" height="280"><title>Dec 2022
+Actual 5.91M
+Forecast without the show 1.77M</title></rect><rect x="608.9" y="16" width="5.8" height="280"><title>Jan 2023
+Actual 10.10M
+Forecast without the show 1.88M</title></rect><rect x="614.8" y="16" width="5.8" height="280"><title>Feb 2023
+Actual 8.15M
+Forecast without the show 1.82M</title></rect><rect x="620.6" y="16" width="5.8" height="280"><title>Mar 2023
+Actual 6.43M
+Forecast without the show 2.16M</title></rect><rect x="626.4" y="16" width="5.8" height="280"><title>Apr 2023
+Actual 4.67M
+Forecast without the show 1.97M</title></rect><rect x="632.3" y="16" width="5.8" height="280"><title>May 2023
+Actual 3.90M
+Forecast without the show 1.87M</title></rect><rect x="638.1" y="16" width="5.8" height="280"><title>Jun 2023
+Actual 3.26M
+Forecast without the show 1.73M</title></rect><rect x="643.9" y="16" width="5.8" height="280"><title>Jul 2023
+Actual 3.58M
+Forecast without the show 2.00M</title></rect><rect x="649.8" y="16" width="5.8" height="280"><title>Aug 2023
+Actual 4.12M
+Forecast without the show 2.09M</title></rect><rect x="655.6" y="16" width="5.8" height="280"><title>Sep 2023
+Actual 3.77M
+Forecast without the show 2.23M</title></rect><rect x="661.4" y="16" width="5.8" height="280"><title>Oct 2023
+Actual 3.26M
+Forecast without the show 2.09M</title></rect><rect x="667.3" y="16" width="5.8" height="280"><title>Nov 2023
+Actual 3.39M
+Forecast without the show 1.93M</title></rect><rect x="673.1" y="16" width="5.8" height="280"><title>Dec 2023
+Actual 3.13M
+Forecast without the show 1.82M</title></rect><rect x="678.9" y="16" width="5.8" height="280"><title>Jan 2024
+Actual 4.22M
+Forecast without the show 2.19M</title></rect><rect x="684.8" y="16" width="5.8" height="280"><title>Feb 2024
+Actual 3.39M
+Forecast without the show 2.31M</title></rect><rect x="690.6" y="16" width="5.8" height="280"><title>Mar 2024
+Actual 3.58M
+Forecast without the show 2.20M</title></rect><rect x="696.4" y="16" width="5.8" height="280"><title>Apr 2024
+Actual 3.77M
+Forecast without the show 2.38M</title></rect><rect x="702.3" y="16" width="5.8" height="280"><title>May 2024
+Actual 3.39M
+Forecast without the show 2.26M</title></rect><rect x="708.1" y="16" width="5.8" height="280"><title>Jun 2024
+Actual 3.52M
+Forecast without the show 2.86M</title></rect><rect x="713.9" y="16" width="5.8" height="280"><title>Jul 2024
+Actual 3.20M
+Forecast without the show 1.96M</title></rect><rect x="719.8" y="16" width="5.8" height="280"><title>Aug 2024
+Actual 3.74M
+Forecast without the show 2.35M</title></rect><rect x="725.6" y="16" width="5.8" height="280"><title>Sep 2024
+Actual 4.51M
+Forecast without the show 2.00M</title></rect><rect x="731.4" y="16" width="5.8" height="280"><title>Oct 2024
+Actual 4.35M
+Forecast without the show 2.11M</title></rect><rect x="737.3" y="16" width="5.8" height="280"><title>Nov 2024
+Actual 4.57M
+Forecast without the show 2.60M</title></rect><rect x="743.1" y="16" width="5.8" height="280"><title>Dec 2024
+Actual 5.98M
+Forecast without the show 2.92M</title></rect></g><line class="guide" x1="0" x2="0" y1="16" y2="296" stroke="#2D2D2B" stroke-width="1" opacity="0" pointer-events="none"/></svg></div>
+<p class="cap">Prophet trained on August 2017 to September 2020. The gap sums to about 84.2 million excess signups through December 2024. Pre intervention error 38.6 percent, so order of magnitude, not precise. Hover for the monthly gap. <a href="https://anp-exe.github.io/women-in-chess-analysis/" target="_blank" rel="noopener">Full project</a>.</p>
+</div><script>
+(function(){
+ var p=document.querySelector('.plot'); if(!p) return;
+ var tip=document.createElement('div'); tip.className='tip'; p.appendChild(tip);
+ p.querySelectorAll('svg rect > title, svg circle > title').forEach(function(t){
+  var o=t.parentNode; o.setAttribute('data-tip',t.textContent); o.removeChild(t); });
+ function show(e,cx,cy){
+  var t=e.target.closest('[data-tip]'); if(!t){ tip.style.opacity=0; return; }
+  var r=p.getBoundingClientRect();
+  tip.textContent=t.getAttribute('data-tip');
+  tip.style.left=(cx-r.left)+'px'; tip.style.top=(cy-r.top)+'px'; tip.style.opacity=1;
+  var s=t.ownerSVGElement, g=s&&s.querySelector('.guide');
+  if(g){ var b=t.getBBox(), x=b.x+b.width/2;
+   g.setAttribute('x1',x); g.setAttribute('x2',x); g.setAttribute('opacity','0.35'); }
+ }
+ p.addEventListener('mousemove',function(e){ show(e,e.clientX,e.clientY); });
+ p.addEventListener('touchstart',function(e){
+  var t=e.touches[0]; var el=document.elementFromPoint(t.clientX,t.clientY);
+  show({target:el||e.target},t.clientX,t.clientY); },{passive:true});
+ p.addEventListener('mouseleave',function(){ tip.style.opacity=0;
+  p.querySelectorAll('.guide').forEach(function(g){ g.setAttribute('opacity','0'); }); });
+})();
+</script></body></html>
