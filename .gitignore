@@ -20,3 +20,4 @@ next-env.d.ts
 # IDE settings are per machine, not per branch: tracking them here meant
 # switching branches wiped PyCharm.s config and dropped version control.
 .idea/
+Claude outputs/
