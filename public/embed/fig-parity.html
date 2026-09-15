@@ -39,8 +39,8 @@ input[type=range]{width:100%;margin-top:12px;accent-color:#81b64c;cursor:pointer
 <p>Figure 4 &middot; 1 in 9, a data story about women in chess</p></div>
 <div class="bd">
 <div class="views">
-  <button id="vp" class="on">Run it to parity</button>
-  <button id="vo">The decade we have</button>
+  <button id="vo" class="on">The decade we have</button>
+  <button id="vp">Run it to parity</button>
 </div>
 <p class="legend">
   <span><span style="display:inline-block;width:18px;height:0;border-top:2px solid #B85C74;vertical-align:middle;margin-right:6px"></span>Observed, monthly</span>
@@ -50,10 +50,9 @@ input[type=range]{width:100%;margin-top:12px;accent-color:#81b64c;cursor:pointer
 <div class="panel" id="ctl">
   <div class="row">
     <button id="pp" class="play">Play</button>
-    <div class="read"><b id="yr">2479</b><span id="sh"></span></div>
   </div>
   <input type="range" id="sl" min="2" value="2" aria-label="Year">
-  <div class="ends"><span>2015</span><span>2479, parity</span></div>
+  <div class="ends"><span>2015</span><span id="endR">2026</span></div>
 </div>
 </div>
 <div class="ft"><a href="https://anp-exe.github.io/women-in-chess-analysis/" target="_blank" rel="noopener">Full write up &rarr;</a></div>
@@ -62,19 +61,19 @@ input[type=range]{width:100%;margin-top:12px;accent-color:#81b64c;cursor:pointer
 <script>
 var D = __D__;
 var W = '#B85C74', G = '#8B8987', INK = '#312E2B', GRID = '#E9E9E7', MUTED = '#7A7A76';
-var PARITY = 50, OBS_MS = 5000, PROJ_MS = 11000;
+var PARITY = 50, OBS_MS = 5000, PROJ_MS = 11000, DECADE_MS = 11000;
 
 function ym(m){ var p = m.split('-'); return +p[0] + (+p[1] - 1) / 12; }
-var obs = D.observed.map(function(r){ return {x: ym(r.month), share: r.share}; });
+var obs = D.observed.map(function(r){ return [ym(r.month), r.share]; });
 var lastShare = D.share_last, slope = D.slope_recent;
-var lastX = obs[obs.length - 1].x, lastYear = Math.floor(lastX);
+var lastX = obs[obs.length - 1][0], lastYear = Math.floor(lastX);
 var yearsToParity = Math.ceil((PARITY - lastShare) / slope);
 var parityYear = lastYear + yearsToParity;
 
-var rows = obs.slice();
+var proj = [];
 for (var y = 0; y <= yearsToParity; y++)
-  rows.push({x: lastYear + y + 0.25, proj: Math.min(PARITY, lastShare + slope * y)});
-var nObs = obs.length, total = rows.length;
+  proj.push([lastYear + y + 0.25, Math.min(PARITY, lastShare + slope * y)]);
+var nObs = obs.length, total = nObs + proj.length;
 
 function yearStep(s){ return s<=20?5 : s<=60?10 : s<=150?25 : s<=350?50 : 100; }
 function shareTicks(lo, hi){
@@ -82,11 +81,30 @@ function shareTicks(lo, hi){
   for (var v = Math.ceil(lo/step)*step; v <= hi; v += step) out.push(v);
   return out;
 }
+
+/* Progress is a float, not a point index. At eleven seconds the decade is only
+   about twelve points a second, so stepping point to point reads as stutter;
+   the tip is interpolated between points instead and the camera follows it
+   continuously. */
+function cutPts(pts, p){
+  var n = Math.max(0, Math.min(pts.length, Math.floor(p)));
+  var out = pts.slice(0, n), frac = p - n;
+  if (frac > 0 && n > 0 && n < pts.length){
+    var a = pts[n - 1], b = pts[n];
+    out.push([a[0] + (b[0] - a[0]) * frac, a[1] + (b[1] - a[1]) * frac]);
+  }
+  return out;
+}
+
+var view = 'observed', frame = 0, playing = false, rafId = null;
+function maxF(){ return view === 'observed' ? nObs : total; }
 function frameAt(ms){
-  if (ms < OBS_MS) return Math.round(ms / OBS_MS * nObs);
-  return Math.min(total, nObs + Math.round((ms - OBS_MS) / PROJ_MS * (total - nObs)));
+  if (view === 'observed') return Math.min(nObs, ms / DECADE_MS * nObs);
+  if (ms < OBS_MS) return ms / OBS_MS * nObs;
+  return Math.min(total, nObs + (ms - OBS_MS) / PROJ_MS * (total - nObs));
 }
 function msAt(f){
+  if (view === 'observed') return f / nObs * DECADE_MS;
   return f <= nObs ? f / nObs * OBS_MS
                    : OBS_MS + (f - nObs) / (total - nObs) * PROJ_MS;
 }
@@ -95,32 +113,31 @@ var svg = document.getElementById('plot');
 var VB = {w: 760, h: 320, ml: 54, mr: 16, mt: 16, mb: 34};
 svg.setAttribute('viewBox', '0 0 ' + VB.w + ' ' + VB.h);
 
-var view = 'parity', frame = total, playing = false, rafId = null;
-
 function draw(){
-  var shown = rows.slice(0, Math.max(2, frame));
-  var head = shown[shown.length - 1];
-  var headShare = head.proj != null ? head.proj : head.share;
-  var headYear = Math.floor(head.x);
-  var u = Math.min(1, Math.max(0, (headYear - lastYear) / (parityYear - lastYear)));
+  var p = Math.max(2, Math.min(frame, maxF()));
+  var obsPts, projPts;
+  if (view === 'observed' || p <= nObs){ obsPts = cutPts(obs, p); projPts = []; }
+  else { obsPts = obs; projPts = cutPts(proj, p - nObs); }
+  var tipArr = projPts.length ? projPts : obsPts;
+  var tip = tipArr[tipArr.length - 1];
+  var u = view === 'observed' ? 0
+        : Math.min(1, Math.max(0, (tip[0] - lastX) / (parityYear - lastX)));
 
-  var x0 = obs[0].x, x1, yLo, yHi, plotted;
+  var x0 = obs[0][0], x1, yLo, yHi;
   if (view === 'observed'){
-    x1 = lastX; yLo = 9; yHi = 11; plotted = obs;
+    x1 = lastX; yLo = 9; yHi = 11;
   } else {
-    x1 = Math.round(lastYear + 5 + u * (parityYear - lastYear - 5)) + 0.25;
-    yLo = 8 * (1 - u); yHi = 12 + (55 - 12) * u; plotted = shown;
+    x1 = lastYear + 5 + u * (parityYear - lastYear - 5) + 0.25;
+    yLo = 8 * (1 - u); yHi = 12 + (55 - 12) * u;
   }
   var X = function(v){ return VB.ml + (v - x0) / (x1 - x0) * (VB.w - VB.ml - VB.mr); };
   var Y = function(v){ return (VB.h - VB.mb) - (v - yLo) / (yHi - yLo) * (VB.h - VB.mb - VB.mt); };
 
   var yt = view === 'observed' ? [9, 9.5, 10, 10.5, 11] : shareTicks(yLo, yHi);
-  var step = yearStep(x1 - x0), xt = [];
+  var step = view === 'observed' ? 2 : yearStep(x1 - x0), xt = [];
   for (var yv = Math.ceil(x0 / step) * step; yv <= x1; yv += step) xt.push(yv);
-  /* the run starts at 2015 but the first round tick can be a century away,
-     so label the start unless a tick already sits near it */
-  var start = Math.ceil(x0);
-  if (!xt.length || xt[0] - start > step * 0.35) xt.unshift(start);
+  var startYr = Math.ceil(x0);
+  if (!xt.length || xt[0] - startYr > step * 0.35) xt.unshift(startYr);
 
   var s = '';
   yt.forEach(function(v){
@@ -142,60 +159,54 @@ function draw(){
   }
 
   function path(pts){
-    return pts.length < 2 ? '' : 'M' + pts.map(function(p){ return X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1); }).join(' L');
+    return pts.length < 2 ? '' : 'M' + pts.map(function(q){ return X(q[0]).toFixed(1) + ',' + Y(q[1]).toFixed(1); }).join(' L');
   }
-  var obsPts = plotted.filter(function(r){ return r.share != null; }).map(function(r){ return [r.x, r.share]; });
-  var projPts = plotted.filter(function(r){ return r.proj != null; }).map(function(r){ return [r.x, r.proj]; });
   if (projPts.length) s += '<path d="' + path(projPts) + '" fill="none" stroke="' + G + '" stroke-width="2" stroke-dasharray="7 5"/>';
-  if (obsPts.length)  s += '<path d="' + path(obsPts) + '" fill="none" stroke="' + W + '" stroke-width="2.6"/>';
+  if (obsPts.length)  s += '<path d="' + path(obsPts)  + '" fill="none" stroke="' + W + '" stroke-width="2.6"/>';
 
-  if (view === 'parity'){
-    s += '<circle cx="' + X(head.x).toFixed(1) + '" cy="' + Y(headShare).toFixed(1) + '" r="4.5" fill="' + W + '"/>';
-    s += '<text x="' + (X(head.x) - 9).toFixed(1) + '" y="' + (Y(headShare) - 12).toFixed(1) +
-         '" text-anchor="end" font-size="13" font-weight="600" fill="' + W +
-         '" stroke="#ffffff" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round">' + headYear + '</text>';
-  }
+  s += '<circle cx="' + X(tip[0]).toFixed(1) + '" cy="' + Y(tip[1]).toFixed(1) + '" r="4.5" fill="' + W + '"/>';
+  s += '<text x="' + (X(tip[0]) - 9).toFixed(1) + '" y="' + (Y(tip[1]) - 12).toFixed(1) +
+       '" text-anchor="end" font-size="13" font-weight="600" fill="' + W +
+       '" stroke="#ffffff" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round">' +
+       Math.round(tip[0]) + '</text>';
   svg.innerHTML = s;
 
-  document.getElementById('yr').textContent = view === 'observed' ? lastYear : headYear;
-  var hs = view === 'observed' ? lastShare : headShare;
-  document.getElementById('sh').textContent =
-    hs.toFixed(1) + ' percent women' + (hs >= PARITY ? ', parity' : ', ' + ((100 - hs) / hs).toFixed(1) + ' men per woman');
   var sl = document.getElementById('sl');
-  if (+sl.value !== frame) sl.value = frame;
+  if (!sl.matches(':active')) sl.value = Math.round(frame);
 }
 
 function stop(){ playing = false; if (rafId) cancelAnimationFrame(rafId); document.getElementById('pp').textContent = 'Play'; }
 function play(){
-  if (view !== 'parity') return;
-  if (frame >= total) frame = 0;
+  if (frame >= maxF()) frame = 0;
   playing = true;
   document.getElementById('pp').textContent = 'Pause';
   var started = performance.now() - msAt(frame);
   (function tick(now){
     if (!playing) return;
-    var next = frameAt(now - started);
-    if (next !== frame){ frame = next; draw(); }
-    if (next >= total){ stop(); return; }
+    frame = frameAt(now - started);
+    draw();
+    if (frame >= maxF()){ stop(); return; }
     rafId = requestAnimationFrame(tick);
   })(performance.now());
 }
 
 document.getElementById('pp').onclick = function(){ playing ? stop() : play(); };
-document.getElementById('sl').max = total;
 document.getElementById('sl').oninput = function(){ stop(); frame = +this.value; draw(); };
-[['vp','parity'],['vo','observed']].forEach(function(p){
-  document.getElementById(p[0]).onclick = function(){
-    stop(); view = p[1];
-    document.getElementById('vp').className = view === 'parity' ? 'on' : '';
-    document.getElementById('vo').className = view === 'observed' ? 'on' : '';
-    document.getElementById('ctl').style.display = view === 'parity' ? '' : 'none';
-    if (view === 'parity') frame = total;
-    draw();
-  };
-});
 
-draw();
+function setView(v){
+  stop(); view = v;
+  document.getElementById('vo').className = v === 'observed' ? 'on' : '';
+  document.getElementById('vp').className = v === 'parity'   ? 'on' : '';
+  document.getElementById('endR').textContent = v === 'observed' ? '2026' : parityYear + ', parity';
+  document.getElementById('sl').max = maxF();
+  frame = 0; draw(); play();
+}
+document.getElementById('vo').onclick = function(){ setView('observed'); };
+document.getElementById('vp').onclick = function(){ setView('parity'); };
+
+document.getElementById('sl').max = maxF();
+document.getElementById('endR').textContent = '2026';
+frame = maxF(); draw();
 if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
   setTimeout(function(){ frame = 0; draw(); play(); }, 500);
 }
