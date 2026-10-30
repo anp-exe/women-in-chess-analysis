@@ -19,9 +19,13 @@ import {
   COUNTERFACTUAL,
   EventLabel,
   GRID,
+  LINE,
   TooltipShell,
   WOMEN,
+  YAXIS,
+  endLabel,
   formatMonth,
+  mobileFigure,
   monthToTs,
   useYearTicks,
 } from "./chart-kit";
@@ -63,14 +67,25 @@ export default function ChessComSignupsChart() {
   return (
     <ChartFrame
       figureNumber="Figure 1"
-      title="Chess.com signups vs Prophet counterfactual"
-      legend={[
-        { label: "Actual calibrated signups", color: WOMEN },
-        { label: "Prophet counterfactual", color: COUNTERFACTUAL, dashed: true },
-        { label: "80% prediction interval", color: WOMEN, faint: true },
-      ]}
+      title="The Queen's Gambit lifted chess.com signups for good"
+      subtitle="Calibrated chess.com signups per month against a Prophet forecast of the same months without the show. Shaded band: the forecast's 80% prediction interval."
+      callout={{
+        value: `+${data.excess_m}M`,
+        label: "signups above the forecast, October 2020 to December 2024",
+        color: WOMEN,
+        at: { top: 34, left: 76 },
+      }}
       caption={`Calibrated to the median of three public benchmarks: 2.8 million signups in November 2020, 100 million total members by December 2022, and 150 million by October 2023. Pre intervention training MAPE ${data.mape} percent. Hover for the monthly gap between the two lines; the whole gap from October 2020 to December 2024 sums to about ${data.excess_m} million signups.`}
       height={360}
+      staticFigure={{
+        src: mobileFigure("chesscomsignup.png"),
+        width: 1189,
+        height: 440,
+        alt: "Chess.com signups per month, 2015 to 2024, against the Prophet counterfactual",
+        legend: [],
+        caption:
+          "Calibrated to the median of three public benchmarks: 2.8 million signups in November 2020, 100 million total members by December 2022, and 150 million by October 2023. Pre intervention training MAPE 38.6 percent.",
+      }}
       table={{
         head: ["Month", "Actual (M)", "Counterfactual (M)", "80% interval (M)"],
         rows: rows.map((r) => [
@@ -82,7 +97,7 @@ export default function ChessComSignupsChart() {
       }}
     >
       <ResponsiveContainer>
-        <ComposedChart data={rows} margin={{ top: 28, right: 12, bottom: 4, left: 0 }}>
+        <ComposedChart data={rows} margin={{ top: 28, right: 84, bottom: 4, left: 0 }}>
           <CartesianGrid stroke={GRID} vertical={false} />
           <XAxis
             dataKey="t"
@@ -95,7 +110,7 @@ export default function ChessComSignupsChart() {
           />
           <YAxis
             width={54}
-            {...AXIS}
+            {...YAXIS}
             tickFormatter={(v) => `${v}M`}
             label={{
               value: "Signups per month",
@@ -117,18 +132,20 @@ export default function ChessComSignupsChart() {
           <Line
             dataKey="forecast"
             stroke={COUNTERFACTUAL}
-            strokeWidth={2}
+            strokeWidth={LINE.secondary}
             strokeDasharray="6 4"
             dot={false}
             isAnimationActive={false}
+            label={endLabel(rows.length - 1, "Forecast", COUNTERFACTUAL)}
             activeDot={{ r: 4, fill: COUNTERFACTUAL, stroke: "#FAF6ED", strokeWidth: 2 }}
           />
           <Line
             dataKey="actual"
             stroke={WOMEN}
-            strokeWidth={2}
+            strokeWidth={LINE.main}
             dot={false}
             isAnimationActive={false}
+            label={endLabel(rows.length - 1, "Actual", WOMEN)}
             activeDot={{ r: 4.5, fill: WOMEN, stroke: "#FAF6ED", strokeWidth: 2 }}
           />
           {EVENTS.map((e) => (

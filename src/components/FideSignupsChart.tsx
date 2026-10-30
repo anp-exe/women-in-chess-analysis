@@ -17,11 +17,16 @@ import {
   ChartFrame,
   COUNTERFACTUAL,
   EventLabel,
+  INK,
   GRID,
+  LINE,
   MEN,
   TooltipShell,
   WOMEN,
+  YAXIS,
+  endLabel,
   formatMonth,
+  mobileFigure,
   monthToTs,
   useYearTicks,
 } from "./chart-kit";
@@ -87,17 +92,44 @@ export default function FideSignupsChart() {
   const ticks = useYearTicks(from, to, 1);
   const model = mode === "men" ? data.model.men : data.model.women;
 
-  const legend =
+  const last = rows.length - 1;
+  const endW = (rows[last] as any).womenIndex ?? 0;
+  const endM = (rows[last] as any).menIndex ?? 0;
+  // the indexed lines finish within a few points of each other, so push the
+  // two end labels apart
+  const nudge = mode === "indexed" && Math.abs(endW - endM) < 25 ? 8 : 0;
+
+  // growth past the pre Covid level, not just back to it: last 3 month trend
+  // against the mean trend before March 2020
+  const growth = useMemo(() => {
+    const pct = (key: "women" | "men") => {
+      const s = data.series[key];
+      const pre = s.filter((r) => r.month < data.covid).map((r) => r.trend);
+      const base = pre.reduce((a, b) => a + b, 0) / pre.length;
+      return Math.round((s[s.length - 1].trend / base - 1) * 100);
+    };
+    return { women: pct("women"), men: pct("men") };
+  }, []);
+
+  const subtitle =
     mode === "indexed"
-      ? [
-          { label: "Women", color: WOMEN },
-          { label: "Men", color: MEN },
-        ]
-      : [
-          { label: "Monthly registrations", color: COLOR[mode], faint: true },
-          { label: "3 month trend", color: COLOR[mode] },
-          { label: "Expected without the show, Covid kept", color: COUNTERFACTUAL, dashed: true },
-        ];
+      ? "New FIDE registrations, 3 month trend, each sex rescaled so August 2017 = 100."
+      : `New FIDE registrations per month, ${mode === "women" ? "women" : "men"}. Faint line: monthly count. Bold: 3 month trend. Dashed: the interrupted time series model's expectation with Covid kept and no show effect.`;
+
+  const callout =
+    mode === "indexed"
+      ? {
+          value: `${Math.round(endW)} vs ${Math.round(endM)}`,
+          label: "where women and men finish, against 100 in August 2017: the same recovery",
+          color: INK,
+          at: { top: 64, left: 76 },
+        }
+      : {
+          value: `+${growth[mode as "women" | "men"]}%`,
+          label: `${mode}'s 3 month trend at the end of 2024 against the pre Covid average (${mode === "women" ? "men" : "women"}: +${growth[mode === "women" ? "men" : "women"]}%)`,
+          color: COLOR[mode as "women" | "men"],
+          at: { top: 64, left: 76 },
+        };
 
   const caption =
     mode === "indexed" ? (
@@ -130,10 +162,20 @@ export default function FideSignupsChart() {
   return (
     <ChartFrame
       figureNumber="Figure 2"
-      title="New FIDE registrations by sex, 2017 to 2024"
-      legend={legend}
+      title="Tournament chess came back bigger, for women and men alike"
+      subtitle={subtitle}
+      callout={callout}
       caption={caption}
       height={360}
+      staticFigure={{
+        src: mobileFigure("fidenewsignup.png"),
+        width: 1489,
+        height: 889,
+        alt: "New FIDE registrations per month for women and men, 2017 to 2024",
+        legend: [],
+        caption:
+          "The dashed line is the interrupted time series counterfactual with the Covid term kept but no show effect. Covid cancelled in person tournaments worldwide in 2020, and FIDE registrations require tournament play. Both series recover after late 2020 at a proportionally similar rate, which is what a pandemic recovery looks like, not a female specific Queen's Gambit surge.",
+      }}
       table={table}
       controls={
         <div className="flex flex-wrap gap-2">
@@ -152,7 +194,7 @@ export default function FideSignupsChart() {
       }
     >
       <ResponsiveContainer>
-        <ComposedChart data={rows} margin={{ top: 28, right: 12, bottom: 4, left: 0 }}>
+        <ComposedChart data={rows} margin={{ top: 28, right: 76, bottom: 4, left: 0 }}>
           <CartesianGrid stroke={GRID} vertical={false} />
           <XAxis
             dataKey="t"
@@ -165,7 +207,7 @@ export default function FideSignupsChart() {
           />
           <YAxis
             width={54}
-            {...AXIS}
+            {...YAXIS}
             tickFormatter={(v) => v.toLocaleString("en-GB")}
             label={{
               value: mode === "indexed" ? "Aug 2017 = 100" : "Players per month",
@@ -179,18 +221,21 @@ export default function FideSignupsChart() {
 
           {mode === "indexed" ? (
             <>
-              <Line dataKey="womenIndex" stroke={WOMEN} strokeWidth={2} dot={false} isAnimationActive={false}
+              <Line dataKey="womenIndex" stroke={WOMEN} strokeWidth={LINE.main} dot={false} isAnimationActive={false}
+                label={endLabel(last, "Women", WOMEN, endW < endM ? nudge : -nudge)}
                 activeDot={{ r: 4.5, fill: WOMEN, stroke: "#FAF6ED", strokeWidth: 2 }} />
-              <Line dataKey="menIndex" stroke={MEN} strokeWidth={2} dot={false} isAnimationActive={false}
+              <Line dataKey="menIndex" stroke={MEN} strokeWidth={LINE.main} dot={false} isAnimationActive={false}
+                label={endLabel(last, "Men", MEN, endW < endM ? -nudge : nudge)}
                 activeDot={{ r: 4.5, fill: MEN, stroke: "#FAF6ED", strokeWidth: 2 }} />
             </>
           ) : (
             <>
-              <Line dataKey="actual" stroke={COLOR[mode]} strokeWidth={1.4} strokeOpacity={0.4} dot={false}
+              <Line dataKey="actual" stroke={COLOR[mode]} strokeWidth={LINE.faint} strokeOpacity={0.35} dot={false}
                 isAnimationActive={false} activeDot={false} />
-              <Line dataKey="counterfactual" stroke={COUNTERFACTUAL} strokeWidth={2} strokeDasharray="6 4" dot={false}
-                isAnimationActive={false} activeDot={{ r: 4, fill: COUNTERFACTUAL, stroke: "#FAF6ED", strokeWidth: 2 }} />
-              <Line dataKey="trend" stroke={COLOR[mode]} strokeWidth={2.6} dot={false} isAnimationActive={false}
+              <Line dataKey="counterfactual" stroke={COUNTERFACTUAL} strokeWidth={LINE.secondary} strokeDasharray="6 4" dot={false}
+                isAnimationActive={false} label={endLabel(last, "Expected", COUNTERFACTUAL)} activeDot={{ r: 4, fill: COUNTERFACTUAL, stroke: "#FAF6ED", strokeWidth: 2 }} />
+              <Line dataKey="trend" stroke={COLOR[mode]} strokeWidth={LINE.main} dot={false} isAnimationActive={false}
+                label={endLabel(last, mode === "women" ? "Women" : "Men", COLOR[mode])}
                 activeDot={{ r: 4.5, fill: COLOR[mode], stroke: "#FAF6ED", strokeWidth: 2 }} />
             </>
           )}

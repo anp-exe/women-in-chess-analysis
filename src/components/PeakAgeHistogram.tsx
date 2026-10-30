@@ -12,7 +12,7 @@ import {
   YAxis,
 } from "recharts";
 import data from "@/data/peak_age.json";
-import { AXIS, ChartFrame, GRID, MEN, TooltipShell, WOMEN } from "./chart-kit";
+import { AXIS, ChartFrame, GRID, INK, MEN, TooltipShell, WOMEN, YAXIS, mobileFigure } from "./chart-kit";
 
 type Depth = 25 | 100;
 
@@ -32,22 +32,35 @@ function meanLines(props: any, firstStart: number, bandCount: number, means: { w
   if (!o?.width) return null;
   const span = bandCount * BIN;
   const xOf = (age: number) => o.left + ((age - firstStart) / span) * o.width;
+  // the means sit close together, so each label goes on its own side
+  const womenRight = means.women >= means.men;
   return (
     <g>
       {([
-        [means.men, MEN],
-        [means.women, WOMEN],
-      ] as [number, string][]).map(([age, colour]) => (
-        <line
-          key={colour}
-          x1={xOf(age)}
-          x2={xOf(age)}
-          y1={o.top}
-          y2={o.top + o.height}
-          stroke={colour}
-          strokeWidth={1.5}
-          strokeDasharray="5 4"
-        />
+        [means.men, MEN, "Men", !womenRight],
+        [means.women, WOMEN, "Women", womenRight],
+      ] as [number, string, string, boolean][]).map(([age, colour, name, right]) => (
+        <g key={colour}>
+          <line
+            x1={xOf(age)}
+            x2={xOf(age)}
+            y1={o.top}
+            y2={o.top + o.height}
+            stroke={colour}
+            strokeWidth={2}
+            strokeDasharray="5 4"
+          />
+          <text
+            x={xOf(age) + (right ? 6 : -6)}
+            y={o.top - 8}
+            fill={colour}
+            fontSize={12}
+            fontWeight={600}
+            textAnchor={right ? "start" : "end"}
+          >
+            {name}, mean {age}
+          </text>
+        </g>
       ))}
     </g>
   );
@@ -97,12 +110,14 @@ export default function PeakAgeHistogram({ figureNumber }: { figureNumber: strin
   return (
     <ChartFrame
       figureNumber={figureNumber}
-      title="Where the careers actually peaked"
-      legend={[
-        { label: `Women (mean ${stats.mean.women})`, color: WOMEN },
-        { label: `Men (mean ${stats.mean.men})`, color: MEN },
-        { label: "Dashed: group mean", color: "#9A9A90", dashed: true },
-      ]}
+      title="Women and men peak at the same ages"
+      subtitle={`Age at peak rating for the ${depth} highest rated active players of each sex, in five year bands. Dashed lines: group means.`}
+      callout={{
+        value: `${Math.abs(stats.mean.women - stats.mean.men).toFixed(1)} yrs`,
+        label: `between the two mean peak ages (p\u00a0=\u00a0${stats.p.toFixed(2)})`,
+        color: INK,
+        at: { top: 36, right: 20 },
+      }}
       controls={
         <div className="flex flex-wrap gap-2">
           {([25, 100] as Depth[]).map((d) => (
@@ -150,13 +165,23 @@ export default function PeakAgeHistogram({ figureNumber }: { figureNumber: strin
         </>
       }
       height={320}
+      staticFigure={{
+        src: mobileFigure("ages_top25_active.png"),
+        width: 1320,
+        height: 605,
+        alt: "Career trajectories of the top 25 active players per sex",
+        legend: [],
+        title: "Top 25 active players per sex",
+        caption:
+          "The 25 highest rated active players of each sex. Dotted lines mark the mean peak age: women 29.2, men 28.7 (p = 0.84).",
+      }}
       table={{
         head: ["Age at peak", "Women", "Men"],
         rows: bins.map((b) => [b.bin, b.women, b.men]),
       }}
     >
       <ResponsiveContainer>
-        <BarChart data={bins} margin={{ top: 12, right: 12, bottom: 8, left: 0 }} barGap={2}>
+        <BarChart data={bins} margin={{ top: 30, right: 12, bottom: 8, left: 0 }} barGap={2}>
           <CartesianGrid stroke={GRID} vertical={false} />
           <XAxis
             dataKey="bin"
@@ -171,7 +196,7 @@ export default function PeakAgeHistogram({ figureNumber }: { figureNumber: strin
           <YAxis
             width={54}
             allowDecimals={false}
-            {...AXIS}
+            {...YAXIS}
             label={{
               value: "Players",
               angle: -90,

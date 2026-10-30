@@ -13,7 +13,7 @@ import {
   ZAxis,
 } from "recharts";
 import data from "@/data/peak_age.json";
-import { AXIS, ChartFrame, GRID, MEN, TooltipShell, WOMEN } from "./chart-kit";
+import { AXIS, ChartFrame, GRID, INK, MEN, MarkerLabel, TooltipShell, WOMEN, YAXIS, mobileFigure } from "./chart-kit";
 
 type Depth = 25 | 100;
 
@@ -97,12 +97,14 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
   return (
     <ChartFrame
       figureNumber={figureNumber}
-      title={`Top ${depth} active players per sex`}
-      legend={[
-        { label: `Women (mean peak age ${block.mean.women})`, color: WOMEN },
-        { label: `Men (mean peak age ${block.mean.men})`, color: MEN },
-        { label: "Hollow: peak sits at the edge of the window", color: "#9A9A90" },
-      ]}
+      title={`A ${block.mean_rating.men - block.mean_rating.women} point rating gap, no significant gap in peak age`}
+      subtitle={`Peak rating against age at peak, top ${depth} active players per sex. Hollow dots: the peak sits at an edge of the eleven year window.`}
+      callout={{
+        value: `${Math.abs(block.mean.women - block.mean.men).toFixed(1)} yrs`,
+        label: `between the mean peak ages (p\u00a0=\u00a0${block.p.toFixed(2)})`,
+        color: INK,
+        at: { top: "40%", right: 22 },
+      }}
       caption={
         <>
           One dot per player: age at peak against peak rating. Dashed lines are the group means,{" "}
@@ -117,11 +119,24 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
         </>
       }
       height={360}
+      staticFigure={
+        depth === 100
+          ? {
+              src: mobileFigure("ages_top100_active.png"),
+              width: 1320,
+              height: 605,
+              alt: "Career trajectories of the top 100 active players per sex",
+              legend: [],
+              caption:
+                "The 100 highest rated active players of each sex. Women peak at 28.4, men at 29.7 (p = 0.20).",
+            }
+          : undefined
+      }
       table={{ head: ["Sex", "Age at peak", "Peak rating", "Window edge"], rows: tableRows }}
     >
       <ResponsiveContainer>
-        <ScatterChart margin={{ top: 12, right: 16, bottom: 8, left: 0 }}>
-          <CartesianGrid stroke={GRID} />
+        <ScatterChart margin={{ top: 30, right: 16, bottom: 8, left: 0 }}>
+          <CartesianGrid stroke={GRID} vertical={false} />
           <XAxis
             type="number"
             dataKey="x"
@@ -141,7 +156,7 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
             dataKey="rating"
             domain={yDomain}
             width={54}
-            {...AXIS}
+            {...YAXIS}
             label={{
               value: "Peak rating",
               angle: -90,
@@ -150,7 +165,7 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
               style: { fill: "#55692C", fontSize: 11, textAnchor: "middle" },
             }}
           />
-          <ZAxis range={[46, 46]} />
+          <ZAxis range={[54, 54]} />
           <Tooltip content={<ChartTooltip />} cursor={{ stroke: "#C3CFA8", strokeWidth: 1 }} />
           <Scatter data={series.menEdge} fill="none" stroke={MEN} strokeWidth={1.4} isAnimationActive={false} />
           <Scatter data={series.womenEdge} fill="none" stroke={WOMEN} strokeWidth={1.4} isAnimationActive={false} />
@@ -170,8 +185,12 @@ export default function PeakAgeChart({ depth, figureNumber }: { depth: Depth; fi
             strokeWidth={1}
             isAnimationActive={false}
           />
-          <ReferenceLine x={block.mean.men} stroke={MEN} strokeDasharray="5 4" strokeWidth={1.5} />
-          <ReferenceLine x={block.mean.women} stroke={WOMEN} strokeDasharray="5 4" strokeWidth={1.5} />
+          <ReferenceLine x={block.mean.men} stroke={MEN} strokeDasharray="5 4" strokeWidth={2}
+            label={<MarkerLabel text={`Men, mean ${block.mean.men}`} color={MEN}
+              anchor={block.mean.men >= block.mean.women ? "start" : "end"} />} />
+          <ReferenceLine x={block.mean.women} stroke={WOMEN} strokeDasharray="5 4" strokeWidth={2}
+            label={<MarkerLabel text={`Women, mean ${block.mean.women}`} color={WOMEN}
+              anchor={block.mean.women > block.mean.men ? "start" : "end"} />} />
         </ScatterChart>
       </ResponsiveContainer>
     </ChartFrame>

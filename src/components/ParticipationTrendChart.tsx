@@ -18,9 +18,15 @@ import {
   COUNTERFACTUAL,
   EventLabel,
   GRID,
+  INK,
+  LINE,
   TooltipShell,
   WOMEN,
+  YAXIS,
+  endLabel,
   formatMonth,
+  lastIndexWith,
+  mobileFigure,
   monthToTs,
   useYearTicks,
 } from "./chart-kit";
@@ -94,6 +100,8 @@ export default function ParticipationTrendChart() {
   }, [rows, lastObserved, lastShare, lastYear]);
 
   const parityYear = lastYear + Math.ceil((PARITY - lastShare) / data.slope_recent);
+  const neededFor2100 = (PARITY - lastShare) / (2100 - lastYear);
+  const parityYearDecade = lastYear + Math.ceil((PARITY - lastShare) / data.slope_decade);
 
   const observedFrames = data.observed.length;
   const total = parityRows.length;
@@ -189,14 +197,26 @@ export default function ParticipationTrendChart() {
   return (
     <ChartFrame
       figureNumber="Figure 7"
-      title="Women as a share of active FIDE players, with the current pace extended"
-      legend={
+      title={`Parity by 2100 needs ${Math.round(neededFor2100 / data.slope_recent)} times today's pace`}
+      subtitle={
         view === "observed"
-          ? [{ label: "Observed, monthly", color: WOMEN }]
-          : [
-              { label: "Observed, monthly", color: WOMEN },
-              { label: "Recent pace held constant", color: COUNTERFACTUAL, dashed: true },
-            ]
+          ? "Women as a share of active FIDE players, monthly, July 2015 to April 2026."
+          : "Women as a share of active FIDE players, observed monthly since 2015, then the pace of the last five years held constant."
+      }
+      callout={
+        view === "observed"
+          ? {
+              value: `+${(data.share_last - data.share_first).toFixed(1)}`,
+              label: "percentage points in eleven years",
+              color: WOMEN,
+              at: { top: 36, left: 76 },
+            }
+          : {
+              value: data.slope_recent.toFixed(2),
+              label: `points a year now, against ${neededFor2100.toFixed(2)} a year for parity by 2100`,
+              color: INK,
+              at: { bottom: 48, right: 110 },
+            }
       }
       controls={
         <div className="space-y-3">
@@ -269,13 +289,23 @@ export default function ParticipationTrendChart() {
           <>
             The whole journey at the pace of the last five years, {data.slope_recent} points a year: from{" "}
             {data.share_first} percent in 2015 to half of all rated players in {parityYear},{" "}
-            {parityYear - lastYear} years out. Every observation this project has is the first flick, before
+            {parityYear - lastYear} years out. At the slower pace of the whole decade, {data.slope_decade} points
+            a year, it is {parityYearDecade}. Every observation this project has is the first flick, before
             the axis moves. It is arithmetic on what the last decade did, not a forecast, and it is the
             argument for changing the pace rather than waiting it out.
           </>
         )
       }
       height={340}
+      staticFigure={{
+        src: mobileFigure("participation_trend.png"),
+        width: 1320,
+        height: 550,
+        alt: "Women as a share of active FIDE players, observed and with the recent pace extended",
+        legend: [],
+        caption:
+          "The line is observed monthly data; the dotted extension holds the recent pace constant. It does not reach even 15 percent until around 2080, and true parity, half of all players, is centuries beyond the edge of this chart.",
+      }}
       table={{
         head: ["Month", "Observed share", "Projected share"],
         rows: plotted.map((r: any) => [
@@ -286,7 +316,7 @@ export default function ParticipationTrendChart() {
       }}
     >
       <ResponsiveContainer>
-        <ComposedChart data={plotted} margin={{ top: 24, right: 16, bottom: 4, left: 0 }}>
+        <ComposedChart data={plotted} margin={{ top: 24, right: 96, bottom: 4, left: 0 }}>
           <CartesianGrid stroke={GRID} vertical={false} />
           <XAxis
             dataKey="t"
@@ -299,11 +329,11 @@ export default function ParticipationTrendChart() {
             {...AXIS}
           />
           <YAxis
-            width={54}
+            width={62}
             domain={yDomain}
             ticks={yTicks}
             allowDataOverflow
-            {...AXIS}
+            {...YAXIS}
             tickFormatter={(v) => `${v}%`}
             label={{
               value: "Share of active players",
@@ -320,20 +350,28 @@ export default function ParticipationTrendChart() {
           <Line
             dataKey="projected"
             stroke={COUNTERFACTUAL}
-            strokeWidth={2}
+            strokeWidth={LINE.secondary}
             strokeDasharray="6 4"
             dot={false}
             connectNulls
             isAnimationActive={false}
+            label={view === "parity" ? endLabel(lastIndexWith(plotted, "projected"), "Recent pace", COUNTERFACTUAL) : undefined}
             activeDot={{ r: 4, fill: COUNTERFACTUAL, stroke: "#FAF6ED", strokeWidth: 2 }}
           />
           <Line
             dataKey="share"
             stroke={WOMEN}
-            strokeWidth={2}
+            strokeWidth={LINE.main}
             dot={false}
             connectNulls
             isAnimationActive={false}
+            label={
+              // once the camera has pulled back the observed decade is a stub
+              // at the far left, and its label would sit on the dashed line
+              view === "observed" || u < 0.08
+                ? endLabel(lastIndexWith(plotted, "share"), "Observed", WOMEN, view === "observed" ? 0 : -14)
+                : undefined
+            }
             activeDot={{ r: 4.5, fill: WOMEN, stroke: "#FAF6ED", strokeWidth: 2 }}
           />
         </ComposedChart>

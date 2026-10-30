@@ -68,11 +68,11 @@ function FadeUp({ children, className = "" }: { children: React.ReactNode; class
   );
 }
 
-function StatCard({ value, label, hint }: { value: string; label: string; hint?: string }) {
+function StatCard({ value, label, hint, compact }: { value: string; label: string; hint?: string; compact?: boolean }) {
   return (
     <div className="bg-sage-50 p-8 rounded-lg border border-sage-100 hover:border-sage-200 transition-colors">
       <p className="text-xs uppercase tracking-widest text-sage-600 mb-3">{label}</p>
-      <p className="stat-number text-6xl md:text-7xl mb-3">{value}</p>
+      <p className={`stat-number ${compact ? "text-5xl md:text-7xl" : "text-6xl md:text-7xl"} mb-3`}>{value}</p>
       {hint ? <p className="text-sm text-ink/70 leading-relaxed">{hint}</p> : null}
     </div>
   );
@@ -81,7 +81,17 @@ function StatCard({ value, label, hint }: { value: string; label: string; hint?:
 export default function Home() {
   return (
     <main className="bg-paper text-ink">
-      <section className="relative min-h-screen flex flex-col px-6 py-8 md:py-10 bg-gradient-to-b from-sage-50 to-paper">
+      <section className="relative min-h-screen flex flex-col px-6 py-8 md:py-10 bg-gradient-to-b from-sage-50 to-paper overflow-hidden">
+        {/* Faded collage of top women players behind the hero, washed into the
+            paper so the headline stays the first thing you read. */}
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+          <img
+            src={`${BASE}/hero_collage.jpg`}
+            alt=""
+            className="w-full h-full object-cover opacity-[0.16] saturate-50"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-sage-50/30 via-transparent to-paper" />
+        </div>
         {/* DESKTOP: absolutely positioned corners, out of flow, so the headline
             centres against the full viewport height. Hidden below md. */}
         <div className="hidden md:block absolute top-6 left-6 w-48">
@@ -110,7 +120,7 @@ export default function Home() {
           </ul>
         </nav>
 
-        <div className="flex-1 flex flex-col justify-center items-center">
+        <div className="relative flex-1 flex flex-col justify-center items-center">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-sage-600 text-sm uppercase tracking-[0.3em] mb-8">A data story</p>
           <h1 className="text-[6rem] sm:text-[9rem] md:text-[13rem] font-serif leading-[0.9] mb-10 text-sage-700">
@@ -493,11 +503,17 @@ export default function Home() {
         <div className="max-w-2xl mx-auto">
         <FadeUp>
           <p className="text-sage-600 text-sm uppercase tracking-[0.25em] mb-4">Part five</p>
-          <h2 className="text-5xl font-serif mb-8">When will the participation gap close?</h2>
+          <h2 className="text-5xl font-serif mb-8">How fast is the gap closing?</h2>
           <div className="prose-cream">
             <p>
               The share of active FIDE players who are women rose from 9.5 percent in 2015 to 10.4 percent
               now. That is progress, but less than one percentage point in a decade.
+            </p>
+            <p>
+              Drawing that line forward is not a forecast. Trends bend, and a policy change, a stronger
+              junior pipeline or another <em>Queen&apos;s Gambit</em> could all change the pace. So the more
+              useful question is not when parity arrives at this rate, but how much faster things would
+              have to move to get there.
             </p>
           </div>
         </FadeUp>
@@ -508,8 +524,11 @@ export default function Home() {
 
         <FadeUp className="mt-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <StatCard value="2479" label="Women reach parity" hint="At the current pace, under 0.1 points a year, half of all rated players are women in 2479. That is 453 years away." />
+            <StatCard value="6x" label="Pace needed for parity by 2100" hint="Parity by 2100 needs the share to rise about 0.53 points a year. The last five years managed 0.09. By 2050 it would need 1.65 a year, about 19 times today's pace." />
             <StatCard value="8.6 : 1" label="Men per woman today" hint="194,192 active rated men against 22,611 women in the April 2026 list. Women are 10.4 percent of active players." />
+            <div className="sm:col-span-2">
+              <StatCard compact value="2479 to 2828" label="Parity at today's pace" hint="If nothing changes, half of all rated players are women somewhere in this range, depending on whether you take the pace of the last five years or the whole decade. The exact year is not the point. How far away it is, is." />
+            </div>
           </div>
         </FadeUp>
 
